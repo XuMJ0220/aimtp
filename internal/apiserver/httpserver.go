@@ -1,0 +1,118 @@
+// Copyright 2024 许铭杰 (1044011439@qq.com). All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file.
+
+package apiserver
+
+import (
+	"context"
+	"aimtp/internal/pkg/server"
+	"net/http"
+
+	"github.com/gin-contrib/pprof"
+
+	handler "aimtp/internal/apiserver/handler/http"
+	mw "aimtp/internal/pkg/middleware/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+// ginServer 定义一个使用 Gin 框架开发的 HTTP 服务器.
+type ginServer struct {
+	srv server.Server
+}
+
+// 确保 *ginServer 实现了 server.Server 接口.
+var _ server.Server = (*ginServer)(nil)
+
+// NewGinServer 初始化一个新的 Gin 服务器实例.
+func (c *ServerConfig) NewGinServer() server.Server {
+	// 创建 Gin 引擎
+	engine := gin.New()
+
+	// 注册全局中间件，用于恢复 panic、设置 HTTP 头、添加请求 ID 等
+	// 注意：中间件需要在注册路由之前调用，否则对已注册路由不生效。
+	engine.Use(
+		gin.Recovery(),
+		mw.NoCache,
+		mw.Cors,
+		mw.Secure,
+		mw.RequestIDMiddleware(),
+	)
+
+	// 注册 REST API 路由
+	c.InstallRESTAPI(engine)
+
+	// 创建 HTTP 服务器
+	httpsrv := server.NewHTTPServer(c.cfg.HTTPOptions, engine, c.cfg.TLSOptions)
+
+	return &ginServer{srv: httpsrv}
+}
+
+// InstallRESTAPI 注册 API 路由。路由的路径和 HTTP 方法，严格遵循 REST 规范.
+func (c *ServerConfig) InstallRESTAPI(engine *gin.Engine) {
+	// 注册业务无关的 API 接口
+	InstallGenericAPI(engine)
+
+	// 创建核心业务处理器
+	handler := handler.NewHandler(c.biz, c.val)
+
+	// 注册健康检查接口
+	engine.GET("/healthz", handler.Healthz)
+	// 注册用户登录和令牌刷新接口。这2个接口比较简单，所以没有 API 版本
+	engine.POST("/login", handler.Login)
+	engine.PUT("/refresh-token", handler.RefreshToken)
+
+	authMiddlewares := []gin.HandlerFunc{
+		mw.AuthnMiddleware(c.retriever),
+		mw.AuthzMiddleware(c.authz),
+	}
+
+	// 注册 v1 版本 API 路由分组
+	v1 := engine.Group("/v1")
+	{
+		// 用户相关路由
+		userv1 := v1.Group("/users")
+		{
+			// 创建用户。这里要注意：创建用户是不用进行认证和授权的
+			userv1.POST("", handler.CreateUser)
+			userv1.Use(authMiddlewares...)
+			userv1.PUT(":userID/change-password", handler.ChangePassword) // 修改用户密码
+			userv1.PUT(":userID", handler.UpdateUser)                     // 更新用户信息
+			userv1.DELETE(":userID", handler.DeleteUser)                  // 删除用户
+			userv1.GET(":userID", handler.GetUser)                        // 查询用户详情
+			userv1.GET("", handler.ListUser)                              // 查询用户列表.
+		}
+
+		// 博客相关路由
+		postv1 := v1.Group("/posts", authMiddlewares...)
+		{
+			postv1.POST("", handler.CreatePost)       // 创建博客
+			postv1.PUT(":postID", handler.UpdatePost) // 更新博客
+			postv1.DELETE("", handler.DeletePost)     // 删除博客
+			postv1.GET(":postID", handler.GetPost)    // 查询博客详情
+			postv1.GET("", handler.ListPost)          // 查询博客列表
+		}
+	}
+}
+
+// InstallGenericAPI 注册业务无关的路由，例如 pprof、404 处理等.
+func InstallGenericAPI(engin *gin.Engine) {
+	// 注册 pprof 路由
+	pprof.Register(engin)
+
+	// 注册 404 路由处理
+	engin.NoRoute(func(c *gin.Context) {
+		c.JSON(http.StatusNotFound, "Page not found.")
+	})
+}
+
+// RunOrDie 启动 Gin 服务器，出错则程序崩溃退出.
+func (s *ginServer) RunOrDie() {
+	s.srv.RunOrDie()
+}
+
+// GracefulStop 优雅停止服务器.
+func (s *ginServer) GracefulStop(ctx context.Context) {
+	s.srv.GracefulStop(ctx)
+}

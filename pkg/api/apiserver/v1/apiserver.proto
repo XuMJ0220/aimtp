@@ -1,0 +1,132 @@
+// Copyright 2024 许铭杰 (1044011439@qq.com). All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file.
+
+// AIMTP API 定义，包含健康检查、用户管理和文章管理的 RPC 接口
+syntax = "proto3"; // 告诉编译器此文件使用什么版本的语法
+
+package v1;
+
+// 提供用于定义 HTTP 映射的功能，比如通过 option (google.api.http) 实现 gRPC 到 HTTP 的映射
+import "google/api/annotations.proto";
+
+import "google/protobuf/empty.proto";       // 导入空消息
+import "apiserver/v1/healthz.proto";        // 健康检查消息定义
+import "apiserver/v1/user.proto";           // 用户请求消息定义
+import "apiserver/v1/post.proto";           // 文章请求消息定义
+
+option go_package = "aimtp/pkg/api/apiserver/v1;v1";
+
+// AIMTP 定义了一个 AIMTP RPC 服务
+service AIMTP {
+    // Healthz 健康检查
+    rpc Healthz(google.protobuf.Empty) returns (HealthzResponse) {
+        // 通过 google.api.http 注释，指定 HTTP 方法为 GET、URL路径为 /healthz
+        option (google.api.http) = {
+           get: "/healthz",
+        };
+    }
+    
+    // CreateUser 创建新用户
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse){
+        option (google.api.http) = {
+            post: "/v1/users",
+            body: "*",
+        };
+    }
+
+    // UpdateUser 更新用户信息
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse){
+        option (google.api.http) = {
+            put: "/v1/users/{userID}",
+            body: "*",
+        };
+    }
+
+    // DeleteUser 删除用户
+    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse){
+        option (google.api.http) = {
+            delete: "/v1/users/{userID}",
+        };
+    }
+
+    // GetUser 获取用户信息
+    rpc GetUser(GetUserRequest) returns (GetUserResponse){
+        option (google.api.http) = {
+            get: "/v1/users/{userID}",
+        };
+    }
+
+    // ListUser 列出用户列表
+    rpc ListUser(ListUserRequest) returns (ListUserResponse){
+        option (google.api.http) = {
+            get: "/v1/users",
+        };
+    }
+
+    // Login 用户登录 
+    rpc Login(LoginRequest) returns (LoginResponse){
+        option (google.api.http) = {
+            post: "/login",
+            body: "*",
+        };
+    }
+
+    // RefreshToken 刷新 Token
+    rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse){
+        option (google.api.http) = {
+          put: "/refresh-token",
+          body: "*",
+        };
+    }
+
+    // ChangePassword 更改密码
+    rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse){
+        option (google.api.http) = {
+            put: "/v1/users/{userID}/change-password",
+            body: "*",
+        };
+    }
+
+    // CreatePost 创建博客帖子
+    rpc CreatePost(CreatePostRequest) returns (CreatePostResponse){
+        option (google.api.http) = {
+            post: "/v1/posts",
+            body: "*",
+        };
+    }
+
+    // UpdatePost 更新博客帖子
+    rpc UpdatePost(UpdatePostRequest) returns (UpdatePostResponse){
+        // 将 UpdatePost 映射为 HTTP PUT 请求，并通过 URL /v1/posts/{postID} 访问
+        // {postID} 是一个路径参数，grpc-gateway 会根据 postID 名称，将其解析并映射到
+        // UpdatePostRequest 类型中相应的字段.
+        // body: "*" 表示请求体中的所有字段都会映射到 UpdatePostRequest 类型。
+        option (google.api.http) = {
+            put: "/v1/posts/{postID}",
+            body: "*",
+        };
+    }
+
+    // DeletePost 删除博客帖子
+    rpc DeletePost(DeletePostRequest) returns (DeletePostResponse){
+        option (google.api.http) = {
+            delete: "/v1/posts",
+            body: "*",
+        };
+    }
+
+    // GetPost 获取博客帖子
+    rpc GetPost(GetPostRequest) returns (GetPostResponse){
+        option (google.api.http) = {
+            get: "/v1/posts/{postID}",
+        };
+    }
+
+    // ListPost 列出所有博客帖子
+    rpc ListPost(ListPostRequest) returns (ListPostResponse){
+        option (google.api.http) = {
+            get: "/v1/posts",
+        };
+    }
+}
