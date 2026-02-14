@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: aimtp-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: aimtp
+      MYSQL_USER: aimtp
+      MYSQL_PASSWORD: aimtp1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - aimtp-mysql-data:/var/lib/mysql
+      - ./aimtp_user.sql:/docker-entrypoint-initdb.d/01_aimtp_user.sql:ro
+      - ./aimtp_casbin.sql:/docker-entrypoint-initdb.d/02_aimtp_casbin.sql:ro
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+volumes:
+  aimtp-mysql-data:
