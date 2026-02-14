@@ -48,7 +48,8 @@ all: tidy format build add-copyright
 .PHONY: build
 build: tidy # 编译源码，依赖 tidy 目标自动添加/移除依赖包.
 	@go build -v -ldflags "$(GO_LDFLAGS)" -o $(OUTPUT_DIR)/aimtp-apiserver $(PROJ_ROOT_DIR)/cmd/aimtp-apiserver/main.go
-
+	@go build -v -ldflags "$(GO_LDFLAGS)" -o $(OUTPUT_DIR)/aimtp-server $(PROJ_ROOT_DIR)/cmd/aimtp-server/main.go
+		
 .PHONY: format
 format: # 格式化 Go 源码.
 	@gofmt -s -w ./

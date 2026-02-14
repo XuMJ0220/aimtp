@@ -8,9 +8,9 @@
 // versions:
 // 	protoc-gen-go v1.36.7
 // 	protoc        v3.20.1
-// source: apiserver/v1/healthz.proto
+// source: aimtp_server/v1/healthz.proto
 
-package v1
+package aimtp_server_v1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -60,11 +60,11 @@ func (x ServiceStatus) String() string {
 }
 
 func (ServiceStatus) Descriptor() protoreflect.EnumDescriptor {
-	return file_apiserver_v1_healthz_proto_enumTypes[0].Descriptor()
+	return file_aimtp_server_v1_healthz_proto_enumTypes[0].Descriptor()
 }
 
 func (ServiceStatus) Type() protoreflect.EnumType {
-	return &file_apiserver_v1_healthz_proto_enumTypes[0]
+	return &file_aimtp_server_v1_healthz_proto_enumTypes[0]
 }
 
 func (x ServiceStatus) Number() protoreflect.EnumNumber {
@@ -73,14 +73,14 @@ func (x ServiceStatus) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ServiceStatus.Descriptor instead.
 func (ServiceStatus) EnumDescriptor() ([]byte, []int) {
-	return file_apiserver_v1_healthz_proto_rawDescGZIP(), []int{0}
+	return file_aimtp_server_v1_healthz_proto_rawDescGZIP(), []int{0}
 }
 
 // HealthzResponse 表示健康检查的响应结构体
 type HealthzResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// status 表示服务的健康状态
-	Status ServiceStatus `protobuf:"varint,1,opt,name=status,proto3,enum=v1.ServiceStatus" json:"status,omitempty"`
+	Status ServiceStatus `protobuf:"varint,1,opt,name=status,proto3,enum=aimtp_server_v1.ServiceStatus" json:"status,omitempty"`
 	// timestamp 表示请求的时间戳
 	Timestamp string `protobuf:"bytes,2,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	// message 表示可选的状态消息，描述服务健康的更多信息
@@ -91,7 +91,7 @@ type HealthzResponse struct {
 
 func (x *HealthzResponse) Reset() {
 	*x = HealthzResponse{}
-	mi := &file_apiserver_v1_healthz_proto_msgTypes[0]
+	mi := &file_aimtp_server_v1_healthz_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -103,7 +103,7 @@ func (x *HealthzResponse) String() string {
 func (*HealthzResponse) ProtoMessage() {}
 
 func (x *HealthzResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apiserver_v1_healthz_proto_msgTypes[0]
+	mi := &file_aimtp_server_v1_healthz_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -116,7 +116,7 @@ func (x *HealthzResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthzResponse.ProtoReflect.Descriptor instead.
 func (*HealthzResponse) Descriptor() ([]byte, []int) {
-	return file_apiserver_v1_healthz_proto_rawDescGZIP(), []int{0}
+	return file_aimtp_server_v1_healthz_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *HealthzResponse) GetStatus() ServiceStatus {
@@ -140,39 +140,39 @@ func (x *HealthzResponse) GetMessage() string {
 	return ""
 }
 
-var File_apiserver_v1_healthz_proto protoreflect.FileDescriptor
+var File_aimtp_server_v1_healthz_proto protoreflect.FileDescriptor
 
-const file_apiserver_v1_healthz_proto_rawDesc = "" +
+const file_aimtp_server_v1_healthz_proto_rawDesc = "" +
 	"\n" +
-	"\x1aapiserver/v1/healthz.proto\x12\x02v1\"t\n" +
-	"\x0fHealthzResponse\x12)\n" +
-	"\x06status\x18\x01 \x01(\x0e2\x11.v1.ServiceStatusR\x06status\x12\x1c\n" +
+	"\x1daimtp_server/v1/healthz.proto\x12\x0faimtp_server_v1\"\x81\x01\n" +
+	"\x0fHealthzResponse\x126\n" +
+	"\x06status\x18\x01 \x01(\x0e2\x1e.aimtp_server_v1.ServiceStatusR\x06status\x12\x1c\n" +
 	"\ttimestamp\x18\x02 \x01(\tR\ttimestamp\x12\x18\n" +
 	"\amessage\x18\x03 \x01(\tR\amessage*+\n" +
 	"\rServiceStatus\x12\v\n" +
 	"\aHealthy\x10\x00\x12\r\n" +
-	"\tUnhealthy\x10\x01B\x1cZ\x1aaimtp/pkg/api/apiserver/v1b\x06proto3"
+	"\tUnhealthy\x10\x01B/Z-aimtp/pkg/api/aimtp_server/v1;aimtp_server_v1b\x06proto3"
 
 var (
-	file_apiserver_v1_healthz_proto_rawDescOnce sync.Once
-	file_apiserver_v1_healthz_proto_rawDescData []byte
+	file_aimtp_server_v1_healthz_proto_rawDescOnce sync.Once
+	file_aimtp_server_v1_healthz_proto_rawDescData []byte
 )
 
-func file_apiserver_v1_healthz_proto_rawDescGZIP() []byte {
-	file_apiserver_v1_healthz_proto_rawDescOnce.Do(func() {
-		file_apiserver_v1_healthz_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_apiserver_v1_healthz_proto_rawDesc), len(file_apiserver_v1_healthz_proto_rawDesc)))
+func file_aimtp_server_v1_healthz_proto_rawDescGZIP() []byte {
+	file_aimtp_server_v1_healthz_proto_rawDescOnce.Do(func() {
+		file_aimtp_server_v1_healthz_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_aimtp_server_v1_healthz_proto_rawDesc), len(file_aimtp_server_v1_healthz_proto_rawDesc)))
 	})
-	return file_apiserver_v1_healthz_proto_rawDescData
+	return file_aimtp_server_v1_healthz_proto_rawDescData
 }
 
-var file_apiserver_v1_healthz_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_apiserver_v1_healthz_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_apiserver_v1_healthz_proto_goTypes = []any{
-	(ServiceStatus)(0),      // 0: v1.ServiceStatus
-	(*HealthzResponse)(nil), // 1: v1.HealthzResponse
+var file_aimtp_server_v1_healthz_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_aimtp_server_v1_healthz_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_aimtp_server_v1_healthz_proto_goTypes = []any{
+	(ServiceStatus)(0),      // 0: aimtp_server_v1.ServiceStatus
+	(*HealthzResponse)(nil), // 1: aimtp_server_v1.HealthzResponse
 }
-var file_apiserver_v1_healthz_proto_depIdxs = []int32{
-	0, // 0: v1.HealthzResponse.status:type_name -> v1.ServiceStatus
+var file_aimtp_server_v1_healthz_proto_depIdxs = []int32{
+	0, // 0: aimtp_server_v1.HealthzResponse.status:type_name -> aimtp_server_v1.ServiceStatus
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -180,27 +180,27 @@ var file_apiserver_v1_healthz_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_apiserver_v1_healthz_proto_init() }
-func file_apiserver_v1_healthz_proto_init() {
-	if File_apiserver_v1_healthz_proto != nil {
+func init() { file_aimtp_server_v1_healthz_proto_init() }
+func file_aimtp_server_v1_healthz_proto_init() {
+	if File_aimtp_server_v1_healthz_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_apiserver_v1_healthz_proto_rawDesc), len(file_apiserver_v1_healthz_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_aimtp_server_v1_healthz_proto_rawDesc), len(file_aimtp_server_v1_healthz_proto_rawDesc)),
 			NumEnums:      1,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_apiserver_v1_healthz_proto_goTypes,
-		DependencyIndexes: file_apiserver_v1_healthz_proto_depIdxs,
-		EnumInfos:         file_apiserver_v1_healthz_proto_enumTypes,
-		MessageInfos:      file_apiserver_v1_healthz_proto_msgTypes,
+		GoTypes:           file_aimtp_server_v1_healthz_proto_goTypes,
+		DependencyIndexes: file_aimtp_server_v1_healthz_proto_depIdxs,
+		EnumInfos:         file_aimtp_server_v1_healthz_proto_enumTypes,
+		MessageInfos:      file_aimtp_server_v1_healthz_proto_msgTypes,
 	}.Build()
-	File_apiserver_v1_healthz_proto = out.File
-	file_apiserver_v1_healthz_proto_goTypes = nil
-	file_apiserver_v1_healthz_proto_depIdxs = nil
+	File_aimtp_server_v1_healthz_proto = out.File
+	file_aimtp_server_v1_healthz_proto_goTypes = nil
+	file_aimtp_server_v1_healthz_proto_depIdxs = nil
 }

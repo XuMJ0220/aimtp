@@ -1,0 +1,26 @@
+// Copyright 2024 许铭杰 (1044011439@qq.com). All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file.
+
+// AIMTP API 定义，包含健康检查、用户管理和文章管理的 RPC 接口
+syntax = "proto3"; // 告诉编译器此文件使用什么版本的语法
+
+package aimtp_server_v1;
+
+// 提供用于定义 HTTP 映射的功能，比如通过 option (google.api.http) 实现 gRPC 到 HTTP 的映射
+import "google/api/annotations.proto";
+
+import "google/protobuf/empty.proto";       // 导入空消息
+import "aimtp_server/v1/healthz.proto";        // 健康检查消息定义
+
+option go_package = "aimtp/pkg/api/aimtp_server/v1;aimtp_server_v1";
+
+service AIMTP_SERVER {
+    // Healthz 健康检查
+    rpc Healthz(google.protobuf.Empty) returns (HealthzResponse) {
+        // 通过 google.api.http 注释，指定 HTTP 方法为 GET、URL路径为 /healthz
+        option (google.api.http) = {
+           get: "/healthz",
+        };
+    }
+}
