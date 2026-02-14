@@ -1,20 +1,23 @@
 package biz
 
 import (
-	postv1 "aimtp/internal/apiserver/biz/V1/post"
 	userv1 "aimtp/internal/apiserver/biz/V1/user"
 	"aimtp/internal/apiserver/store"
 	"aimtp/pkg/authz"
+
+	"github.com/google/wire"
 )
+
+// ProviderSet 是一个 Wire 的 Provider 集合，用于声明依赖注入的规则.
+// 包含 NewBiz 构造函数，用于生成 biz 实例.
+// wire.Bind 用于将接口 IBiz 与具体实现 *biz 绑定，
+// 这样依赖 IBiz 的地方会自动注入 *biz 实例.
+var ProviderSet = wire.NewSet(NewBiz, wire.Bind(new(IBiz), new(*biz)))
 
 // IBiz 定义了业务层需要实现的方法.
 type IBiz interface {
 	// 获取用户业务接口.
 	UserV1() userv1.UserBiz
-	// 获取帖子业务接口.
-	PostV1() postv1.PostBiz
-	// 获取帖子业务接口（V2版本）. 未实现，仅展示用.
-	//PostV2()
 }
 
 // biz 是 IBiz 的一个具体实现.
@@ -36,10 +39,5 @@ func NewBiz(store store.IStore, authz *authz.Authz) *biz {
 
 // UserV1 返回一个实现了 UserBiz 接口的实例.
 func (b *biz) UserV1() userv1.UserBiz {
-	return userv1.New(b.store,b.authz)
-}
-
-// PostV1 返回一个实现了 PostBiz 接口的实例.
-func (b *biz) PostV1() postv1.PostBiz {
-	return postv1.New(b.store)
+	return userv1.New(b.store, b.authz)
 }

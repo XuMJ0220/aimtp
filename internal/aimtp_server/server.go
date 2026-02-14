@@ -1,30 +1,18 @@
-// Copyright 2024 许铭杰 (1044011439@qq.com). All rights reserved.
-// Use of this source code is governed by a MIT style
-// license that can be found in the LICENSE file.
-
-package apiserver
+package aimtp_server
 
 import (
-	"aimtp/internal/apiserver/biz"
-	"aimtp/internal/apiserver/model"
 	"aimtp/internal/pkg/contextx"
 	"aimtp/internal/pkg/known"
 	"aimtp/internal/pkg/log"
 	"aimtp/internal/pkg/server"
-	"aimtp/internal/pkg/validation"
-	"context"
-	"os"
-	"os/signal"
-	"time"
-
-	"aimtp/internal/apiserver/store"
-	mw "aimtp/internal/pkg/middleware/grpc"
-	"aimtp/pkg/authz"
 	genericoptions "aimtp/pkg/options"
 	"aimtp/pkg/store/where"
 	"aimtp/pkg/token"
-
+	"context"
+	"os"
+	"os/signal"
 	"syscall"
+	"time"
 
 	"gorm.io/gorm"
 )
@@ -71,11 +59,7 @@ type UnionServer struct {
 
 // ServerConfig 包含服务器的核心依赖和配置.
 type ServerConfig struct {
-	cfg       *Config
-	biz       biz.IBiz
-	val       *validation.Validator
-	retriever mw.UserRetriever
-	authz     mw.Authorizer
+	cfg *Config
 }
 
 // NewUnionServer 根据配置创建联合服务器.
@@ -92,7 +76,7 @@ func (cfg *Config) NewUnionServer() (*UnionServer, error) {
 	log.Infow("Initializing federation server", "server-mode", cfg.ServerMode)
 
 	// 创建服务配置，这些配置可用来创建服务器
-	srv, err := InitializeWebServer(cfg)
+	srv, err := InitializeServer(cfg)
 	if err != nil {
 		return nil, err
 	}
@@ -130,42 +114,15 @@ func (s *UnionServer) Run() error {
 // NewServerConfig 创建一个 *ServerConfig 实例.
 // 进阶：这里其实可以使用依赖注入的方式，来创建 *ServerConfig.
 func (cfg *Config) NewServerConfig() (*ServerConfig, error) {
-	// 初始化数据库连接
-	db, err := cfg.NewDB()
-	if err != nil {
-		return nil, err
-	}
-	store := store.NewStore(db)
-
-	// 创建授权器
-	authz, err := authz.NewAuthz(db)
-	if err != nil {
-		log.Errorw("Failed to new authorizer", "err", err)
-		return nil, err
-	}
 
 	return &ServerConfig{
-		cfg:       cfg,
-		biz:       biz.NewBiz(store, authz),
-		val:       validation.New(store),
-		retriever: &UserRetriever{store: store},
-		authz:     authz,
+		cfg: cfg,
 	}, nil
 }
 
 // NewDB 创建一个 *gorm.DB 实例.
 func (cfg *Config) NewDB() (*gorm.DB, error) {
 	return cfg.MySQLOptions.NewDB()
-}
-
-// UserRetriever 定义一个用户数据获取器. 用来获取用户信息.
-type UserRetriever struct {
-	store store.IStore
-}
-
-// GetUser 根据用户 ID 获取用户信息.
-func (r *UserRetriever) GetUser(ctx context.Context, userID string) (*model.UserM, error) {
-	return r.store.User().Get(ctx, where.F("userID", userID))
 }
 
 // ProvideDB 根据配置提供一个数据库实例。

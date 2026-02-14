@@ -38,12 +38,10 @@ type User struct {
 	Email string `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
 	// phone 表示用户手机号
 	Phone string `protobuf:"bytes,5,opt,name=phone,proto3" json:"phone,omitempty"`
-	// postCount 表示用户拥有的博客数量
-	PostCount int64 `protobuf:"varint,6,opt,name=postCount,proto3" json:"postCount,omitempty"`
 	// createdAt 表示用户注册时间
-	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=createdAt,proto3" json:"createdAt,omitempty"`
+	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=createdAt,proto3" json:"createdAt,omitempty"`
 	// updatedAt 表示用户最后更新时间
-	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=updatedAt,proto3" json:"updatedAt,omitempty"`
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=updatedAt,proto3" json:"updatedAt,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -111,13 +109,6 @@ func (x *User) GetPhone() string {
 		return x.Phone
 	}
 	return ""
-}
-
-func (x *User) GetPostCount() int64 {
-	if x != nil {
-		return x.PostCount
-	}
-	return 0
 }
 
 func (x *User) GetCreatedAt() *timestamppb.Timestamp {
@@ -986,16 +977,15 @@ var File_apiserver_v1_user_proto protoreflect.FileDescriptor
 
 const file_apiserver_v1_user_proto_rawDesc = "" +
 	"\n" +
-	"\x17apiserver/v1/user.proto\x12\x02v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a,github.com/onexstack/defaults/defaults.proto\"\xa4\x02\n" +
+	"\x17apiserver/v1/user.proto\x12\x02v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a,github.com/onexstack/defaults/defaults.proto\"\x86\x02\n" +
 	"\x04User\x12\x16\n" +
 	"\x06userID\x18\x01 \x01(\tR\x06userID\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12*\n" +
 	"\bnickname\x18\x03 \x01(\tB\x0e\x9aI\vr\tzhang sanR\bnickname\x12\x14\n" +
 	"\x05email\x18\x04 \x01(\tR\x05email\x12\x14\n" +
-	"\x05phone\x18\x05 \x01(\tR\x05phone\x12\x1c\n" +
-	"\tpostCount\x18\x06 \x01(\x03R\tpostCount\x128\n" +
-	"\tcreatedAt\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x128\n" +
-	"\tupdatedAt\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"F\n" +
+	"\x05phone\x18\x05 \x01(\tR\x05phone\x128\n" +
+	"\tcreatedAt\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x128\n" +
+	"\tupdatedAt\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"F\n" +
 	"\fLoginRequest\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"]\n" +
@@ -1048,7 +1038,7 @@ const file_apiserver_v1_user_proto_rawDesc = "" +
 	"\n" +
 	"totalCount\x18\x01 \x01(\x03R\n" +
 	"totalCount\x12\x1e\n" +
-	"\x05users\x18\x02 \x03(\v2\b.v1.UserR\x05usersB\"Z aimtp/pkg/api/apiserver/v1;v1b\x06proto3"
+	"\x05users\x18\x02 \x03(\v2\b.v1.UserR\x05usersB\x1fZ\x1daimtp/pkg/api/apiserver/v1;v1b\x06proto3"
 
 var (
 	file_apiserver_v1_user_proto_rawDescOnce sync.Once

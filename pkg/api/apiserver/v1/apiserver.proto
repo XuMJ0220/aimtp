@@ -13,7 +13,6 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";       // 导入空消息
 import "apiserver/v1/healthz.proto";        // 健康检查消息定义
 import "apiserver/v1/user.proto";           // 用户请求消息定义
-import "apiserver/v1/post.proto";           // 文章请求消息定义
 
 option go_package = "aimtp/pkg/api/apiserver/v1;v1";
 
@@ -85,48 +84,6 @@ service AIMTP {
         option (google.api.http) = {
             put: "/v1/users/{userID}/change-password",
             body: "*",
-        };
-    }
-
-    // CreatePost 创建博客帖子
-    rpc CreatePost(CreatePostRequest) returns (CreatePostResponse){
-        option (google.api.http) = {
-            post: "/v1/posts",
-            body: "*",
-        };
-    }
-
-    // UpdatePost 更新博客帖子
-    rpc UpdatePost(UpdatePostRequest) returns (UpdatePostResponse){
-        // 将 UpdatePost 映射为 HTTP PUT 请求，并通过 URL /v1/posts/{postID} 访问
-        // {postID} 是一个路径参数，grpc-gateway 会根据 postID 名称，将其解析并映射到
-        // UpdatePostRequest 类型中相应的字段.
-        // body: "*" 表示请求体中的所有字段都会映射到 UpdatePostRequest 类型。
-        option (google.api.http) = {
-            put: "/v1/posts/{postID}",
-            body: "*",
-        };
-    }
-
-    // DeletePost 删除博客帖子
-    rpc DeletePost(DeletePostRequest) returns (DeletePostResponse){
-        option (google.api.http) = {
-            delete: "/v1/posts",
-            body: "*",
-        };
-    }
-
-    // GetPost 获取博客帖子
-    rpc GetPost(GetPostRequest) returns (GetPostResponse){
-        option (google.api.http) = {
-            get: "/v1/posts/{postID}",
-        };
-    }
-
-    // ListPost 列出所有博客帖子
-    rpc ListPost(ListPostRequest) returns (ListPostResponse){
-        option (google.api.http) = {
-            get: "/v1/posts",
         };
     }
 }

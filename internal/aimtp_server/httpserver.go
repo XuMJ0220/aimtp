@@ -1,20 +1,15 @@
-// Copyright 2024 许铭杰 (1044011439@qq.com). All rights reserved.
-// Use of this source code is governed by a MIT style
-// license that can be found in the LICENSE file.
-
-package apiserver
+package aimtp_server
 
 import (
-	"context"
+	mw "aimtp/internal/pkg/middleware/http"
 	"aimtp/internal/pkg/server"
+	"context"
 	"net/http"
 
 	"github.com/gin-contrib/pprof"
-
-	handler "aimtp/internal/apiserver/handler/http"
-	mw "aimtp/internal/pkg/middleware/http"
-
 	"github.com/gin-gonic/gin"
+
+	handler "aimtp/internal/aimtp_server/handler/http"
 )
 
 // ginServer 定义一个使用 Gin 框架开发的 HTTP 服务器.
@@ -43,6 +38,7 @@ func (c *ServerConfig) NewGinServer() server.Server {
 	// 注册 REST API 路由
 	c.InstallRESTAPI(engine)
 
+
 	// 创建 HTTP 服务器
 	httpsrv := server.NewHTTPServer(c.cfg.HTTPOptions, engine, c.cfg.TLSOptions)
 
@@ -55,35 +51,10 @@ func (c *ServerConfig) InstallRESTAPI(engine *gin.Engine) {
 	InstallGenericAPI(engine)
 
 	// 创建核心业务处理器
-	handler := handler.NewHandler(c.biz, c.val)
+	handler := handler.NewHandler()
 
 	// 注册健康检查接口
 	engine.GET("/healthz", handler.Healthz)
-	// 注册用户登录和令牌刷新接口。这2个接口比较简单，所以没有 API 版本
-	engine.POST("/login", handler.Login)
-	engine.PUT("/refresh-token", handler.RefreshToken)
-
-	authMiddlewares := []gin.HandlerFunc{
-		mw.AuthnMiddleware(c.retriever),
-		mw.AuthzMiddleware(c.authz),
-	}
-
-	// 注册 v1 版本 API 路由分组
-	v1 := engine.Group("/v1")
-	{
-		// 用户相关路由
-		userv1 := v1.Group("/users")
-		{
-			// 创建用户。这里要注意：创建用户是不用进行认证和授权的
-			userv1.POST("", handler.CreateUser)
-			userv1.Use(authMiddlewares...)
-			userv1.PUT(":userID/change-password", handler.ChangePassword) // 修改用户密码
-			userv1.PUT(":userID", handler.UpdateUser)                     // 更新用户信息
-			userv1.DELETE(":userID", handler.DeleteUser)                  // 删除用户
-			userv1.GET(":userID", handler.GetUser)                        // 查询用户详情
-			userv1.GET("", handler.ListUser)                              // 查询用户列表.
-		}
-	}
 }
 
 // InstallGenericAPI 注册业务无关的路由，例如 pprof、404 处理等.

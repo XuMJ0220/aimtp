@@ -35,11 +35,6 @@ const (
 	AIMTP_Login_FullMethodName          = "/v1.AIMTP/Login"
 	AIMTP_RefreshToken_FullMethodName   = "/v1.AIMTP/RefreshToken"
 	AIMTP_ChangePassword_FullMethodName = "/v1.AIMTP/ChangePassword"
-	AIMTP_CreatePost_FullMethodName     = "/v1.AIMTP/CreatePost"
-	AIMTP_UpdatePost_FullMethodName     = "/v1.AIMTP/UpdatePost"
-	AIMTP_DeletePost_FullMethodName     = "/v1.AIMTP/DeletePost"
-	AIMTP_GetPost_FullMethodName        = "/v1.AIMTP/GetPost"
-	AIMTP_ListPost_FullMethodName       = "/v1.AIMTP/ListPost"
 )
 
 // AIMTPClient is the client API for AIMTP service.
@@ -66,27 +61,17 @@ type AIMTPClient interface {
 	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error)
 	// ChangePassword 更改密码
 	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*ChangePasswordResponse, error)
-	// CreatePost 创建博客帖子
-	CreatePost(ctx context.Context, in *CreatePostRequest, opts ...grpc.CallOption) (*CreatePostResponse, error)
-	// UpdatePost 更新博客帖子
-	UpdatePost(ctx context.Context, in *UpdatePostRequest, opts ...grpc.CallOption) (*UpdatePostResponse, error)
-	// DeletePost 删除博客帖子
-	DeletePost(ctx context.Context, in *DeletePostRequest, opts ...grpc.CallOption) (*DeletePostResponse, error)
-	// GetPost 获取博客帖子
-	GetPost(ctx context.Context, in *GetPostRequest, opts ...grpc.CallOption) (*GetPostResponse, error)
-	// ListPost 列出所有博客帖子
-	ListPost(ctx context.Context, in *ListPostRequest, opts ...grpc.CallOption) (*ListPostResponse, error)
 }
 
-type miniBlogClient struct {
+type aIMTPClient struct {
 	cc grpc.ClientConnInterface
 }
 
 func NewAIMTPClient(cc grpc.ClientConnInterface) AIMTPClient {
-	return &miniBlogClient{cc}
+	return &aIMTPClient{cc}
 }
 
-func (c *miniBlogClient) Healthz(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*HealthzResponse, error) {
+func (c *aIMTPClient) Healthz(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*HealthzResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(HealthzResponse)
 	err := c.cc.Invoke(ctx, AIMTP_Healthz_FullMethodName, in, out, cOpts...)
@@ -96,7 +81,7 @@ func (c *miniBlogClient) Healthz(ctx context.Context, in *emptypb.Empty, opts ..
 	return out, nil
 }
 
-func (c *miniBlogClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
+func (c *aIMTPClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateUserResponse)
 	err := c.cc.Invoke(ctx, AIMTP_CreateUser_FullMethodName, in, out, cOpts...)
@@ -106,7 +91,7 @@ func (c *miniBlogClient) CreateUser(ctx context.Context, in *CreateUserRequest, 
 	return out, nil
 }
 
-func (c *miniBlogClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error) {
+func (c *aIMTPClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdateUserResponse)
 	err := c.cc.Invoke(ctx, AIMTP_UpdateUser_FullMethodName, in, out, cOpts...)
@@ -116,7 +101,7 @@ func (c *miniBlogClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, 
 	return out, nil
 }
 
-func (c *miniBlogClient) DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error) {
+func (c *aIMTPClient) DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DeleteUserResponse)
 	err := c.cc.Invoke(ctx, AIMTP_DeleteUser_FullMethodName, in, out, cOpts...)
@@ -126,7 +111,7 @@ func (c *miniBlogClient) DeleteUser(ctx context.Context, in *DeleteUserRequest, 
 	return out, nil
 }
 
-func (c *miniBlogClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
+func (c *aIMTPClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetUserResponse)
 	err := c.cc.Invoke(ctx, AIMTP_GetUser_FullMethodName, in, out, cOpts...)
@@ -136,7 +121,7 @@ func (c *miniBlogClient) GetUser(ctx context.Context, in *GetUserRequest, opts .
 	return out, nil
 }
 
-func (c *miniBlogClient) ListUser(ctx context.Context, in *ListUserRequest, opts ...grpc.CallOption) (*ListUserResponse, error) {
+func (c *aIMTPClient) ListUser(ctx context.Context, in *ListUserRequest, opts ...grpc.CallOption) (*ListUserResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ListUserResponse)
 	err := c.cc.Invoke(ctx, AIMTP_ListUser_FullMethodName, in, out, cOpts...)
@@ -146,7 +131,7 @@ func (c *miniBlogClient) ListUser(ctx context.Context, in *ListUserRequest, opts
 	return out, nil
 }
 
-func (c *miniBlogClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+func (c *aIMTPClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(LoginResponse)
 	err := c.cc.Invoke(ctx, AIMTP_Login_FullMethodName, in, out, cOpts...)
@@ -156,7 +141,7 @@ func (c *miniBlogClient) Login(ctx context.Context, in *LoginRequest, opts ...gr
 	return out, nil
 }
 
-func (c *miniBlogClient) RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error) {
+func (c *aIMTPClient) RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(RefreshTokenResponse)
 	err := c.cc.Invoke(ctx, AIMTP_RefreshToken_FullMethodName, in, out, cOpts...)
@@ -166,60 +151,10 @@ func (c *miniBlogClient) RefreshToken(ctx context.Context, in *RefreshTokenReque
 	return out, nil
 }
 
-func (c *miniBlogClient) ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*ChangePasswordResponse, error) {
+func (c *aIMTPClient) ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*ChangePasswordResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ChangePasswordResponse)
 	err := c.cc.Invoke(ctx, AIMTP_ChangePassword_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *miniBlogClient) CreatePost(ctx context.Context, in *CreatePostRequest, opts ...grpc.CallOption) (*CreatePostResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreatePostResponse)
-	err := c.cc.Invoke(ctx, AIMTP_CreatePost_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *miniBlogClient) UpdatePost(ctx context.Context, in *UpdatePostRequest, opts ...grpc.CallOption) (*UpdatePostResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdatePostResponse)
-	err := c.cc.Invoke(ctx, AIMTP_UpdatePost_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *miniBlogClient) DeletePost(ctx context.Context, in *DeletePostRequest, opts ...grpc.CallOption) (*DeletePostResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeletePostResponse)
-	err := c.cc.Invoke(ctx, AIMTP_DeletePost_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *miniBlogClient) GetPost(ctx context.Context, in *GetPostRequest, opts ...grpc.CallOption) (*GetPostResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetPostResponse)
-	err := c.cc.Invoke(ctx, AIMTP_GetPost_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *miniBlogClient) ListPost(ctx context.Context, in *ListPostRequest, opts ...grpc.CallOption) (*ListPostResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListPostResponse)
-	err := c.cc.Invoke(ctx, AIMTP_ListPost_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -250,16 +185,6 @@ type AIMTPServer interface {
 	RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error)
 	// ChangePassword 更改密码
 	ChangePassword(context.Context, *ChangePasswordRequest) (*ChangePasswordResponse, error)
-	// CreatePost 创建博客帖子
-	CreatePost(context.Context, *CreatePostRequest) (*CreatePostResponse, error)
-	// UpdatePost 更新博客帖子
-	UpdatePost(context.Context, *UpdatePostRequest) (*UpdatePostResponse, error)
-	// DeletePost 删除博客帖子
-	DeletePost(context.Context, *DeletePostRequest) (*DeletePostResponse, error)
-	// GetPost 获取博客帖子
-	GetPost(context.Context, *GetPostRequest) (*GetPostResponse, error)
-	// ListPost 列出所有博客帖子
-	ListPost(context.Context, *ListPostRequest) (*ListPostResponse, error)
 	mustEmbedUnimplementedAIMTPServer()
 }
 
@@ -297,23 +222,8 @@ func (UnimplementedAIMTPServer) RefreshToken(context.Context, *RefreshTokenReque
 func (UnimplementedAIMTPServer) ChangePassword(context.Context, *ChangePasswordRequest) (*ChangePasswordResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ChangePassword not implemented")
 }
-func (UnimplementedAIMTPServer) CreatePost(context.Context, *CreatePostRequest) (*CreatePostResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreatePost not implemented")
-}
-func (UnimplementedAIMTPServer) UpdatePost(context.Context, *UpdatePostRequest) (*UpdatePostResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdatePost not implemented")
-}
-func (UnimplementedAIMTPServer) DeletePost(context.Context, *DeletePostRequest) (*DeletePostResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeletePost not implemented")
-}
-func (UnimplementedAIMTPServer) GetPost(context.Context, *GetPostRequest) (*GetPostResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetPost not implemented")
-}
-func (UnimplementedAIMTPServer) ListPost(context.Context, *ListPostRequest) (*ListPostResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListPost not implemented")
-}
 func (UnimplementedAIMTPServer) mustEmbedUnimplementedAIMTPServer() {}
-func (UnimplementedAIMTPServer) testEmbeddedByValue()                  {}
+func (UnimplementedAIMTPServer) testEmbeddedByValue()               {}
 
 // UnsafeAIMTPServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to AIMTPServer will
@@ -495,96 +405,6 @@ func _AIMTP_ChangePassword_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AIMTP_CreatePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreatePostRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AIMTPServer).CreatePost(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AIMTP_CreatePost_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AIMTPServer).CreatePost(ctx, req.(*CreatePostRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AIMTP_UpdatePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdatePostRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AIMTPServer).UpdatePost(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AIMTP_UpdatePost_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AIMTPServer).UpdatePost(ctx, req.(*UpdatePostRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AIMTP_DeletePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeletePostRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AIMTPServer).DeletePost(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AIMTP_DeletePost_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AIMTPServer).DeletePost(ctx, req.(*DeletePostRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AIMTP_GetPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetPostRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AIMTPServer).GetPost(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AIMTP_GetPost_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AIMTPServer).GetPost(ctx, req.(*GetPostRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AIMTP_ListPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListPostRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AIMTPServer).ListPost(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AIMTP_ListPost_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AIMTPServer).ListPost(ctx, req.(*ListPostRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // AIMTP_ServiceDesc is the grpc.ServiceDesc for AIMTP service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -627,26 +447,6 @@ var AIMTP_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ChangePassword",
 			Handler:    _AIMTP_ChangePassword_Handler,
-		},
-		{
-			MethodName: "CreatePost",
-			Handler:    _AIMTP_CreatePost_Handler,
-		},
-		{
-			MethodName: "UpdatePost",
-			Handler:    _AIMTP_UpdatePost_Handler,
-		},
-		{
-			MethodName: "DeletePost",
-			Handler:    _AIMTP_DeletePost_Handler,
-		},
-		{
-			MethodName: "GetPost",
-			Handler:    _AIMTP_GetPost_Handler,
-		},
-		{
-			MethodName: "ListPost",
-			Handler:    _AIMTP_ListPost_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

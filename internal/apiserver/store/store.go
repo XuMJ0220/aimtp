@@ -1,10 +1,11 @@
 package store
 
 import (
-	"context"
 	"aimtp/pkg/store/where"
+	"context"
 	"sync"
 
+	"github.com/google/wire"
 	"gorm.io/gorm"
 )
 
@@ -13,6 +14,12 @@ var (
 	// 全局变量，方便其它包直接调用已初始化好的 datastore 实例.
 	S *datastore
 )
+
+// ProviderSet 是一个 Wire 的 Provider 集合，用于声明依赖注入的规则.
+// 包含 NewStore 构造函数，用于生成 datastore 实例.
+// wire.Bind 用于将接口 IStore 与具体实现 *datastore 绑定，
+// 从而在依赖 IStore 的地方，能够自动注入 *datastore 实例.
+var ProviderSet = wire.NewSet(NewStore, wire.Bind(new(IStore), new(*datastore)))
 
 // IStore 定义了 Store 层需要实现的方法.
 type IStore interface {
@@ -23,7 +30,6 @@ type IStore interface {
 
 	// 得到各张表的接口
 	User() UserStore
-	Post() PostStore
 }
 
 // transactionKey 用于在 context.Context 中存储事务上下文的键.
@@ -40,7 +46,7 @@ type datastore struct {
 // 确保 datastore 实现了 IStore 接口.
 var _ IStore = (*datastore)(nil)
 
-func NewStore(db *gorm.DB) IStore {
+func NewStore(db *gorm.DB) *datastore {
 	// 确保 S 只被初始化一次
 	once.Do(func() {
 		S = &datastore{
@@ -83,9 +89,4 @@ func (store *datastore) TX(ctx context.Context, fn func(ctx context.Context) err
 // Users 返回一个实现了 UserStore 接口的实例.
 func (store *datastore) User() UserStore {
 	return newUserStore(store)
-}
-
-// Posts 返回一个实现了 PostStore 接口的实例.
-func (store *datastore) Post() PostStore {
-	return newPostStore(store)
 }

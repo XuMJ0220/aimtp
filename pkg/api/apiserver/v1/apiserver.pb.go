@@ -32,8 +32,8 @@ var File_apiserver_v1_apiserver_proto protoreflect.FileDescriptor
 
 const file_apiserver_v1_apiserver_proto_rawDesc = "" +
 	"\n" +
-	"\x1capiserver/v1/apiserver.proto\x12\x02v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1aapiserver/v1/healthz.proto\x1a\x17apiserver/v1/user.proto\x1a\x17apiserver/v1/post.proto2\xa9\t\n" +
-	"\bAIMTP\x12H\n" +
+	"\x1capiserver/v1/apiserver.proto\x12\x02v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1aapiserver/v1/healthz.proto\x1a\x17apiserver/v1/user.proto2\x8a\x06\n" +
+	"\x05AIMTP\x12H\n" +
 	"\aHealthz\x12\x16.google.protobuf.Empty\x1a\x13.v1.HealthzResponse\"\x10\x82\xd3\xe4\x93\x02\n" +
 	"\x12\b/healthz\x12Q\n" +
 	"\n" +
@@ -46,15 +46,7 @@ const file_apiserver_v1_apiserver_proto_rawDesc = "" +
 	"\bListUser\x12\x13.v1.ListUserRequest\x1a\x14.v1.ListUserResponse\"\x11\x82\xd3\xe4\x93\x02\v\x12\t/v1/users\x12?\n" +
 	"\x05Login\x12\x10.v1.LoginRequest\x1a\x11.v1.LoginResponse\"\x11\x82\xd3\xe4\x93\x02\v:\x01*\"\x06/login\x12\\\n" +
 	"\fRefreshToken\x12\x17.v1.RefreshTokenRequest\x1a\x18.v1.RefreshTokenResponse\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\x1a\x0e/refresh-token\x12v\n" +
-	"\x0eChangePassword\x12\x19.v1.ChangePasswordRequest\x1a\x1a.v1.ChangePasswordResponse\"-\x82\xd3\xe4\x93\x02':\x01*\x1a\"/v1/users/{userID}/change-password\x12Q\n" +
-	"\n" +
-	"CreatePost\x12\x15.v1.CreatePostRequest\x1a\x16.v1.CreatePostResponse\"\x14\x82\xd3\xe4\x93\x02\x0e:\x01*\"\t/v1/posts\x12Z\n" +
-	"\n" +
-	"UpdatePost\x12\x15.v1.UpdatePostRequest\x1a\x16.v1.UpdatePostResponse\"\x1d\x82\xd3\xe4\x93\x02\x17:\x01*\x1a\x12/v1/posts/{postID}\x12Q\n" +
-	"\n" +
-	"DeletePost\x12\x15.v1.DeletePostRequest\x1a\x16.v1.DeletePostResponse\"\x14\x82\xd3\xe4\x93\x02\x0e:\x01**\t/v1/posts\x12N\n" +
-	"\aGetPost\x12\x12.v1.GetPostRequest\x1a\x13.v1.GetPostResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/v1/posts/{postID}\x12H\n" +
-	"\bListPost\x12\x13.v1.ListPostRequest\x1a\x14.v1.ListPostResponse\"\x11\x82\xd3\xe4\x93\x02\v\x12\t/v1/postsB\"Z aimtp/pkg/api/apiserver/v1;v1b\x06proto3"
+	"\x0eChangePassword\x12\x19.v1.ChangePasswordRequest\x1a\x1a.v1.ChangePasswordResponse\"-\x82\xd3\xe4\x93\x02':\x01*\x1a\"/v1/users/{userID}/change-passwordB\x1fZ\x1daimtp/pkg/api/apiserver/v1;v1b\x06proto3"
 
 var file_apiserver_v1_apiserver_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),          // 0: google.protobuf.Empty
@@ -66,25 +58,15 @@ var file_apiserver_v1_apiserver_proto_goTypes = []any{
 	(*LoginRequest)(nil),           // 6: v1.LoginRequest
 	(*RefreshTokenRequest)(nil),    // 7: v1.RefreshTokenRequest
 	(*ChangePasswordRequest)(nil),  // 8: v1.ChangePasswordRequest
-	(*CreatePostRequest)(nil),      // 9: v1.CreatePostRequest
-	(*UpdatePostRequest)(nil),      // 10: v1.UpdatePostRequest
-	(*DeletePostRequest)(nil),      // 11: v1.DeletePostRequest
-	(*GetPostRequest)(nil),         // 12: v1.GetPostRequest
-	(*ListPostRequest)(nil),        // 13: v1.ListPostRequest
-	(*HealthzResponse)(nil),        // 14: v1.HealthzResponse
-	(*CreateUserResponse)(nil),     // 15: v1.CreateUserResponse
-	(*UpdateUserResponse)(nil),     // 16: v1.UpdateUserResponse
-	(*DeleteUserResponse)(nil),     // 17: v1.DeleteUserResponse
-	(*GetUserResponse)(nil),        // 18: v1.GetUserResponse
-	(*ListUserResponse)(nil),       // 19: v1.ListUserResponse
-	(*LoginResponse)(nil),          // 20: v1.LoginResponse
-	(*RefreshTokenResponse)(nil),   // 21: v1.RefreshTokenResponse
-	(*ChangePasswordResponse)(nil), // 22: v1.ChangePasswordResponse
-	(*CreatePostResponse)(nil),     // 23: v1.CreatePostResponse
-	(*UpdatePostResponse)(nil),     // 24: v1.UpdatePostResponse
-	(*DeletePostResponse)(nil),     // 25: v1.DeletePostResponse
-	(*GetPostResponse)(nil),        // 26: v1.GetPostResponse
-	(*ListPostResponse)(nil),       // 27: v1.ListPostResponse
+	(*HealthzResponse)(nil),        // 9: v1.HealthzResponse
+	(*CreateUserResponse)(nil),     // 10: v1.CreateUserResponse
+	(*UpdateUserResponse)(nil),     // 11: v1.UpdateUserResponse
+	(*DeleteUserResponse)(nil),     // 12: v1.DeleteUserResponse
+	(*GetUserResponse)(nil),        // 13: v1.GetUserResponse
+	(*ListUserResponse)(nil),       // 14: v1.ListUserResponse
+	(*LoginResponse)(nil),          // 15: v1.LoginResponse
+	(*RefreshTokenResponse)(nil),   // 16: v1.RefreshTokenResponse
+	(*ChangePasswordResponse)(nil), // 17: v1.ChangePasswordResponse
 }
 var file_apiserver_v1_apiserver_proto_depIdxs = []int32{
 	0,  // 0: v1.AIMTP.Healthz:input_type -> google.protobuf.Empty
@@ -96,27 +78,17 @@ var file_apiserver_v1_apiserver_proto_depIdxs = []int32{
 	6,  // 6: v1.AIMTP.Login:input_type -> v1.LoginRequest
 	7,  // 7: v1.AIMTP.RefreshToken:input_type -> v1.RefreshTokenRequest
 	8,  // 8: v1.AIMTP.ChangePassword:input_type -> v1.ChangePasswordRequest
-	9,  // 9: v1.AIMTP.CreatePost:input_type -> v1.CreatePostRequest
-	10, // 10: v1.AIMTP.UpdatePost:input_type -> v1.UpdatePostRequest
-	11, // 11: v1.AIMTP.DeletePost:input_type -> v1.DeletePostRequest
-	12, // 12: v1.AIMTP.GetPost:input_type -> v1.GetPostRequest
-	13, // 13: v1.AIMTP.ListPost:input_type -> v1.ListPostRequest
-	14, // 14: v1.AIMTP.Healthz:output_type -> v1.HealthzResponse
-	15, // 15: v1.AIMTP.CreateUser:output_type -> v1.CreateUserResponse
-	16, // 16: v1.AIMTP.UpdateUser:output_type -> v1.UpdateUserResponse
-	17, // 17: v1.AIMTP.DeleteUser:output_type -> v1.DeleteUserResponse
-	18, // 18: v1.AIMTP.GetUser:output_type -> v1.GetUserResponse
-	19, // 19: v1.AIMTP.ListUser:output_type -> v1.ListUserResponse
-	20, // 20: v1.AIMTP.Login:output_type -> v1.LoginResponse
-	21, // 21: v1.AIMTP.RefreshToken:output_type -> v1.RefreshTokenResponse
-	22, // 22: v1.AIMTP.ChangePassword:output_type -> v1.ChangePasswordResponse
-	23, // 23: v1.AIMTP.CreatePost:output_type -> v1.CreatePostResponse
-	24, // 24: v1.AIMTP.UpdatePost:output_type -> v1.UpdatePostResponse
-	25, // 25: v1.AIMTP.DeletePost:output_type -> v1.DeletePostResponse
-	26, // 26: v1.AIMTP.GetPost:output_type -> v1.GetPostResponse
-	27, // 27: v1.AIMTP.ListPost:output_type -> v1.ListPostResponse
-	14, // [14:28] is the sub-list for method output_type
-	0,  // [0:14] is the sub-list for method input_type
+	9,  // 9: v1.AIMTP.Healthz:output_type -> v1.HealthzResponse
+	10, // 10: v1.AIMTP.CreateUser:output_type -> v1.CreateUserResponse
+	11, // 11: v1.AIMTP.UpdateUser:output_type -> v1.UpdateUserResponse
+	12, // 12: v1.AIMTP.DeleteUser:output_type -> v1.DeleteUserResponse
+	13, // 13: v1.AIMTP.GetUser:output_type -> v1.GetUserResponse
+	14, // 14: v1.AIMTP.ListUser:output_type -> v1.ListUserResponse
+	15, // 15: v1.AIMTP.Login:output_type -> v1.LoginResponse
+	16, // 16: v1.AIMTP.RefreshToken:output_type -> v1.RefreshTokenResponse
+	17, // 17: v1.AIMTP.ChangePassword:output_type -> v1.ChangePasswordResponse
+	9,  // [9:18] is the sub-list for method output_type
+	0,  // [0:9] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name
@@ -129,7 +101,6 @@ func file_apiserver_v1_apiserver_proto_init() {
 	}
 	file_apiserver_v1_healthz_proto_init()
 	file_apiserver_v1_user_proto_init()
-	file_apiserver_v1_post_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

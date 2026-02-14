@@ -1,7 +1,6 @@
 package user
 
 import (
-	"context"
 	"aimtp/internal/apiserver/model"
 	"aimtp/internal/apiserver/store"
 	"aimtp/internal/pkg/contextx"
@@ -14,6 +13,7 @@ import (
 	"aimtp/pkg/authz"
 	"aimtp/pkg/store/where"
 	"aimtp/pkg/token"
+	"context"
 	"sync"
 
 	"github.com/jinzhu/copier"
@@ -115,7 +115,7 @@ func (b *userBiz) Delete(ctx context.Context, rq *apiv1.DeleteUserRequest) (*api
 	// 删除授权角色
 	if _, err := b.authz.RemoveGroupingPolicy(rq.GetUserID(), known.RoleUser); err != nil {
 		log.W(ctx).Errorw("Failed to remove grouping policy for user", "user", rq.GetUserID(), "role", known.RoleUser)
-		return nil, errno.ErrRemoveRole.WithMessage(err.Error(),"")
+		return nil, errno.ErrRemoveRole.WithMessage(err.Error(), "")
 	}
 
 	return &apiv1.DeleteUserResponse{}, nil
@@ -164,15 +164,8 @@ func (b *userBiz) List(ctx context.Context, rq *apiv1.ListUserRequest) (*apiv1.L
 			case <-ctx.Done():
 				return nil
 			default:
-				// 查询用户的博客数
-				count, _, err := b.store.Post().List(ctx, where.F("userID", user.UserID))
-				if err != nil {
-					return err
-				}
-
 				// 将 Model 层的 UserM 转为 Protobuf 层的 User
 				converted := conversion.UserModelToUserV1(user)
-				converted.PostCount = count
 				m.Store(user.UserID, converted)
 
 				return nil

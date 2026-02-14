@@ -27,7 +27,8 @@ type GenerateConfig struct {
 
 // 预定义的生成配置.
 var generateConfigs = map[string]GenerateConfig{
-	"mb": {ModelPackagePath: "../../internal/apiserver/model", GenerateFunc: GenerateModels},
+	"aimpt_user": {ModelPackagePath: "../../internal/apiserver/model", GenerateFunc: GenerateModels},
+	"aimpt_server": {ModelPackagePath: "../../internal/aimtp_server/model", GenerateFunc: GenerateAIMTPServerModels},
 }
 
 var (
@@ -36,7 +37,7 @@ var (
 	password   = pflag.StringP("password", "p", "aimtp1234", "Password to use when connecting to the database.")
 	database   = pflag.StringP("db", "d", "aimtp", "Database name to connect to.")
 	modelPath  = pflag.String("model-pkg-path", "", "Generated model code's package name.")
-	components = pflag.StringSlice("component", []string{"mb"}, "Generated model code's for specified component.")
+	components = pflag.StringSlice("component", []string{"aimpt_user", "aimpt_server"}, "Generated model code's for specified component.")
 	help       = pflag.BoolP("help", "h", false, "Show this help message.")
 )
 
@@ -167,18 +168,13 @@ func GenerateModels(g *gen.Generator) {
 		}),
 	)
 	g.GenerateModelAs(
-		"post",
-		"PostM",
-		gen.FieldIgnore("placeholder"),
-		gen.FieldGORMTag("postID", func(tag field.GormTag) field.GormTag {
-			tag.Set("uniqueIndex", "idx_post_postID")
-			return tag
-		}),
-	)
-	g.GenerateModelAs(
 		"casbin_rule",
 		"CasbinRuleM",
 		gen.FieldRename("ptype", "PType"), // 把表中 ptype 原本应该自动生成为 go 结构体字段 的 Ptype 改成 PType
 		gen.FieldIgnore("placeholder"),
 	)
+}
+
+func GenerateAIMTPServerModels(g *gen.Generator) {
+	
 }
