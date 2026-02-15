@@ -1,9 +1,9 @@
 package main
 
 import (
+	"aimtp/pkg/db"
 	"fmt"
 	"log"
-	"aimtp/pkg/db"
 	"path/filepath"
 
 	"github.com/spf13/pflag"
@@ -27,7 +27,7 @@ type GenerateConfig struct {
 
 // 预定义的生成配置.
 var generateConfigs = map[string]GenerateConfig{
-	"aimpt_user": {ModelPackagePath: "../../internal/apiserver/model", GenerateFunc: GenerateModels},
+	"aimpt_user":   {ModelPackagePath: "../../internal/apiserver/model", GenerateFunc: GenerateModels},
 	"aimpt_server": {ModelPackagePath: "../../internal/aimtp_server/model", GenerateFunc: GenerateAIMTPServerModels},
 }
 
@@ -176,5 +176,13 @@ func GenerateModels(g *gen.Generator) {
 }
 
 func GenerateAIMTPServerModels(g *gen.Generator) {
-	
+	g.GenerateModelAs(
+		"dag_status_summary",
+		"DagStatusSummaryM",
+		gen.FieldIgnore("placeholder"),
+		gen.FieldGORMTag("dagName", func(tag field.GormTag) field.GormTag {
+			tag.Set("uniqueIndex", "idx_dag_status_summary_dag_name")
+			return tag
+		}),
+	)
 }
