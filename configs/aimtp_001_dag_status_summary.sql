@@ -31,11 +31,11 @@ CREATE TABLE IF NOT EXISTS `dag_status_summary` (
     `resource_version` VARCHAR(64) COMMENT 'Kubernetes ResourceVersion',
     `version` BIGINT DEFAULT 0 COMMENT '版本号（纳秒时间戳）',
 
-    INDEX `idx_cluster` (`cluster`),
-    INDEX `idx_user` (`user_name`),
-    INDEX `idx_state` (`state`),
-    INDEX `idx_creation_queue` (`creation_status`, `created_at`),
-    INDEX `idx_user_state` (`user_name`, `state`),
-    INDEX `idx_updated` (`updated_at`),
-    INDEX `idx_deleted` (`deleted_at`)
+    INDEX `idx_dag_status_summary_cluster` (`cluster`),
+    INDEX `idx_dag_status_summary_user` (`user_name`),
+    INDEX `idx_dag_status_summary_state` (`state`),
+    INDEX `idx_creation_queue` (`creation_dag_status_summary_status`, `created_at`),
+    INDEX `idx_dag_status_summary_user_state` (`user_name`, `state`),
+    INDEX `idx_dag_status_summary_updated` (`updated_at`),
+    INDEX `idx_dag_status_summary_deleted` (`deleted_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='DAG状态摘要表';
