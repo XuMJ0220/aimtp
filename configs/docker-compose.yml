@@ -16,6 +16,7 @@ services:
       - aimtp-mysql-data:/var/lib/mysql
       - ./aimtp_user.sql:/docker-entrypoint-initdb.d/01_aimtp_user.sql:ro
       - ./aimtp_casbin.sql:/docker-entrypoint-initdb.d/02_aimtp_casbin.sql:ro
+      - ./aimtp_001_dag_status_summary.sql:/docker-entrypoint-initdb.d/03_aimtp_001_dag_status_summary.sql:ro
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
 volumes:
