@@ -1,12 +1,10 @@
 package aimtp_server
 
 import (
-	"aimtp/internal/pkg/contextx"
 	"aimtp/internal/pkg/known"
 	"aimtp/internal/pkg/log"
 	"aimtp/internal/pkg/server"
 	genericoptions "aimtp/pkg/options"
-	"aimtp/pkg/store/where"
 	"aimtp/pkg/token"
 	"context"
 	"os"
@@ -64,11 +62,6 @@ type ServerConfig struct {
 
 // NewUnionServer 根据配置创建联合服务器.
 func (cfg *Config) NewUnionServer() (*UnionServer, error) {
-	// 注册租户解析函数，通过上下文获取用户 ID
-	//nolint: gocritic
-	where.RegisterTenant("userID", func(ctx context.Context) string {
-		return contextx.UserID(ctx)
-	})
 
 	// 初始化 token 包的签名密钥、认证 Key 及 Token 默认过期时间
 	token.Init(cfg.JWTKey, known.XUserID, cfg.Expiration)
