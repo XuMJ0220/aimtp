@@ -32,20 +32,25 @@ var File_aimtp_server_v1_aimtp_server_proto protoreflect.FileDescriptor
 
 const file_aimtp_server_v1_aimtp_server_proto_rawDesc = "" +
 	"\n" +
-	"\"aimtp_server/v1/aimtp_server.proto\x12\x0faimtp_server_v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1daimtp_server/v1/healthz.proto2e\n" +
+	"\"aimtp_server/v1/aimtp_server.proto\x12\x0faimtp_server_v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1daimtp_server/v1/healthz.proto\x1a\x19aimtp_server/v1/dag.proto2\xce\x01\n" +
 	"\fAIMTP_SERVER\x12U\n" +
 	"\aHealthz\x12\x16.google.protobuf.Empty\x1a .aimtp_server_v1.HealthzResponse\"\x10\x82\xd3\xe4\x93\x02\n" +
-	"\x12\b/healthzB/Z-aimtp/pkg/api/aimtp_server/v1;aimtp_server_v1b\x06proto3"
+	"\x12\b/healthz\x12g\n" +
+	"\tCreateDAG\x12!.aimtp_server_v1.CreateDAGRequest\x1a\".aimtp_server_v1.CreateDAGResponse\"\x13\x82\xd3\xe4\x93\x02\r:\x01*\"\b/v1/dagsB/Z-aimtp/pkg/api/aimtp_server/v1;aimtp_server_v1b\x06proto3"
 
 var file_aimtp_server_v1_aimtp_server_proto_goTypes = []any{
-	(*emptypb.Empty)(nil),   // 0: google.protobuf.Empty
-	(*HealthzResponse)(nil), // 1: aimtp_server_v1.HealthzResponse
+	(*emptypb.Empty)(nil),     // 0: google.protobuf.Empty
+	(*CreateDAGRequest)(nil),  // 1: aimtp_server_v1.CreateDAGRequest
+	(*HealthzResponse)(nil),   // 2: aimtp_server_v1.HealthzResponse
+	(*CreateDAGResponse)(nil), // 3: aimtp_server_v1.CreateDAGResponse
 }
 var file_aimtp_server_v1_aimtp_server_proto_depIdxs = []int32{
 	0, // 0: aimtp_server_v1.AIMTP_SERVER.Healthz:input_type -> google.protobuf.Empty
-	1, // 1: aimtp_server_v1.AIMTP_SERVER.Healthz:output_type -> aimtp_server_v1.HealthzResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	1, // 1: aimtp_server_v1.AIMTP_SERVER.CreateDAG:input_type -> aimtp_server_v1.CreateDAGRequest
+	2, // 2: aimtp_server_v1.AIMTP_SERVER.Healthz:output_type -> aimtp_server_v1.HealthzResponse
+	3, // 3: aimtp_server_v1.AIMTP_SERVER.CreateDAG:output_type -> aimtp_server_v1.CreateDAGResponse
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -57,6 +62,7 @@ func file_aimtp_server_v1_aimtp_server_proto_init() {
 		return
 	}
 	file_aimtp_server_v1_healthz_proto_init()
+	file_aimtp_server_v1_dag_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
