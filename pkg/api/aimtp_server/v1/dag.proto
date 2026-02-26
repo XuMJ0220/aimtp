@@ -1,0 +1,317 @@
+// Healthz API 定义，包含健康检查响应的相关消息和状态
+syntax = "proto3"; // 告诉编译器此文件使用什么版本的语法
+
+package aimtp_server_v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+
+option go_package = "aimtp/pkg/api/aimtp_server/v1;aimtp_server_v1";
+
+
+message CreateDAGRequest {
+    // ========== 内部字段（由中间件注入）==========
+    // @gotags: json:"-"
+    int32 i_d = 1; // 内部ID
+    // @gotags: json:"uid,omitempty" binding:"-"
+    int64 u_i_d = 2 [json_name = "uid"]; // 用户ID
+    // @gotags: json:"uname,omitempty" binding:"-"
+    string u_name = 3 [json_name = "uname"]; // 用户名
+    // @gotags: json:"ou_name" binding:"-"
+    string o_u_name = 4 [json_name = "ou_name"]; // 组织单元名称
+    // @gotags: json:"ou_id" binding:"-"
+    int64 o_u_id = 5 [json_name = "ou_id"]; // 组织单元ID
+    string device_type = 6; // 设备类型
+
+    // ========== 鉴权信息 ==========
+    // @gotags: json:"app_id" 
+    string app_id = 7 [json_name = "app_id"];
+    // @gotags: json:"app_key"
+    string app_key = 8 [json_name = "app_key"];
+
+    // ========== DAG 基本配置 ==========
+    // @gotags: json:"queue_name" binding:"required"
+    string queue_name = 9 [json_name = "queue_name"]; // 队列名称
+    // @gotags: json:"dag_name" binding:"required"
+    string dag_name = 10 [json_name = "dag_name"]; // DAG 名称
+    // @gotags: json:"user_name" binding:"required"
+    string user_name = 11 [json_name = "user_name"]; // 用户名称
+    string department = 12 [json_name = "department"]; // 部门名称
+    // @gotags: json:"type"
+    string type = 13 [json_name = "type"]; // 类型 batch/stream
+    // @gotags: json:"desc"
+    string desc = 14 [json_name = "desc"]; // 描述
+    // @gotags: json:"priority"
+    int32 priority = 15 [json_name = "priority"]; // 优先级
+    // @gotags: json:"ipd_number"
+    string i_p_d_Number = 16 [json_name = "ipd_number"]; // IPD编号
+    string cron = 17 [json_name = "cron"];
+    // @gotags: json:"engine"
+    string engine = 18 [json_name = "engine"]; // 引擎类型 argo/airflow/wolfria/ogra 
+
+    // ========== 依赖关系（独立字段）==========
+    map<string,DependenciesList> dependencies = 19 [json_name = "dependencies"];
+
+    // ========== 时间字段 ==========
+    google.protobuf.Timestamp createAt = 20;
+
+    // ========== 集群配置 ==========
+    // @gotags: json:"cluster"
+    string cluster = 21 [json_name = "cluster"]; // 集群名称
+
+    // ========== 通知配置 ==========
+    // @gotags: json:"subscribers"
+    repeated string subscribers = 22 [json_name = "subscribers"];
+
+    // ========== 任务定义 ==========
+    // @gotags: json:"tasks" binding:"required"
+    repeated Task tasks = 23 [json_name = "tasks"];
+    // @gotags: json:"async_tasks"
+    AsyncTasks async_tasks = 24 [json_name = "async_tasks"];
+}
+
+message DependenciesList{
+    repeated string items = 1 [json_name = "items"];
+}
+
+// 任务定义
+message Task{
+    // @gotags: json:"name" binding:"required"
+    string name = 1 [json_name = "name"]; // 任务名称
+    // @gotags: json:"cluster"
+    string cluster = 2 [json_name = "cluster"]; // 所属集群名称
+    // @gotags: json:"app_id" 
+    string app_id = 3 [json_name = "app_id"]; // 所属应用ID
+    // @gotags: json:"app_key"
+    string app_key = 4 [json_name = "app_key"]; // 所属应用密钥
+    // @gotags: json:"queue_name"
+    string queue_name = 5 [json_name = "queue_name"]; // 所属队列名称
+    // @gotags: json:"desc"
+    string desc = 6 [json_name = "desc"]; // 任务描述
+    // @gotags: json:"instance_count"
+    int32 instance_count = 7 [json_name = "instance_count"]; // 实例数量
+    // @gotags: json:"image" binding:"required"
+    string image = 8 [json_name = "image"]; // 任务镜像
+    // @gotags: json:"type"
+    string type = 9 [json_name = "type"]; // 任务类型 container/job
+    // @gotags: json:"schedule_type"
+    string schedule_type = 10 [json_name = "schedule_type"]; // 调度类型 topo/default/parallel/interactive/debug
+    // @gotags: json:"run_mode"
+    string run_mode = 11 [json_name = "run_mode"]; // 运行模式 foreground/background
+    // @gotags: json:"priority"
+    int32 priority = 12 [json_name = "priority"]; // 任务优先级
+    // @gotags: json:"notify"
+    bool notify = 13 [json_name = "notify"]; 
+    // @gotags: json:"timeout"
+    int64 timeout = 14 [json_name = "timeout"]; 
+    // @gotags: json:"command" binding:"required"
+    Command command = 15 [json_name = "command"]; // 任务命令
+    // @gotags: json:"resources" binding:"required"
+    Resource resources = 16 [json_name = "resources"]; // 任务资源
+    // @gotags: json:"lifecycle"
+    Lifecycle lifecycle = 17 [json_name = "lifecycle"]; // 任务生命周期
+    // @gotags: json:"trigger_rule"
+    string trigger_rule = 18 [json_name = "trigger_rule"]; // 触发规则
+    // @gotags: json:"retry_strategy"
+    RetryStrategy retry_strategy = 19 [json_name = "retry_strategy"]; // 重试策略
+    // @gotags: json:"env"
+    map<string,string> env = 20 [json_name = "env"]; // 环境变量
+    // @gotags: json:"subscribers"
+    repeated string subscribers = 21 [json_name = "subscribers"];
+    // @gotags: json:"ports"
+    repeated ContainerPort ports = 22 [json_name = "ports"]; // 容器端口列表
+}
+
+message Command {
+    // @gotags: json:"command_line" binding:"required"
+    string command_line = 1 [json_name = "command_line"]; // 实际执行的命令行的命令
+    // @gotags: json:"package_path"
+    string package_path = 2 [json_name = "package_path"]; // 任务包路径
+    // @gotags: json:"dir"
+    string dir = 3 [json_name = "dir"]; // 解压目录名
+    // @gotags: json:"password"
+    string password = 4 [json_name = "password"]; // 代码包密码
+    // @gotags: json:"gits"
+    repeated GitInfo gits = 5 [json_name = "gits"]; // Git 仓库信息列表
+    // @gotags: json:"message_key"
+    string message_key = 6 [json_name = "message_key"]; // 消息键（parallel任务）
+    // @gotags: json:"args"
+    google.protobuf.Struct args = 7 [json_name = "args"]; // 参数 map[string]interface{}
+}
+
+message GitInfo {
+    // @gotags: json:"repo"
+    string repo = 1 [json_name = "repo"];
+    // @gotags: json:"branch"
+    string branch = 2 [json_name = "branch"];
+    // @gotags: json:"commit_id"
+    string commit_id = 3 [json_name = "commit_id"];
+    // @gotags: json:"tag"
+    string tag = 4 [json_name = "tag"];
+}
+
+message Resource {
+    // @gotags: json:"cpu"
+    float c_p_u = 1 [json_name = "cpu"]; // CPU 核心数
+    // @gotags: json:"ram"
+    int64 r_a_m = 2 [json_name = "ram"]; // 内存大小（MB）
+    // @gotags: json:"gpu"
+    float g_p_u = 3 [json_name = "gpu"]; // GPU 核心数
+    // @gotags: json:"cpu_mem_ratio"
+    float cpu_mem_ratio = 4 [json_name = "cpu_mem_ratio"]; // CPU 内存比例
+    // @gotags: json:"device_type"
+    string device_type = 5 [json_name = "device_type"]; // 设备类型
+    // @gotags: json:"device_count"
+    int32 device_count = 6 [json_name = "device_count"]; // 设备数量
+    // @gotags: json:"device_num_per_worker"
+    int32 device_num_per_worker = 7 [json_name = "device_num_per_worker"]; // 每个 worker 上的设备数量
+}
+
+message Lifecycle {
+    // @gotags: json:"post_start"
+    Handler post_start = 1 [json_name = "post_start"]; // 任务启动后钩子
+    // @gotags: json:"pre_stop"
+    Handler pre_stop = 2 [json_name = "pre_stop"]; // 任务停止前钩子
+    // @gotags: json:"post_starts"
+    repeated Handler post_starts = 3 [json_name = "post_starts"]; // 任务启动后钩子列表
+    // @gotags: json:"pre_stops"
+    repeated Handler pre_stops = 4 [json_name = "pre_stops"]; // 任务停止前钩子列表
+}
+
+message Handler {
+    // @gotags: json:"exec"
+    ExecHandler exec = 1 [json_name = "exec"]; // 执行钩子
+    // @gotags: json:"http_get"
+    HTTPGetHandler http_get = 2 [json_name = "http_get"]; // HTTP GET 钩子
+    // @gotags: json:"redis"
+    RedisHandler redis = 3 [json_name = "redis"]; // Redis 钩子
+    // @gotags: json:"upload_message"
+    UploadMessageHandler upload_message = 4 [json_name = "upload_message"]; // 上传消息钩子
+    // @gotags: json:"skip_downstream_tasks"
+    SkipDownstreamTasksHandler skip_downstream_tasks = 5 [json_name = "skip_downstream_tasks"]; // 跳过下游任务钩子
+    // @gotags: json:"check_auto_dp_task_done"
+    CheckAutoDPTaskDoneHandler check_auto_dp_task_done = 6 [json_name = "check_auto_dp_task_done"]; // 检查 AutoDP 任务完成钩子
+    // @gotags: json:"fillback_data_sync"
+    FillbackDataSync fillback_data_sync = 7 [json_name = "fillback_data_sync"]; // 数据同步钩子
+}
+
+message ExecHandler{
+    // @gotags: json:"command"
+    string command = 1 [json_name = "command"]; // 执行命令
+}
+
+message HTTPGetHandler{
+    // @gotags: json:"schema"
+    string schema = 1 [json_name = "schema"]; // HTTP 协议
+    // @gotags: json:"host"
+    string host = 2 [json_name = "host"]; // HTTP 主机
+    // @gotags: json:"port"
+    int32 port = 3 [json_name = "port"]; // HTTP 端口
+    // @gotags: json:"path"
+    string path = 4 [json_name = "path"]; // HTTP 路径
+    // @gotags: json:"headers"
+    google.protobuf.Struct headers = 5 [json_name = "headers"]; // HTTP 头
+    // @gotags: json:"hook_time_control"
+    HookTimeControl hook_time_control = 6 [json_name = "hook_time_control"]; // HTTP 钩子时间控制
+}
+
+// RedisHandler Redis 钩子
+message RedisHandler {
+    // @gotags: json:"key"
+    string key = 1 [json_name = "key"]; // 键
+    // @gotags: json:"addrs"
+    repeated string addrs = 2 [json_name = "addrs"]; // 地址列表
+    // @gotags: json:"sentinel_master"
+    string sentinel_master = 3 [json_name = "sentinel_master"]; // 哨兵 Master 名称
+    // @gotags: json:"password"
+    string password = 4 [json_name = "password"]; // 密码
+    // @gotags: json:"db"
+    int32 db = 5 [json_name = "db"]; // 数据库索引
+    // @gotags: json:"hook_time_control"
+    HookTimeControl hook_time_control = 6 [json_name = "hook_time_control"]; // Redis 时间控制
+}
+
+// UploadMessageHandler 上传消息钩子
+message UploadMessageHandler {
+    // @gotags: json:"path"
+    string path = 1 [json_name = "path"]; // 路径
+    // @gotags: json:"auto_clean"
+    bool auto_clean = 2 [json_name = "auto_clean"]; // 自动清理
+    // @gotags: json:"update_max_worker_num"
+    bool update_max_worker_num = 3 [json_name = "update_max_worker_num"]; // 更新最大 worker 数量
+    // @gotags: json:"msgs"
+    repeated string msgs = 4 [json_name = "msgs"]; // 消息列表
+}
+
+// SkipDownstreamTasksHandler 跳过下游任务钩子
+message SkipDownstreamTasksHandler{
+    // @gotags: json:"task_key"
+    string task_key = 1 [json_name = "task_key"]; 
+}   
+
+// CheckAutoDPTaskDoneHandler 检查 AutoDP 任务完成钩子
+message CheckAutoDPTaskDoneHandler{
+    // @gotags: json:"url_key"
+    string url_key = 1 [json_name = "url_key"]; 
+}
+
+// FillbackDataSync 数据同步钩子
+message FillbackDataSync{
+    // @gotags: json:"bucket"
+    string bucket = 1 [json_name = "bucket"]; // 存储桶
+    // @gotags: json:"command"
+    string command = 2 [json_name = "command"]; // 执行命令
+}
+
+// HookTimeControl 钩子时间控制
+message HookTimeControl {
+    // @gotags: json:"interval"
+    optional int32 interval = 1 [json_name = "interval"];
+    // @gotags: json:"hook_timeout"
+    int32 hook_timeout = 2 [json_name = "hook_timeout"];
+}
+
+// RetryStrategy 重试策略
+message RetryStrategy{
+    // @gotags: json:"limit"
+    int32 limit = 1 [json_name = "limit"]; // 重试次数
+    // @gotags: json:"backoff_limit"
+    optional int32 backoff_limit = 2 [json_name = "backoff_limit"]; // 重试间隔上限
+    // @gotags: json:"ignore_retry_reasons"
+    repeated string ignore_retry_reasons = 3 [json_name = "ignore_retry_reasons"]; // 忽略重试原因列表
+}
+
+// ContainerPort 容器端口配置
+message ContainerPort{
+    // @gotags: json:"container_port" binding:"required"
+    int32 container_port = 1 [json_name = "container_port"]; // 容器端口
+    // @gotags: json:"name"
+    string name = 2 [json_name = "name"]; // 端口名称
+    // @gotags: json:"protocol"
+    string protocol = 3 [json_name = "protocol"]; // 协议
+}
+
+// AsyncTasks 异步任务配置
+message AsyncTasks {
+    // @gotags: json:"init_command"
+    string init_command = 1 [json_name = "init_command"]; // 初始化命令
+    // @gotags: json:"global_function_bytes"
+    string global_function_bytes = 2 [json_name = "global_function_bytes"];
+    // @gotags: json:"tasks"
+    repeated AsyncTask tasks = 3 [json_name = "tasks"]; // 异步任务列表
+}
+
+// AsyncTask 异步任务
+message AsyncTask{
+    // @gotags: json:"name" binding:"required"
+    string name = 1 [json_name = "name"]; // 异步任务名称
+    // @gotags: json:"args"
+    google.protobuf.Struct args = 2 [json_name = "args"]; // 异步任务参数
+    // @gotags: json:"function_bytes" 
+    string function_bytes = 3 [json_name = "function_bytes"]; 
+}
+
+// CreateDAGResponse 创建 DAG 响应
+message CreateDAGResponse{
+
+}
