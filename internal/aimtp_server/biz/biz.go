@@ -29,9 +29,10 @@ type biz struct {
 // 确保 biz 实现了 IBiz 接口.
 var _ IBiz = (*biz)(nil)
 
-func NewBiz(store store.IStore) *biz {
+func NewBiz(store store.IStore, controllerClients map[string]*client.WorkerClient) *biz {
 	return &biz{
-		store: store,
+		store:             store,
+		controllerClients: controllerClients,
 	}
 }
 

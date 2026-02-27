@@ -50,3 +50,14 @@ func (c *WorkerClient) HealthCheck(ctx context.Context) error {
 
 	return nil
 }
+
+func NewControllerClients(cc map[string]string) (map[string]*WorkerClient, error) {
+	controllerClients := map[string]*WorkerClient{}
+	if len(cc) == 0 {
+		return controllerClients, nil
+	}
+	for cluster, baseURL := range cc {
+		controllerClients[cluster] = NewWorkerClient(baseURL, cluster)
+	}
+	return controllerClients, nil
+}

@@ -19,46 +19,48 @@ var (
 func (v *Validator) ValidateDAGRules() genericvalidation.Rules {
 
 	var (
-		validateName genericvalidation.ValidatorFunc
+		validateName func(name string) genericvalidation.ValidatorFunc
 	)
 
-	validateName = func(value any) error {
-		// 1. 非空检查
-		if len(value.(string)) == 0 {
-			return errno.ErrInvalidArgument.WithMessage("dag_name is required")
-		}
+	validateName = func(name string) genericvalidation.ValidatorFunc {
+		return func(value any) error {
+			// 1. 非空检查
+			if len(value.(string)) == 0 {
+				return errno.ErrInvalidArgument.WithMessage("%s is required", name)
+			}
 
-		// 2. 长度检查：1-100
-		if len(value.(string)) > 100 {
-			return errno.ErrInvalidArgument.WithMessage("must not exceed 100 characters")
-		}
+			// 2. 长度检查：1-100
+			if len(value.(string)) > 100 {
+				return errno.ErrInvalidArgument.WithMessage("%s must not exceed 100 characters", name)
+			}
 
-		return nil
+			return nil
+		}
 	}
 
 	return genericvalidation.Rules{
 
-		"QueueName": validateName,
+		"QueueName": validateName("queue_name"),
 
 		"DagName": func(value any) error {
 			// 1. 非空检查
 			if len(value.(string)) == 0 {
-				return errno.ErrInvalidArgument.WithMessage("queue_name is required")
+				return errno.ErrInvalidArgument.WithMessage("dag_name is required")
 			}
 
 			// 2. 长度检查
 			if len(value.(string)) > known.DAGNameMaxLength || len(value.(string)) < known.DAGNameMinLength {
-				return errno.ErrInvalidArgument.WithMessage("queue_name must be between 3 and 255 characters")
+				return errno.ErrInvalidArgument.WithMessage("dag_name must be between 3 and 255 characters")
 			}
 
 			// 3. 格式检查
 			if !k8sNamePattern.MatchString(value.(string)) {
-				return errno.ErrInvalidArgument.WithMessage("queue_name must consist of lower case, alphanumeric, characters or '-', and must start and end with an alphanumeric character")
+				return errno.ErrInvalidArgument.WithMessage("dag_name must consist of lower case, alphanumeric, characters or '-', and must start and end with an alphanumeric character")
 			}
 			return nil
 		},
 
-		"UserName": validateName,
+		"UserName": validateName("user_name"),
 
 		"Tasks": func(value any) error {
 			tasks, ok := value.([]*apiv1.Task)
@@ -104,11 +106,11 @@ func (v *Validator) ValidateDAGRules() genericvalidation.Rules {
 				}
 
 				// 4. 校验命令
-				if task.Command == nil || task.Command.CommandLine == ""{
+				if task.Command == nil || task.Command.CommandLine == "" {
 					return errno.ErrInvalidArgument.WithMessage("task '%s' command is required", task.Name)
 				}
 			}
-			
+
 			return nil
 		},
 	}

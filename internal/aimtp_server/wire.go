@@ -4,14 +4,11 @@
 package aimtp_server
 
 import (
-	//"aimtp/internal/apiserver/biz"
-	//"aimtp/internal/apiserver/store"
+	"aimtp/internal/aimtp_server/biz"
+	"aimtp/internal/aimtp_server/pkg/validation"
+	"aimtp/internal/aimtp_server/store"
+	"aimtp/internal/pkg/client"
 	"aimtp/internal/pkg/server"
-	//"aimtp/internal/pkg/validation"
-	//"aimtp/pkg/authz"
-
-	//grpcmw "aimtp/internal/pkg/middleware/grpc"
-	//ginmw "aimtp/internal/pkg/middleware/http"
 
 	"github.com/google/wire"
 )
@@ -20,18 +17,11 @@ func InitializeServer(*Config) (server.Server, error) {
 	wire.Build(
 		wire.NewSet(NewWebServer, wire.FieldsOf(new(*Config), "ServerMode")),
 		wire.Struct(new(ServerConfig), "*"),
-		//wire.NewSet(store.ProviderSet, biz.ProviderSet),
-		//ProvideDB, // 提供数据库实例
-		//validation.ProviderSet,
-		// wire.NewSet(
-		// 	wire.Struct(new(UserRetriever), "*"),
-		// 	wire.Bind(new(ginmw.UserRetriever), new(*UserRetriever)),
-		// 	wire.Bind(new(grpcmw.UserRetriever), new(*UserRetriever)),
-		// ),
-		// wire.NewSet(
-		// 	authz.ProviderSet,
-		// 	wire.Bind(new(grpcmw.Authorizer), new(*authz.Authz)),
-		// ),
+		wire.NewSet(store.ProviderSet, biz.ProvicerSet),
+		ProvideDB,
+		validation.ProviderSet,
+		wire.FieldsOf(new(*Config), "ControllerClusters"),
+		client.NewControllerClients,
 	)
 	return nil, nil
 }

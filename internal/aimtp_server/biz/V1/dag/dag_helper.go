@@ -21,9 +21,10 @@ func (b *dagBiz) selectCluster(ctx context.Context, cluster string) (string, err
 		}
 
 		// 检查指定的集群是否健康
-		if err := b.controllerClients[c].HealthCheck(ctx); err != nil {
-			return "", errno.ErrClusterUnhealthy.WithMessage("Cluster %s is unhealthy, err: %s", c, err.Error())
-		}
+		// 这里先注释掉，等后面实现了Controller再开启
+		// if err := b.controllerClients[c].HealthCheck(ctx); err != nil {
+		// 	return "", errno.ErrClusterUnhealthy.WithMessage("Cluster %s is unhealthy, err: %s", c, err.Error())
+		// }
 
 		return c, nil
 	}
