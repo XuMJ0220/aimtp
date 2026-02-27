@@ -11,4 +11,16 @@ const (
 	DAGInitCreationStatus = "pending"
 	// DAGMaxRetries 定义了 DAG 最大重试次数.
 	DAGMaxRetries int32 = 3
+
+	// DAGNameMinLength	定义了 DAG 名称的最小长度.
+	DAGNameMinLength = 3
+	// DAGNameMaxLength 定义了 DAG 名称的最大长度.
+	DAGNameMaxLength = 255
+	// TaskNameMinLength
+	TaskNameMinLength = 1
+	// TaskNameMaxLength
+	TaskNameMaxLength = 63
+
+	// MaxTasksPerDAG 定义了每个 DAG 允许的最大任务数.
+	MaxTasksPerDAG = 100
 )
