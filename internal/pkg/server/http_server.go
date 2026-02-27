@@ -25,7 +25,7 @@ func NewHTTPServer(
 	tlsOptions *genericoptions.TLSOptions,
 ) *HTTPServer {
 	var tlsConfig *tls.Config
-	if tlsOptions != nil && tlsOptions.UseTLS {
+	if tlsOptions != nil && tlsOptions.Enabled {
 		tlsConfig = tlsOptions.MustTLSConfig()
 	}
 	return &HTTPServer{
