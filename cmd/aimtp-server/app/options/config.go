@@ -43,6 +43,7 @@ type ServerOptions struct {
 	// TLSOptions 包含 TLS 配置选项.
 	TLSOptions         *genericoptions.TLSOptions `json:"tls" mapstructure:"tls"`
 	ControllerClusters map[string]string          `json:"controller-clusters" mapstructure:"controller-clusters"`
+	KafkaOptions       *genericoptions.KafkaOptions `json:"kafka" mapstructure:"kafka"`
 }
 
 // NewServerOptions 创建带有默认值的 ServerOptions 实例.
@@ -55,6 +56,7 @@ func NewServerOptions() *ServerOptions {
 		HTTPOptions:  genericoptions.NewHTTPOptions(),
 		MySQLOptions: genericoptions.NewMySQLOptions(),
 		TLSOptions:   genericoptions.NewTLSOptions(),
+		KafkaOptions: genericoptions.NewKafkaOptions(),
 	}
 	opts.GRPCOptions.Addr = ":6667"
 	opts.HTTPOptions.Addr = ":5556"
@@ -77,6 +79,7 @@ func (o *ServerOptions) AddFlags(fs *pflag.FlagSet) {
 	o.HTTPOptions.AddFlags(fs, "http")
 	o.MySQLOptions.AddFlags(fs, "mysql")
 	o.TLSOptions.AddFlags(fs, "tls")
+	o.KafkaOptions.AddFlags(fs, "kafka")
 }
 
 // Validate 校验 ServerOptions 中的选项是否合法.
@@ -114,5 +117,6 @@ func (o *ServerOptions) Config() (*aimtp_server.Config, error) {
 		MySQLOptions:       o.MySQLOptions,
 		TLSOptions:         o.TLSOptions,
 		ControllerClusters: o.ControllerClusters,
+		KafkaOptions:       o.KafkaOptions,
 	}, nil
 }

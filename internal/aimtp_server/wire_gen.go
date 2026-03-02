@@ -12,6 +12,7 @@ import (
 	"aimtp/internal/aimtp_server/store"
 	"aimtp/internal/pkg/client"
 	"aimtp/internal/pkg/server"
+	"aimtp/pkg/kafka"
 )
 
 // Injectors from wire.go:
@@ -28,7 +29,20 @@ func InitializeServer(config *Config) (server.Server, error) {
 	if err != nil {
 		return nil, err
 	}
-	bizBiz := biz.NewBiz(datastore, v2)
+	kafkaOptions := config.KafkaOptions
+	kafkaClient, err := kafka.ProvideClient(kafkaOptions)
+	if err != nil {
+		return nil, err
+	}
+	producer, err := kafka.ProvideProducer(kafkaClient)
+	if err != nil {
+		return nil, err
+	}
+	topicConfig, err := kafka.ProvideTopicConfig(kafkaOptions)
+	if err != nil {
+		return nil, err
+	}
+	bizBiz := biz.NewBiz(datastore, v2, producer, topicConfig)
 	validator := validation.New(datastore)
 	serverConfig := &ServerConfig{
 		cfg: config,

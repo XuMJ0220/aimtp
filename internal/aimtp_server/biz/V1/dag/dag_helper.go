@@ -58,15 +58,15 @@ func (b *dagBiz) selectCluster(ctx context.Context, cluster string) (string, err
 }
 
 // serializeAndValidatePayload 序列化并验证 DAG payload
-func (b *dagBiz) serializeAndValidatePayload(rq *apiv1.CreateDAGRequest) (string, error) {
+func (b *dagBiz) serializeAndValidatePayload(rq *apiv1.CreateDAGRequest) ([]byte, error) {
 	payloadBytes, err := json.Marshal(rq)
 	if err != nil {
-		return "", errno.ErrSerializeDAGPayload.WithMessage("Failed to serialize DAG payload, err: %s", err.Error())
+		return nil, errno.ErrSerializeDAGPayload.WithMessage("Failed to serialize DAG payload, err: %s", err.Error())
 	}
 
 	if len(payloadBytes) > known.MaxPayloadSize {
-		return "", errno.ErrSerializeDAGPayload.WithMessage("DAG payload size exceeds the maximum limit of %d bytes", known.MaxPayloadSize)
+		return nil, errno.ErrSerializeDAGPayload.WithMessage("DAG payload size exceeds the maximum limit of %d bytes", known.MaxPayloadSize)
 	}
 
-	return string(payloadBytes), nil
+	return payloadBytes, nil
 }
