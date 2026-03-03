@@ -9,6 +9,7 @@ import (
 	"aimtp/cmd/aimtp-server/app/options"
 	"aimtp/internal/aimtp_trigger"
 	triggerbiz "aimtp/internal/aimtp_trigger/biz"
+	triggerstore "aimtp/internal/aimtp_trigger/store"
 	"aimtp/internal/pkg/client"
 	"aimtp/pkg/kafka"
 	"aimtp/pkg/log"
@@ -83,7 +84,8 @@ func runTrigger(opts *options.ServerOptions) error {
 
 	consumer := kafka.NewConsumer(kafkaClient)
 	defer consumer.Close()
-	biz := triggerbiz.New(controllerClients, db)
+	store := triggerstore.NewStore(db)
+	biz := triggerbiz.New(controllerClients, store)
 	trigger := aimtp_trigger.New(consumer, biz)
 
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
