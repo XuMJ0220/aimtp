@@ -73,6 +73,9 @@ func NewAIMTPServerCommand() *cobra.Command {
 	// 添加 --version 标志
 	version.AddFlags(cmd.PersistentFlags())
 
+	// 添加 Trigger 子命令
+	cmd.AddCommand(NewTriggerCommand(opts))
+
 	return cmd
 }
 

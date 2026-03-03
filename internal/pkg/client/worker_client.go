@@ -51,6 +51,14 @@ func (c *WorkerClient) HealthCheck(ctx context.Context) error {
 	return nil
 }
 
+func (c *WorkerClient) BaseURL() string {
+	return c.baseURL
+}
+
+func (c *WorkerClient) Do(req *http.Request) (*http.Response, error) {
+	return c.httpClient.Do(req)
+}
+
 func NewControllerClients(cc map[string]string) (map[string]*WorkerClient, error) {
 	controllerClients := map[string]*WorkerClient{}
 	if len(cc) == 0 {
