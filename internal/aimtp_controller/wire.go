@@ -1,15 +1,13 @@
 //go:build wireinject
 // +build wireinject
 
-package aimtp_server
+package aimtp_controller
 
 import (
-	"aimtp/internal/aimtp_server/biz"
-	"aimtp/internal/aimtp_server/pkg/validation"
-	"aimtp/internal/aimtp_server/store"
-	"aimtp/internal/pkg/client"
+	"aimtp/internal/aimtp_controller/biz"
+	"aimtp/internal/aimtp_controller/pkg/validation"
+	"aimtp/internal/aimtp_controller/store"
 	"aimtp/internal/pkg/server"
-	"aimtp/pkg/kafka"
 
 	"github.com/google/wire"
 )
@@ -21,12 +19,6 @@ func InitializeServer(*Config) (server.Server, error) {
 		wire.NewSet(store.ProviderSet, biz.ProviderSet),
 		ProvideDB,
 		validation.ProviderSet,
-		wire.FieldsOf(new(*Config), "ControllerClusters"),
-		client.NewControllerClients,
-		wire.FieldsOf(new(*Config), "KafkaOptions"),
-		kafka.ProvideClient,
-		kafka.ProvideProducer,
-		kafka.ProvideTopicConfig,
 	)
 	return nil, nil
 }

@@ -1,10 +1,8 @@
 package biz
 
 import (
-	dagv1 "aimtp/internal/aimtp_server/biz/V1/dag"
-	"aimtp/internal/aimtp_server/store"
-	"aimtp/internal/pkg/client"
-	"aimtp/pkg/kafka"
+	dagv1 "aimtp/internal/aimtp_controller/biz/V1/dag"
+	"aimtp/internal/aimtp_controller/store"
 
 	"github.com/google/wire"
 )
@@ -23,25 +21,19 @@ type IBiz interface {
 
 // biz 是 IBiz 的一个具体实现.
 type biz struct {
-	store             store.IStore
-	controllerClients map[string]*client.WorkerClient // 控制器客户端
-	producer          *kafka.Producer
-	kafkaTopic        *kafka.TopicConfig
+	store store.IStore
 }
 
 // 确保 biz 实现了 IBiz 接口.
 var _ IBiz = (*biz)(nil)
 
-func NewBiz(store store.IStore, controllerClients map[string]*client.WorkerClient, producer *kafka.Producer, kafkaTopic *kafka.TopicConfig) *biz {
+func NewBiz(store store.IStore) *biz {
 	return &biz{
-		store:             store,
-		controllerClients: controllerClients,
-		producer:          producer,
-		kafkaTopic:        kafkaTopic,
+		store: store,
 	}
 }
 
 // DAGV1 返回一个实现了 DAGBiz 接口的实例.
 func (b *biz) DAGV1() dagv1.DAGBiz {
-	return dagv1.New(b.store, b.controllerClients, b.producer, b.kafkaTopic)
+	return dagv1.New(b.store)
 }
