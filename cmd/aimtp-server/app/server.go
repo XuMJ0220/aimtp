@@ -75,6 +75,8 @@ func NewAIMTPServerCommand() *cobra.Command {
 
 	// 添加 Trigger 子命令
 	cmd.AddCommand(NewTriggerCommand(opts))
+	// 添加 Watcher 子命令
+	cmd.AddCommand(NewWatcherCommand(opts))
 
 	return cmd
 }
