@@ -26,7 +26,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AIMTP_SERVER_Healthz_FullMethodName = "/aimtp_server_v1.AIMTP_SERVER/Healthz"
+	AIMTP_SERVER_Healthz_FullMethodName   = "/aimtp_server_v1.AIMTP_SERVER/Healthz"
+	AIMTP_SERVER_CreateDAG_FullMethodName = "/aimtp_server_v1.AIMTP_SERVER/CreateDAG"
 )
 
 // AIMTP_SERVERClient is the client API for AIMTP_SERVER service.
@@ -35,6 +36,7 @@ const (
 type AIMTP_SERVERClient interface {
 	// Healthz 健康检查
 	Healthz(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*HealthzResponse, error)
+	CreateDAG(ctx context.Context, in *CreateDAGRequest, opts ...grpc.CallOption) (*CreateDAGResponse, error)
 }
 
 type aIMTP_SERVERClient struct {
@@ -55,12 +57,23 @@ func (c *aIMTP_SERVERClient) Healthz(ctx context.Context, in *emptypb.Empty, opt
 	return out, nil
 }
 
+func (c *aIMTP_SERVERClient) CreateDAG(ctx context.Context, in *CreateDAGRequest, opts ...grpc.CallOption) (*CreateDAGResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateDAGResponse)
+	err := c.cc.Invoke(ctx, AIMTP_SERVER_CreateDAG_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AIMTP_SERVERServer is the server API for AIMTP_SERVER service.
 // All implementations must embed UnimplementedAIMTP_SERVERServer
 // for forward compatibility.
 type AIMTP_SERVERServer interface {
 	// Healthz 健康检查
 	Healthz(context.Context, *emptypb.Empty) (*HealthzResponse, error)
+	CreateDAG(context.Context, *CreateDAGRequest) (*CreateDAGResponse, error)
 	mustEmbedUnimplementedAIMTP_SERVERServer()
 }
 
@@ -73,6 +86,9 @@ type UnimplementedAIMTP_SERVERServer struct{}
 
 func (UnimplementedAIMTP_SERVERServer) Healthz(context.Context, *emptypb.Empty) (*HealthzResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Healthz not implemented")
+}
+func (UnimplementedAIMTP_SERVERServer) CreateDAG(context.Context, *CreateDAGRequest) (*CreateDAGResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateDAG not implemented")
 }
 func (UnimplementedAIMTP_SERVERServer) mustEmbedUnimplementedAIMTP_SERVERServer() {}
 func (UnimplementedAIMTP_SERVERServer) testEmbeddedByValue()                      {}
@@ -113,6 +129,24 @@ func _AIMTP_SERVER_Healthz_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AIMTP_SERVER_CreateDAG_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateDAGRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AIMTP_SERVERServer).CreateDAG(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AIMTP_SERVER_CreateDAG_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AIMTP_SERVERServer).CreateDAG(ctx, req.(*CreateDAGRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AIMTP_SERVER_ServiceDesc is the grpc.ServiceDesc for AIMTP_SERVER service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -123,6 +157,10 @@ var AIMTP_SERVER_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Healthz",
 			Handler:    _AIMTP_SERVER_Healthz_Handler,
+		},
+		{
+			MethodName: "CreateDAG",
+			Handler:    _AIMTP_SERVER_CreateDAG_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

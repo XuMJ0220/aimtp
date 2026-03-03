@@ -1,12 +1,12 @@
 package aimtp_server
 
 import (
-	"aimtp/internal/pkg/contextx"
+	"aimtp/internal/aimtp_server/biz"
+	"aimtp/internal/aimtp_server/pkg/validation"
 	"aimtp/internal/pkg/known"
 	"aimtp/internal/pkg/log"
 	"aimtp/internal/pkg/server"
 	genericoptions "aimtp/pkg/options"
-	"aimtp/pkg/store/where"
 	"aimtp/pkg/token"
 	"context"
 	"os"
@@ -34,13 +34,15 @@ const (
 // Config 运行时配置结构体, 用于存储应用相关的配置
 // 不用 viper.Get, 因为这种方式能更加清晰知道应用提供了哪些配置项
 type Config struct {
-	ServerMode   string
-	JWTKey       string
-	Expiration   time.Duration
-	GRPCOptions  *genericoptions.GRPCOptions
-	HTTPOptions  *genericoptions.HTTPOptions
-	MySQLOptions *genericoptions.MySQLOptions
-	TLSOptions   *genericoptions.TLSOptions
+	ServerMode         string
+	JWTKey             string
+	Expiration         time.Duration
+	GRPCOptions        *genericoptions.GRPCOptions
+	HTTPOptions        *genericoptions.HTTPOptions
+	MySQLOptions       *genericoptions.MySQLOptions
+	TLSOptions         *genericoptions.TLSOptions
+	ControllerClusters map[string]string
+	KafkaOptions       *genericoptions.KafkaOptions
 }
 
 // UnionServer 定义一个联合服务器. 根据 ServerMode 决定要启动的服务器类型.
@@ -60,15 +62,12 @@ type UnionServer struct {
 // ServerConfig 包含服务器的核心依赖和配置.
 type ServerConfig struct {
 	cfg *Config
+	biz biz.IBiz
+	val *validation.Validator
 }
 
 // NewUnionServer 根据配置创建联合服务器.
 func (cfg *Config) NewUnionServer() (*UnionServer, error) {
-	// 注册租户解析函数，通过上下文获取用户 ID
-	//nolint: gocritic
-	where.RegisterTenant("userID", func(ctx context.Context) string {
-		return contextx.UserID(ctx)
-	})
 
 	// 初始化 token 包的签名密钥、认证 Key 及 Token 默认过期时间
 	token.Init(cfg.JWTKey, known.XUserID, cfg.Expiration)
@@ -112,13 +111,28 @@ func (s *UnionServer) Run() error {
 }
 
 // NewServerConfig 创建一个 *ServerConfig 实例.
+// 这个函数只用来手动调用
 // 进阶：这里其实可以使用依赖注入的方式，来创建 *ServerConfig.
-func (cfg *Config) NewServerConfig() (*ServerConfig, error) {
+// 用了 wire，这个函数将不再被需要
+// func (cfg *Config) NewServerConfig() (*ServerConfig, error) {
+// 	// 初始化数据库连接
+// 	db, err := cfg.NewDB()
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	store := store.NewStore(db)
 
-	return &ServerConfig{
-		cfg: cfg,
-	}, nil
-}
+// 	controllerClients, err := client.NewControllerClients(cfg.ControllerClusters)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+
+// 	return &ServerConfig{
+// 		cfg: cfg,
+// 		biz: biz.NewBiz(store, controllerClients),
+// 		val: validation.New(store),
+// 	}, nil
+// }
 
 // NewDB 创建一个 *gorm.DB 实例.
 func (cfg *Config) NewDB() (*gorm.DB, error) {

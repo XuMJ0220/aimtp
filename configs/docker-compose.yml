@@ -16,7 +16,37 @@ services:
       - aimtp-mysql-data:/var/lib/mysql
       - ./aimtp_user.sql:/docker-entrypoint-initdb.d/01_aimtp_user.sql:ro
       - ./aimtp_casbin.sql:/docker-entrypoint-initdb.d/02_aimtp_casbin.sql:ro
+      - ./aimtp_001_dag_status_summary.sql:/docker-entrypoint-initdb.d/03_aimtp_001_dag_status_summary.sql:ro
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    container_name: aimtp-kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
+      # 注意：PLAINTEXT_HOST 使用 localhost 是基于你的后端程序和 kafka 都在本地或能互通的假设。
+      # 如果后端程序在虚拟机，kafka 在宿主机，请将 localhost 替换为宿主机的 IP。
+      #KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:29092,PLAINTEXT_HOST://192.168.124.5:9092'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka:29093'
+      KAFKA_LISTENERS: 'PLAINTEXT://kafka:29092,CONTROLLER://kafka:29093,PLAINTEXT_HOST://0.0.0.0:9092'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      # 必须指定日志目录，并确保它指向挂载卷的位置
+      KAFKA_LOG_DIRS: '/var/lib/kafka/data'
+      # Cluster ID (base64)
+      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+    volumes:
+      - aimtp-kafka-data:/var/lib/kafka/data
 
 volumes:
   aimtp-mysql-data:
+  aimtp-kafka-data:

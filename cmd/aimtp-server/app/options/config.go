@@ -5,9 +5,9 @@
 package options
 
 import (
+	"aimtp/internal/aimtp_server"
 	"errors"
 	"fmt"
-	"aimtp/internal/aimtp_server"
 	"time"
 
 	genericoptions "aimtp/pkg/options"
@@ -22,7 +22,7 @@ import (
 // 定义支持的服务器模式集合
 var availableServerModes = sets.New(
 	aimtp_server.GinServerMode,
-	aimtp_server.GRPCServerMode,	
+	aimtp_server.GRPCServerMode,
 	aimtp_server.GRPCGatewayServerMode,
 )
 
@@ -41,19 +41,22 @@ type ServerOptions struct {
 	// MySQLOptions 包含 MySQL 配置选项.
 	MySQLOptions *genericoptions.MySQLOptions `json:"mysql" mapstructure:"mysql"`
 	// TLSOptions 包含 TLS 配置选项.
-	TLSOptions *genericoptions.TLSOptions `json:"tls" mapstructure:"tls"`
+	TLSOptions         *genericoptions.TLSOptions `json:"tls" mapstructure:"tls"`
+	ControllerClusters map[string]string          `json:"controller-clusters" mapstructure:"controller-clusters"`
+	KafkaOptions       *genericoptions.KafkaOptions `json:"kafka" mapstructure:"kafka"`
 }
 
 // NewServerOptions 创建带有默认值的 ServerOptions 实例.
 func NewServerOptions() *ServerOptions {
 	opts := &ServerOptions{
-		ServerMode:   aimtp_server.GRPCGatewayServerMode,			
+		ServerMode:   aimtp_server.GRPCGatewayServerMode,
 		JWTKey:       "Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5",
 		Expiration:   2 * time.Hour,
 		GRPCOptions:  genericoptions.NewGRPCOptions(),
 		HTTPOptions:  genericoptions.NewHTTPOptions(),
 		MySQLOptions: genericoptions.NewMySQLOptions(),
 		TLSOptions:   genericoptions.NewTLSOptions(),
+		KafkaOptions: genericoptions.NewKafkaOptions(),
 	}
 	opts.GRPCOptions.Addr = ":6667"
 	opts.HTTPOptions.Addr = ":5556"
@@ -76,6 +79,7 @@ func (o *ServerOptions) AddFlags(fs *pflag.FlagSet) {
 	o.HTTPOptions.AddFlags(fs, "http")
 	o.MySQLOptions.AddFlags(fs, "mysql")
 	o.TLSOptions.AddFlags(fs, "tls")
+	o.KafkaOptions.AddFlags(fs, "kafka")
 }
 
 // Validate 校验 ServerOptions 中的选项是否合法.
@@ -105,12 +109,14 @@ func (o *ServerOptions) Validate() error {
 // ----------- 在运行时配置可用 -----------
 func (o *ServerOptions) Config() (*aimtp_server.Config, error) {
 	return &aimtp_server.Config{
-		ServerMode:   o.ServerMode,
-		JWTKey:       o.JWTKey,
-		Expiration:   o.Expiration,
-		GRPCOptions:  o.GRPCOptions,
-		HTTPOptions:  o.HTTPOptions,
-		MySQLOptions: o.MySQLOptions,
-		TLSOptions:   o.TLSOptions,
+		ServerMode:         o.ServerMode,
+		JWTKey:             o.JWTKey,
+		Expiration:         o.Expiration,
+		GRPCOptions:        o.GRPCOptions,
+		HTTPOptions:        o.HTTPOptions,
+		MySQLOptions:       o.MySQLOptions,
+		TLSOptions:         o.TLSOptions,
+		ControllerClusters: o.ControllerClusters,
+		KafkaOptions:       o.KafkaOptions,
 	}, nil
 }

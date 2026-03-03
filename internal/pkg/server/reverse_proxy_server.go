@@ -30,7 +30,7 @@ func NewGRPCGatewayServer(
 	tlsOptions *genericoptions.TLSOptions,
 ) (*GRPCGatewayServer, error) {
 	var tlsConfig *tls.Config
-	if tlsOptions != nil && tlsOptions.UseTLS {
+	if tlsOptions != nil && tlsOptions.Enabled {
 		tlsConfig = tlsOptions.MustTLSConfig()
 	}
 
