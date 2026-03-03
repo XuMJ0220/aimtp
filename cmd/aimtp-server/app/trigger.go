@@ -65,6 +65,17 @@ func runTrigger(opts *options.ServerOptions) error {
 	if err != nil {
 		return err
 	}
+	if cfg.MySQLOptions == nil {
+		return fmt.Errorf("mysql options is nil")
+	}
+	db, err := cfg.MySQLOptions.NewDB()
+	if err != nil {
+		return err
+	}
+	sqlDB, err := db.DB()
+	if err == nil {
+		defer sqlDB.Close()
+	}
 	kafkaClient, err := kafka.NewClient(cfg.KafkaOptions)
 	if err != nil {
 		return err
@@ -72,7 +83,7 @@ func runTrigger(opts *options.ServerOptions) error {
 
 	consumer := kafka.NewConsumer(kafkaClient)
 	defer consumer.Close()
-	biz := triggerbiz.New(controllerClients)
+	biz := triggerbiz.New(controllerClients, db)
 	trigger := aimtp_trigger.New(consumer, biz)
 
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
