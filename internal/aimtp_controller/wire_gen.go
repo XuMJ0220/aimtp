@@ -30,14 +30,24 @@ func InitializeServer(config *Config) (server.Server, error) {
 	if err != nil {
 		return nil, err
 	}
-	bizBiz := biz.NewBiz(datastore, clientset)
+	versionedClientset, err := ProvideVolcanoClient(restConfig)
+	if err != nil {
+		return nil, err
+	}
+	clientset2, err := ProvideArgoClient(restConfig)
+	if err != nil {
+		return nil, err
+	}
+	bizBiz := biz.NewBiz(datastore, clientset, versionedClientset, clientset2)
 	validator := validation.New(datastore)
 	serverConfig := &ServerConfig{
-		cfg:        config,
-		biz:        bizBiz,
-		val:        validator,
-		restConfig: restConfig,
-		kubeClient: clientset,
+		cfg:           config,
+		biz:           bizBiz,
+		val:           validator,
+		restConfig:    restConfig,
+		kubeClient:    clientset,
+		volcanoClient: versionedClientset,
+		argoClient:    clientset2,
 	}
 	serverServer, err := NewWebServer(string2, serverConfig)
 	if err != nil {

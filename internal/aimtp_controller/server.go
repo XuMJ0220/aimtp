@@ -19,6 +19,9 @@ import (
 	"gorm.io/gorm"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
+
+	argoclientset "github.com/argoproj/argo-workflows/v3/pkg/client/clientset/versioned"
+	volcanoclientset "volcano.sh/apis/pkg/client/clientset/versioned"
 )
 
 const (
@@ -66,11 +69,13 @@ type UnionServer struct {
 
 // ServerConfig 包含服务器的核心依赖和配置.
 type ServerConfig struct {
-	cfg        *Config
-	biz        biz.IBiz
-	val        *validation.Validator
-	restConfig *rest.Config
-	kubeClient *kubernetes.Clientset
+	cfg           *Config
+	biz           biz.IBiz
+	val           *validation.Validator
+	restConfig    *rest.Config
+	kubeClient    *kubernetes.Clientset
+	volcanoClient *volcanoclientset.Clientset
+	argoClient    *argoclientset.Clientset
 }
 
 // NewUnionServer 根据配置创建联合服务器.
@@ -171,6 +176,14 @@ func ProvideKubeClient(cfg *rest.Config) (*kubernetes.Clientset, error) {
 	}
 	log.Infow("Connected to Kubernetes", "version", ver.String())
 	return client, nil
+}
+
+func ProvideVolcanoClient(cfg *rest.Config) (*volcanoclientset.Clientset, error) {
+	return k8s.NewVolcanoClient(cfg)
+}
+
+func ProvideArgoClient(cfg *rest.Config) (*argoclientset.Clientset, error) {
+	return k8s.NewArgoClient(cfg)
 }
 
 func NewWebServer(serverMode string, serverConfig *ServerConfig) (server.Server, error) {

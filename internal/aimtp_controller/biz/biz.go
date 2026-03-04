@@ -4,8 +4,10 @@ import (
 	dagv1 "aimtp/internal/aimtp_controller/biz/V1/dag"
 	"aimtp/internal/aimtp_controller/store"
 
+	argoclientset "github.com/argoproj/argo-workflows/v3/pkg/client/clientset/versioned"
 	"github.com/google/wire"
 	"k8s.io/client-go/kubernetes"
+	volcanoclientset "volcano.sh/apis/pkg/client/clientset/versioned"
 )
 
 // ProviderSet 是一个 Wire 的 Provider 集合，用于声明依赖注入的规则.
@@ -22,21 +24,25 @@ type IBiz interface {
 
 // biz 是 IBiz 的一个具体实现.
 type biz struct {
-	store      store.IStore
-	kubeClient kubernetes.Interface
+	store         store.IStore
+	kubeClient    kubernetes.Interface
+	volcanoClient volcanoclientset.Interface
+	argoClient    argoclientset.Interface
 }
 
 // 确保 biz 实现了 IBiz 接口.
 var _ IBiz = (*biz)(nil)
 
-func NewBiz(store store.IStore, kubeClient kubernetes.Interface) *biz {
+func NewBiz(store store.IStore, kubeClient kubernetes.Interface, volcanoClient volcanoclientset.Interface, argoClient argoclientset.Interface) *biz {
 	return &biz{
-		store:      store,
-		kubeClient: kubeClient,
+		store:         store,
+		kubeClient:    kubeClient,
+		volcanoClient: volcanoClient,
+		argoClient:    argoClient,
 	}
 }
 
 // DAGV1 返回一个实现了 DAGBiz 接口的实例.
 func (b *biz) DAGV1() dagv1.DAGBiz {
-	return dagv1.New(b.store, b.kubeClient)
+	return dagv1.New(b.store, b.kubeClient, b.volcanoClient, b.argoClient)
 }

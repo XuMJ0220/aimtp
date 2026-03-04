@@ -9,8 +9,10 @@ import (
 	"aimtp/internal/aimtp_controller/store"
 	"aimtp/internal/pkg/server"
 
+	argoclientset "github.com/argoproj/argo-workflows/v3/pkg/client/clientset/versioned"
 	"github.com/google/wire"
 	"k8s.io/client-go/kubernetes"
+	volcanoclientset "volcano.sh/apis/pkg/client/clientset/versioned"
 )
 
 func InitializeServer(*Config) (server.Server, error) {
@@ -23,6 +25,10 @@ func InitializeServer(*Config) (server.Server, error) {
 		ProvideK8sRESTConfig,
 		ProvideKubeClient,
 		wire.Bind(new(kubernetes.Interface), new(*kubernetes.Clientset)),
+		ProvideVolcanoClient,
+		wire.Bind(new(volcanoclientset.Interface), new(*volcanoclientset.Clientset)),
+		ProvideArgoClient,
+		wire.Bind(new(argoclientset.Interface), new(*argoclientset.Clientset)),
 	)
 	return nil, nil
 }
