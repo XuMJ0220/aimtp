@@ -19,6 +19,7 @@ func InitializeServer(*Config) (server.Server, error) {
 	wire.Build(
 		wire.NewSet(NewWebServer, wire.FieldsOf(new(*Config), "ServerMode")),
 		wire.Struct(new(ServerConfig), "*"),
+		wire.FieldsOf(new(*Config), "K8sOptions"),
 		wire.NewSet(store.ProviderSet, biz.ProviderSet),
 		ProvideDB,
 		validation.ProviderSet,

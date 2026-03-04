@@ -3,6 +3,7 @@ package biz
 import (
 	dagv1 "aimtp/internal/aimtp_controller/biz/V1/dag"
 	"aimtp/internal/aimtp_controller/store"
+	"aimtp/internal/pkg/k8s"
 
 	argoclientset "github.com/argoproj/argo-workflows/v3/pkg/client/clientset/versioned"
 	"github.com/google/wire"
@@ -28,21 +29,23 @@ type biz struct {
 	kubeClient    kubernetes.Interface
 	volcanoClient volcanoclientset.Interface
 	argoClient    argoclientset.Interface
+	k8sOpts       *k8s.ConfigOptions
 }
 
 // 确保 biz 实现了 IBiz 接口.
 var _ IBiz = (*biz)(nil)
 
-func NewBiz(store store.IStore, kubeClient kubernetes.Interface, volcanoClient volcanoclientset.Interface, argoClient argoclientset.Interface) *biz {
+func NewBiz(store store.IStore, kubeClient kubernetes.Interface, volcanoClient volcanoclientset.Interface, argoClient argoclientset.Interface, k8sOpts *k8s.ConfigOptions) *biz {
 	return &biz{
 		store:         store,
 		kubeClient:    kubeClient,
 		volcanoClient: volcanoClient,
 		argoClient:    argoClient,
+		k8sOpts:       k8sOpts,
 	}
 }
 
 // DAGV1 返回一个实现了 DAGBiz 接口的实例.
 func (b *biz) DAGV1() dagv1.DAGBiz {
-	return dagv1.New(b.store, b.kubeClient, b.volcanoClient, b.argoClient)
+	return dagv1.New(b.store, b.kubeClient, b.volcanoClient, b.argoClient, b.k8sOpts)
 }

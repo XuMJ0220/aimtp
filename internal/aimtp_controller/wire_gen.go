@@ -38,7 +38,8 @@ func InitializeServer(config *Config) (server.Server, error) {
 	if err != nil {
 		return nil, err
 	}
-	bizBiz := biz.NewBiz(datastore, clientset, versionedClientset, clientset2)
+	configOptions := config.K8sOptions
+	bizBiz := biz.NewBiz(datastore, clientset, versionedClientset, clientset2, configOptions)
 	validator := validation.New(datastore)
 	serverConfig := &ServerConfig{
 		cfg:           config,

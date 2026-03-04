@@ -18,6 +18,13 @@ type ConfigOptions struct {
 	Timeout    time.Duration
 	UserAgent  string
 	Insecure   bool
+	Storage    StorageOptions
+}
+
+type StorageOptions struct {
+	Type           string // hostPath, pvc, emptyDir
+	HostPathPrefix string // e.g. /run/desktop/mnt/host/d/aimtp/data/ or /data/
+	PVCName        string // if Type == pvc
 }
 
 func NewRestConfig(opts ConfigOptions) (*rest.Config, error) {
