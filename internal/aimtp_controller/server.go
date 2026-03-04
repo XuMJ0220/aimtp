@@ -3,18 +3,22 @@ package aimtp_controller
 import (
 	"aimtp/internal/aimtp_controller/biz"
 	"aimtp/internal/aimtp_controller/pkg/validation"
+	"aimtp/internal/pkg/k8s"
 	"aimtp/internal/pkg/known"
 	"aimtp/internal/pkg/log"
 	"aimtp/internal/pkg/server"
 	genericoptions "aimtp/pkg/options"
 	"aimtp/pkg/token"
 	"context"
+	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
 	"gorm.io/gorm"
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
 )
 
 const (
@@ -43,6 +47,7 @@ type Config struct {
 	TLSOptions         *genericoptions.TLSOptions
 	ControllerClusters map[string]string
 	KafkaOptions       *genericoptions.KafkaOptions
+	K8sOptions         *k8s.ConfigOptions
 }
 
 // UnionServer 定义一个联合服务器. 根据 ServerMode 决定要启动的服务器类型.
@@ -61,9 +66,11 @@ type UnionServer struct {
 
 // ServerConfig 包含服务器的核心依赖和配置.
 type ServerConfig struct {
-	cfg *Config
-	biz biz.IBiz
-	val *validation.Validator
+	cfg        *Config
+	biz        biz.IBiz
+	val        *validation.Validator
+	restConfig *rest.Config
+	kubeClient *kubernetes.Clientset
 }
 
 // NewUnionServer 根据配置创建联合服务器.
@@ -142,6 +149,28 @@ func (cfg *Config) NewDB() (*gorm.DB, error) {
 // ProvideDB 根据配置提供一个数据库实例。
 func ProvideDB(cfg *Config) (*gorm.DB, error) {
 	return cfg.NewDB()
+}
+
+func ProvideK8sRESTConfig(cfg *Config) (*rest.Config, error) {
+	var opts k8s.ConfigOptions
+	if cfg.K8sOptions != nil {
+		opts = *cfg.K8sOptions
+	}
+	return k8s.NewRestConfig(opts)
+}
+
+func ProvideKubeClient(cfg *rest.Config) (*kubernetes.Clientset, error) {
+	client, err := k8s.NewKubeClient(cfg)
+	if err != nil {
+		return nil, err
+	}
+	// 验证连通性
+	ver, err := client.Discovery().ServerVersion()
+	if err != nil {
+		return nil, fmt.Errorf("k8s connectivity check failed: %w", err)
+	}
+	log.Infow("Connected to Kubernetes", "version", ver.String())
+	return client, nil
 }
 
 func NewWebServer(serverMode string, serverConfig *ServerConfig) (server.Server, error) {

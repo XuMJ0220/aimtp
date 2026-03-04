@@ -11,8 +11,8 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 
-	apiv1 "aimtp/pkg/api/aimtp_controller/v1"
 	handler "aimtp/internal/aimtp_controller/handler/grpc"
+	apiv1 "aimtp/pkg/api/aimtp_controller/v1"
 )
 
 // grpcServer 定义一个 gRPC 服务器.
@@ -102,9 +102,7 @@ func (s *grpcServer) GracefulStop(ctx context.Context) {
 
 // NewAuthnWhiteListMatcher 创建认证白名单匹配器.
 func NewAuthnWhiteListMatcher() selector.Matcher {
-	whitelist := map[string]struct{}{
-
-	}
+	whitelist := map[string]struct{}{}
 	return selector.MatchFunc(func(ctx context.Context, call interceptors.CallMeta) bool {
 		_, ok := whitelist[call.FullMethod()]
 		return !ok
@@ -113,9 +111,7 @@ func NewAuthnWhiteListMatcher() selector.Matcher {
 
 // NewAuthzWhiteListMatcher 创建授权白名单匹配器.
 func NewAuthzWhiteListMatcher() selector.Matcher {
-	whitelist := map[string]struct{}{
-
-	}
+	whitelist := map[string]struct{}{}
 	return selector.MatchFunc(func(ctx context.Context, call interceptors.CallMeta) bool {
 		_, ok := whitelist[call.FullMethod()]
 		return !ok

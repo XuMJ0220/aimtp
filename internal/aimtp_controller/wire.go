@@ -10,6 +10,7 @@ import (
 	"aimtp/internal/pkg/server"
 
 	"github.com/google/wire"
+	"k8s.io/client-go/kubernetes"
 )
 
 func InitializeServer(*Config) (server.Server, error) {
@@ -19,6 +20,9 @@ func InitializeServer(*Config) (server.Server, error) {
 		wire.NewSet(store.ProviderSet, biz.ProviderSet),
 		ProvideDB,
 		validation.ProviderSet,
+		ProvideK8sRESTConfig,
+		ProvideKubeClient,
+		wire.Bind(new(kubernetes.Interface), new(*kubernetes.Clientset)),
 	)
 	return nil, nil
 }

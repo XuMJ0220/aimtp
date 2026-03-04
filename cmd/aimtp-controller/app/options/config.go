@@ -6,6 +6,7 @@ package options
 
 import (
 	"aimtp/internal/aimtp_controller"
+	"aimtp/internal/pkg/k8s"
 	"errors"
 	"fmt"
 	"time"
@@ -44,6 +45,7 @@ type ServerOptions struct {
 	TLSOptions *genericoptions.TLSOptions `json:"tls" mapstructure:"tls"`
 	// KafkaOptions 包含 Kafka 配置选项.
 	KafkaOptions *genericoptions.KafkaOptions `json:"kafka" mapstructure:"kafka"`
+	K8sOptions   *k8s.ConfigOptions           `json:"k8s" mapstructure:"k8s"`
 }
 
 // NewServerOptions 创建带有默认值的 ServerOptions 实例.
@@ -57,6 +59,7 @@ func NewServerOptions() *ServerOptions {
 		MySQLOptions: genericoptions.NewMySQLOptions(),
 		TLSOptions:   genericoptions.NewTLSOptions(),
 		KafkaOptions: genericoptions.NewKafkaOptions(),
+		K8sOptions:   &k8s.ConfigOptions{},
 	}
 	opts.GRPCOptions.Addr = ":6668"
 	opts.HTTPOptions.Addr = ":5557"
@@ -80,6 +83,13 @@ func (o *ServerOptions) AddFlags(fs *pflag.FlagSet) {
 	o.MySQLOptions.AddFlags(fs, "mysql")
 	o.TLSOptions.AddFlags(fs, "tls")
 	o.KafkaOptions.AddFlags(fs, "kafka")
+	fs.StringVar(&o.K8sOptions.Kubeconfig, "k8s.kubeconfig", o.K8sOptions.Kubeconfig, "")
+	fs.BoolVar(&o.K8sOptions.InCluster, "k8s.in-cluster", o.K8sOptions.InCluster, "")
+	fs.Float32Var(&o.K8sOptions.QPS, "k8s.qps", o.K8sOptions.QPS, "")
+	fs.IntVar(&o.K8sOptions.Burst, "k8s.burst", o.K8sOptions.Burst, "")
+	fs.DurationVar(&o.K8sOptions.Timeout, "k8s.timeout", o.K8sOptions.Timeout, "")
+	fs.StringVar(&o.K8sOptions.UserAgent, "k8s.user-agent", o.K8sOptions.UserAgent, "")
+	fs.BoolVar(&o.K8sOptions.Insecure, "k8s.insecure", o.K8sOptions.Insecure, "Skip TLS verification for k8s client")
 }
 
 // Validate 校验 ServerOptions 中的选项是否合法.
@@ -131,5 +141,6 @@ func (o *ServerOptions) Config() (*aimtp_controller.Config, error) {
 		MySQLOptions: o.MySQLOptions,
 		TLSOptions:   o.TLSOptions,
 		KafkaOptions: o.KafkaOptions,
+		K8sOptions:   o.K8sOptions,
 	}, nil
 }

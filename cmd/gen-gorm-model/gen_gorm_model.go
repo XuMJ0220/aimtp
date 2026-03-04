@@ -27,9 +27,9 @@ type GenerateConfig struct {
 
 // 预定义的生成配置.
 var generateConfigs = map[string]GenerateConfig{
-	"aimpt_user":   {ModelPackagePath: "../../internal/apiserver/model", GenerateFunc: GenerateModels},
-	"aimpt_server": {ModelPackagePath: "../../internal/aimtp_server/model", GenerateFunc: GenerateAIMTPServerModels},
-	"aimpt_controller":{ModelPackagePath: "../../internal/aimtp_controller/model", GenerateFunc: GenerateAIMTPControllerModels},
+	"aimpt_user":       {ModelPackagePath: "../../internal/apiserver/model", GenerateFunc: GenerateModels},
+	"aimpt_server":     {ModelPackagePath: "../../internal/aimtp_server/model", GenerateFunc: GenerateAIMTPServerModels},
+	"aimpt_controller": {ModelPackagePath: "../../internal/aimtp_controller/model", GenerateFunc: GenerateAIMTPControllerModels},
 }
 
 var (
@@ -195,6 +195,15 @@ func GenerateAIMTPControllerModels(g *gen.Generator) {
 		gen.FieldIgnore("placeholder"),
 		gen.FieldGORMTag("dagName", func(tag field.GormTag) field.GormTag {
 			tag.Set("uniqueIndex", "idx_dag_status_summary_dag_name")
+			return tag
+		}),
+	)
+	g.GenerateModelAs(
+		"job_status",
+		"JobStatusM",
+		gen.FieldIgnore("placeholder"),
+		gen.FieldGORMTag("jobID", func(tag field.GormTag) field.GormTag {
+			tag.Set("uniqueIndex", "idx_job_status_job_id")
 			return tag
 		}),
 	)

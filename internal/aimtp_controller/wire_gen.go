@@ -22,12 +22,22 @@ func InitializeServer(config *Config) (server.Server, error) {
 		return nil, err
 	}
 	datastore := store.NewStore(db)
-	bizBiz := biz.NewBiz(datastore)
+	restConfig, err := ProvideK8sRESTConfig(config)
+	if err != nil {
+		return nil, err
+	}
+	clientset, err := ProvideKubeClient(restConfig)
+	if err != nil {
+		return nil, err
+	}
+	bizBiz := biz.NewBiz(datastore, clientset)
 	validator := validation.New(datastore)
 	serverConfig := &ServerConfig{
-		cfg: config,
-		biz: bizBiz,
-		val: validator,
+		cfg:        config,
+		biz:        bizBiz,
+		val:        validator,
+		restConfig: restConfig,
+		kubeClient: clientset,
 	}
 	serverServer, err := NewWebServer(string2, serverConfig)
 	if err != nil {

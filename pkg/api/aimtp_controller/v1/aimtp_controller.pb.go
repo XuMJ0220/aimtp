@@ -32,20 +32,25 @@ var File_aimtp_controller_v1_aimtp_controller_proto protoreflect.FileDescriptor
 
 const file_aimtp_controller_v1_aimtp_controller_proto_rawDesc = "" +
 	"\n" +
-	"*aimtp_controller/v1/aimtp_controller.proto\x12\x13aimtp_controller_v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a!aimtp_controller/v1/healthz.proto2m\n" +
+	"*aimtp_controller/v1/aimtp_controller.proto\x12\x13aimtp_controller_v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a!aimtp_controller/v1/healthz.proto\x1a\x1daimtp_controller/v1/dag.proto2\xe7\x01\n" +
 	"\x10AIMTP_CONTROLLER\x12Y\n" +
 	"\aHealthz\x12\x16.google.protobuf.Empty\x1a$.aimtp_controller_v1.HealthzResponse\"\x10\x82\xd3\xe4\x93\x02\n" +
-	"\x12\b/healthzB7Z5aimtp/pkg/api/aimtp_controller/v1;aimtp_controller_v1b\x06proto3"
+	"\x12\b/healthz\x12x\n" +
+	"\tCreateDAG\x12%.aimtp_controller_v1.CreateDAGRequest\x1a&.aimtp_controller_v1.CreateDAGResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/internal/dagsB7Z5aimtp/pkg/api/aimtp_controller/v1;aimtp_controller_v1b\x06proto3"
 
 var file_aimtp_controller_v1_aimtp_controller_proto_goTypes = []any{
-	(*emptypb.Empty)(nil),   // 0: google.protobuf.Empty
-	(*HealthzResponse)(nil), // 1: aimtp_controller_v1.HealthzResponse
+	(*emptypb.Empty)(nil),     // 0: google.protobuf.Empty
+	(*CreateDAGRequest)(nil),  // 1: aimtp_controller_v1.CreateDAGRequest
+	(*HealthzResponse)(nil),   // 2: aimtp_controller_v1.HealthzResponse
+	(*CreateDAGResponse)(nil), // 3: aimtp_controller_v1.CreateDAGResponse
 }
 var file_aimtp_controller_v1_aimtp_controller_proto_depIdxs = []int32{
 	0, // 0: aimtp_controller_v1.AIMTP_CONTROLLER.Healthz:input_type -> google.protobuf.Empty
-	1, // 1: aimtp_controller_v1.AIMTP_CONTROLLER.Healthz:output_type -> aimtp_controller_v1.HealthzResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	1, // 1: aimtp_controller_v1.AIMTP_CONTROLLER.CreateDAG:input_type -> aimtp_controller_v1.CreateDAGRequest
+	2, // 2: aimtp_controller_v1.AIMTP_CONTROLLER.Healthz:output_type -> aimtp_controller_v1.HealthzResponse
+	3, // 3: aimtp_controller_v1.AIMTP_CONTROLLER.CreateDAG:output_type -> aimtp_controller_v1.CreateDAGResponse
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -57,6 +62,7 @@ func file_aimtp_controller_v1_aimtp_controller_proto_init() {
 		return
 	}
 	file_aimtp_controller_v1_healthz_proto_init()
+	file_aimtp_controller_v1_dag_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

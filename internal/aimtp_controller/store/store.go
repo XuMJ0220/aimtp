@@ -29,6 +29,7 @@ type IStore interface {
 	TX(tx context.Context, fn func(ctx context.Context) error) error
 
 	DAG() DAGStore
+	Job() JobStore
 }
 
 // transactionKey 用于在 context.Context 中存储事务上下文的键.
@@ -36,7 +37,7 @@ type transactionKey struct{}
 
 // datastore 是 IStore 的具体实现.
 type datastore struct {
-	global *gorm.DB
+	core *gorm.DB
 
 	// 可以根据需要添加其他数据库实例
 	// fake *gorm.DB
@@ -49,7 +50,7 @@ func NewStore(db *gorm.DB) *datastore {
 	// 确保 S 只被初始化一次
 	once.Do(func() {
 		S = &datastore{
-			global: db,
+			core: db,
 		}
 	})
 
@@ -59,7 +60,7 @@ func NewStore(db *gorm.DB) *datastore {
 // 可以传入 wheres 参数来构造查询条件.
 // 当传入的 tx 是经过 TX() 方法处理过的 context.Context 时，最终得到的是事务内的 *gorm.DB 实例.
 func (store *datastore) DB(tx context.Context, wheres ...where.Where) *gorm.DB {
-	db := store.global
+	db := store.core
 	// 从上下文中提取事物实例
 	if tx, ok := tx.Value(transactionKey{}).(*gorm.DB); ok {
 		db = tx
@@ -77,7 +78,7 @@ func (store *datastore) DB(tx context.Context, wheres ...where.Where) *gorm.DB {
 // 在使用的使用一般第二个参数的 fn 函数要调用 DB()
 // 例如 store.TX(ctx, func(ctx context.Context)error{ store.BD(ctx).Create(...) ... })
 func (store *datastore) TX(ctx context.Context, fn func(ctx context.Context) error) error {
-	return store.global.WithContext(ctx).Transaction(	
+	return store.core.WithContext(ctx).Transaction(
 		func(tx *gorm.DB) error {
 			ctx = context.WithValue(ctx, transactionKey{}, tx)
 			return fn(ctx)
@@ -88,4 +89,9 @@ func (store *datastore) TX(ctx context.Context, fn func(ctx context.Context) err
 // DAG 返回一个实现了 DAGStore 接口的实例.
 func (store *datastore) DAG() DAGStore {
 	return newDAGStore(store)
+}
+
+// Job 返回一个实现了 JobStore 接口的实例.
+func (store *datastore) Job() JobStore {
+	return newJobStore(store)
 }

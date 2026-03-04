@@ -5,6 +5,7 @@ import (
 	"aimtp/internal/aimtp_controller/store"
 
 	"github.com/google/wire"
+	"k8s.io/client-go/kubernetes"
 )
 
 // ProviderSet 是一个 Wire 的 Provider 集合，用于声明依赖注入的规则.
@@ -21,19 +22,21 @@ type IBiz interface {
 
 // biz 是 IBiz 的一个具体实现.
 type biz struct {
-	store store.IStore
+	store      store.IStore
+	kubeClient kubernetes.Interface
 }
 
 // 确保 biz 实现了 IBiz 接口.
 var _ IBiz = (*biz)(nil)
 
-func NewBiz(store store.IStore) *biz {
+func NewBiz(store store.IStore, kubeClient kubernetes.Interface) *biz {
 	return &biz{
-		store: store,
+		store:      store,
+		kubeClient: kubeClient,
 	}
 }
 
 // DAGV1 返回一个实现了 DAGBiz 接口的实例.
 func (b *biz) DAGV1() dagv1.DAGBiz {
-	return dagv1.New(b.store)
+	return dagv1.New(b.store, b.kubeClient)
 }
