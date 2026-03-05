@@ -7,6 +7,7 @@ replace cloud.google.com/go => cloud.google.com/go v0.115.0
 
 require (
 	github.com/BurntSushi/toml v1.6.0
+	github.com/argoproj/argo-workflows/v3 v3.5.5
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
 	github.com/casbin/casbin/v2 v2.103.0
 	github.com/casbin/gorm-adapter/v3 v3.32.0
@@ -20,6 +21,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.2
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.4
 	github.com/jinzhu/copier v0.4.0
+	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51
 	github.com/nicksnyder/go-i18n/v2 v2.6.1
 	github.com/onexstack/onexstack v0.3.19
 	github.com/onexstack/protoc-gen-defaults v0.0.2
@@ -49,10 +51,12 @@ require (
 	gorm.io/driver/sqlite v1.6.0
 	gorm.io/gen v0.3.27
 	gorm.io/gorm v1.31.1
+	k8s.io/api v0.34.2
 	k8s.io/apimachinery v0.34.2
 	k8s.io/client-go v0.34.2
 	k8s.io/klog/v2 v2.130.1
 	k8s.io/utils v0.0.0-20250604170112-4c0f3b243397
+	volcano.sh/apis v1.9.0
 )
 
 require (
@@ -60,7 +64,6 @@ require (
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20230124172434-306776ec8161 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
-	github.com/argoproj/argo-workflows/v3 v3.5.5 // indirect
 	github.com/bmatcuk/doublestar/v4 v4.6.1 // indirect
 	github.com/bytedance/gopkg v0.1.3 // indirect
 	github.com/bytedance/sonic v1.14.1 // indirect
@@ -188,7 +191,6 @@ require (
 	gorm.io/driver/sqlserver v1.6.0 // indirect
 	gorm.io/hints v1.1.2 // indirect
 	gorm.io/plugin/dbresolver v1.6.2 // indirect
-	k8s.io/api v0.34.2 // indirect
 	k8s.io/kube-openapi v0.0.0-20250710124328-f3f2b991d03b // indirect
 	modernc.org/libc v1.22.4 // indirect
 	modernc.org/mathutil v1.5.0 // indirect
@@ -198,5 +200,4 @@ require (
 	sigs.k8s.io/randfill v1.0.0 // indirect
 	sigs.k8s.io/structured-merge-diff/v6 v6.3.0 // indirect
 	sigs.k8s.io/yaml v1.6.0 // indirect
-	volcano.sh/apis v1.9.0 // indirect
 )

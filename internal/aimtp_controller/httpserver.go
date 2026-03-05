@@ -50,20 +50,20 @@ func (c *ServerConfig) InstallRESTAPI(engine *gin.Engine) {
 	InstallGenericAPI(engine)
 
 	// 创建核心业务处理器
-	handler := handler.NewHandler(c.biz,c.val)
+	handler := handler.NewHandler(c.biz, c.val)
 
 	// 注册健康检查接口
 	engine.GET("/healthz", handler.Healthz)
 
 	// 注册 v1 版本 API 路由分组
-	// v1 := engine.Group("/v1")
-	// {
-	// 	// DAG 相关路由
-	// 	dagv1:=v1.Group("/internal/dags")
-	// 	{
-	// 		dagv1.POST("",handler.CreateDAG)
-	// 	}
-	// }
+	v1 := engine.Group("/v1")
+	{
+		// DAG 相关路由
+		dagv1 := v1.Group("/internal/dags")
+		{
+			dagv1.POST("", handler.CreateDAG)
+		}
+	}
 }
 
 // InstallGenericAPI 注册业务无关的路由，例如 pprof、404 处理等.

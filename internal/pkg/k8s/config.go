@@ -11,20 +11,20 @@ import (
 )
 
 type ConfigOptions struct {
-	Kubeconfig string
-	InCluster  bool
-	QPS        float32
-	Burst      int
-	Timeout    time.Duration
-	UserAgent  string
-	Insecure   bool
-	Storage    StorageOptions
+	Kubeconfig string         `json:"kubeconfig" mapstructure:"kubeconfig"`
+	InCluster  bool           `json:"in-cluster" mapstructure:"in-cluster"`
+	QPS        float32        `json:"qps" mapstructure:"qps"`
+	Burst      int            `json:"burst" mapstructure:"burst"`
+	Timeout    time.Duration  `json:"timeout" mapstructure:"timeout"`
+	UserAgent  string         `json:"user-agent" mapstructure:"user-agent"`
+	Insecure   bool           `json:"insecure" mapstructure:"insecure"`
+	Storage    StorageOptions `json:"storage" mapstructure:"storage"`
 }
 
 type StorageOptions struct {
-	Type           string // hostPath, pvc, emptyDir
-	HostPathPrefix string // e.g. /run/desktop/mnt/host/d/aimtp/data/ or /data/
-	PVCName        string // if Type == pvc
+	Type           string `json:"type" mapstructure:"type"`                         // hostPath, pvc, emptyDir
+	HostPathPrefix string `json:"host-path-prefix" mapstructure:"host-path-prefix"` // e.g. /run/desktop/mnt/host/d/aimtp/data/ or /data/
+	PVCName        string `json:"pvc-name" mapstructure:"pvc-name"`                 // if Type == pvc
 }
 
 func NewRestConfig(opts ConfigOptions) (*rest.Config, error) {

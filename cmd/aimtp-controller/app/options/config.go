@@ -90,11 +90,6 @@ func (o *ServerOptions) AddFlags(fs *pflag.FlagSet) {
 	fs.DurationVar(&o.K8sOptions.Timeout, "k8s.timeout", o.K8sOptions.Timeout, "")
 	fs.StringVar(&o.K8sOptions.UserAgent, "k8s.user-agent", o.K8sOptions.UserAgent, "")
 	fs.BoolVar(&o.K8sOptions.Insecure, "k8s.insecure", o.K8sOptions.Insecure, "Skip TLS verification for k8s client")
-
-	// Storage options
-	fs.StringVar(&o.K8sOptions.Storage.Type, "k8s.storage.type", o.K8sOptions.Storage.Type, "Storage type: hostPath, pvc, emptyDir")
-	fs.StringVar(&o.K8sOptions.Storage.HostPathPrefix, "k8s.storage.host-path-prefix", o.K8sOptions.Storage.HostPathPrefix, "Host path prefix for hostPath storage")
-	fs.StringVar(&o.K8sOptions.Storage.PVCName, "k8s.storage.pvc-name", o.K8sOptions.Storage.PVCName, "PVC name for pvc storage")
 }
 
 // Validate 校验 ServerOptions 中的选项是否合法.

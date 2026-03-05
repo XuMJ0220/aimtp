@@ -12,6 +12,7 @@ import (
 	"time"
 
 	wfv1 "github.com/argoproj/argo-workflows/v3/pkg/apis/workflow/v1alpha1"
+	"github.com/kballard/go-shellquote"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	vcbatch "volcano.sh/apis/pkg/apis/batch/v1alpha1"
@@ -274,14 +275,39 @@ func (b *dagBiz) buildPodSpec(task *v1.Task, req *v1.CreateDAGRequest) corev1.Po
 		// 如果挂载失败，暂时只记录日志，不阻断（或者根据业务需求 panic/error）
 	}
 
+	// 解析命令行
+	var command []string
+	var args []string
+	if task.GetCommand().GetCommandLine() != "" {
+		// 使用 shellquote 解析命令行字符串
+		parts, err := shellquote.Split(task.GetCommand().GetCommandLine())
+		if err != nil {
+			log.Errorw("Failed to split command line", "err", err, "command", task.GetCommand().GetCommandLine())
+			// 降级处理：如果不符合 shell 规则，则整体作为一个参数
+			command = []string{task.GetCommand().GetCommandLine()}
+		} else {
+			if len(parts) > 0 {
+				command = []string{parts[0]}
+				if len(parts) > 1 {
+					args = parts[1:]
+				}
+			}
+		}
+	}
+
+	// 如果 Task 中显式定义了 Args，则追加到解析出的 args 后面（或者覆盖，取决于业务约定）
+	// 这里假设 Task.Args 是额外的参数
+	extraArgs := conversion.ConvertArgs(task.GetCommand().GetArgs())
+	args = append(args, extraArgs...)
+
 	return corev1.PodTemplateSpec{
 		Spec: corev1.PodSpec{
 			Containers: []corev1.Container{
 				{
 					Name:         task.Name,
 					Image:        task.Image,
-					Command:      []string{task.GetCommand().GetCommandLine()},
-					Args:         conversion.ConvertArgs(task.GetCommand().GetArgs()),
+					Command:      command,
+					Args:         args,
 					Resources:    conversion.ConvertResources(task.Resources),
 					Env:          conversion.ConvertEnv(task.Env),
 					Ports:        conversion.ConvertPorts(task.Ports),
