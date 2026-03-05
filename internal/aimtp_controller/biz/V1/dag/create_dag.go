@@ -58,8 +58,8 @@ func (b *dagBiz) createSingleTask(ctx context.Context, req *v1.CreateDAGRequest)
 	}
 
 	task := req.Tasks[0]
-	// Job名称格式：aimtp-job-{dag_name}-{task_name}
-	jobName := fmt.Sprintf("aimtp-job-%s-%s", req.DagName, task.Name)
+	// Job名称格式：aimtp-{task_name}
+	jobName := fmt.Sprintf("aimtp-%s", task.Name)
 	// 任务类型
 	jobType := task.Type
 	if jobType == "" {
@@ -107,7 +107,7 @@ func (b *dagBiz) createSingleTask(ctx context.Context, req *v1.CreateDAGRequest)
 			Queue:         req.QueueName,
 			Tasks: []vcbatch.TaskSpec{
 				{
-					Name:     task.Name,
+					Name:     req.DagName, // TaskSpec.Name = req.DagName，用于生成 Pod Name
 					Replicas: int32(task.InstanceCount),
 					Template: b.buildPodSpec(task, req),
 				},
