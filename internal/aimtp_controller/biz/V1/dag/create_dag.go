@@ -143,14 +143,15 @@ func (b *dagBiz) createWorkflow(ctx context.Context, req *v1.CreateDAGRequest) e
 			JobID:        vjJobName,
 			DagName:      req.DagName,
 			Cluster:      req.Cluster,
-			JobType:      JobTypeVolcano, // 注意：Argo 里的任务本质也是 Volcano Job
-			Engine:       EngineVolcano,
+			JobType:      JobTypeArgo, // 修改为 Argo
+			Engine:       EngineArgo,  // 修改为 Argo
 			State:        "pending",
 			CreatedAt:    &now,
 			UpdatedAt:    now,
 			VjName:       &vjJobName,
 			Namespace:    &namespace,
 			WorkflowName: &req.DagName,
+			JobName:      task.Name, // 补充 JobName
 		}
 		if err := b.store.Job().Create(ctx, jobStatus); err != nil {
 			return err // TODO: 考虑回滚已创建的记录
