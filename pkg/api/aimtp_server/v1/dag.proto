@@ -136,7 +136,7 @@ message Command {
     // @gotags: json:"message_key"
     string message_key = 6 [json_name = "message_key"]; // 消息键（parallel任务）
     // @gotags: json:"args"
-    google.protobuf.Struct args = 7 [json_name = "args"]; // 参数 map[string]interface{}
+    repeated string args = 7 [json_name = "args"]; // 参数 []string
 }
 
 message GitInfo {

@@ -574,7 +574,7 @@ type Command struct {
 	// @gotags: json:"message_key"
 	MessageKey string `protobuf:"bytes,6,opt,name=message_key,proto3" json:"message_key"` // 消息键（parallel任务）
 	// @gotags: json:"args"
-	Args          *structpb.Struct `protobuf:"bytes,7,opt,name=args,proto3" json:"args"` // 参数 map[string]interface{}
+	Args          []string `protobuf:"bytes,7,rep,name=args,proto3" json:"args"` // 参数 []string
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -651,7 +651,7 @@ func (x *Command) GetMessageKey() string {
 	return ""
 }
 
-func (x *Command) GetArgs() *structpb.Struct {
+func (x *Command) GetArgs() []string {
 	if x != nil {
 		return x.Args
 	}
@@ -1864,15 +1864,15 @@ const file_aimtp_server_v1_dag_proto_rawDesc = "" +
 	"\x05ports\x18\x16 \x03(\v2\x1e.aimtp_server_v1.ContainerPortR\x05ports\x1a6\n" +
 	"\bEnvEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xfc\x01\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xe3\x01\n" +
 	"\aCommand\x12\"\n" +
 	"\fcommand_line\x18\x01 \x01(\tR\fcommand_line\x12\"\n" +
 	"\fpackage_path\x18\x02 \x01(\tR\fpackage_path\x12\x10\n" +
 	"\x03dir\x18\x03 \x01(\tR\x03dir\x12\x1a\n" +
 	"\bpassword\x18\x04 \x01(\tR\bpassword\x12,\n" +
 	"\x04gits\x18\x05 \x03(\v2\x18.aimtp_server_v1.GitInfoR\x04gits\x12 \n" +
-	"\vmessage_key\x18\x06 \x01(\tR\vmessage_key\x12+\n" +
-	"\x04args\x18\a \x01(\v2\x17.google.protobuf.StructR\x04args\"e\n" +
+	"\vmessage_key\x18\x06 \x01(\tR\vmessage_key\x12\x12\n" +
+	"\x04args\x18\a \x03(\tR\x04args\"e\n" +
 	"\aGitInfo\x12\x12\n" +
 	"\x04repo\x18\x01 \x01(\tR\x04repo\x12\x16\n" +
 	"\x06branch\x18\x02 \x01(\tR\x06branch\x12\x1c\n" +
@@ -2007,29 +2007,28 @@ var file_aimtp_server_v1_dag_proto_depIdxs = []int32{
 	22, // 8: aimtp_server_v1.Task.env:type_name -> aimtp_server_v1.Task.EnvEntry
 	17, // 9: aimtp_server_v1.Task.ports:type_name -> aimtp_server_v1.ContainerPort
 	4,  // 10: aimtp_server_v1.Command.gits:type_name -> aimtp_server_v1.GitInfo
-	24, // 11: aimtp_server_v1.Command.args:type_name -> google.protobuf.Struct
-	7,  // 12: aimtp_server_v1.Lifecycle.post_start:type_name -> aimtp_server_v1.Handler
-	7,  // 13: aimtp_server_v1.Lifecycle.pre_stop:type_name -> aimtp_server_v1.Handler
-	7,  // 14: aimtp_server_v1.Lifecycle.post_starts:type_name -> aimtp_server_v1.Handler
-	7,  // 15: aimtp_server_v1.Lifecycle.pre_stops:type_name -> aimtp_server_v1.Handler
-	8,  // 16: aimtp_server_v1.Handler.exec:type_name -> aimtp_server_v1.ExecHandler
-	9,  // 17: aimtp_server_v1.Handler.http_get:type_name -> aimtp_server_v1.HTTPGetHandler
-	10, // 18: aimtp_server_v1.Handler.redis:type_name -> aimtp_server_v1.RedisHandler
-	11, // 19: aimtp_server_v1.Handler.upload_message:type_name -> aimtp_server_v1.UploadMessageHandler
-	12, // 20: aimtp_server_v1.Handler.skip_downstream_tasks:type_name -> aimtp_server_v1.SkipDownstreamTasksHandler
-	13, // 21: aimtp_server_v1.Handler.check_auto_dp_task_done:type_name -> aimtp_server_v1.CheckAutoDPTaskDoneHandler
-	14, // 22: aimtp_server_v1.Handler.fillback_data_sync:type_name -> aimtp_server_v1.FillbackDataSync
-	24, // 23: aimtp_server_v1.HTTPGetHandler.headers:type_name -> google.protobuf.Struct
-	15, // 24: aimtp_server_v1.HTTPGetHandler.hook_time_control:type_name -> aimtp_server_v1.HookTimeControl
-	15, // 25: aimtp_server_v1.RedisHandler.hook_time_control:type_name -> aimtp_server_v1.HookTimeControl
-	19, // 26: aimtp_server_v1.AsyncTasks.tasks:type_name -> aimtp_server_v1.AsyncTask
-	24, // 27: aimtp_server_v1.AsyncTask.args:type_name -> google.protobuf.Struct
-	1,  // 28: aimtp_server_v1.CreateDAGRequest.DependenciesEntry.value:type_name -> aimtp_server_v1.DependenciesList
-	29, // [29:29] is the sub-list for method output_type
-	29, // [29:29] is the sub-list for method input_type
-	29, // [29:29] is the sub-list for extension type_name
-	29, // [29:29] is the sub-list for extension extendee
-	0,  // [0:29] is the sub-list for field type_name
+	7,  // 11: aimtp_server_v1.Lifecycle.post_start:type_name -> aimtp_server_v1.Handler
+	7,  // 12: aimtp_server_v1.Lifecycle.pre_stop:type_name -> aimtp_server_v1.Handler
+	7,  // 13: aimtp_server_v1.Lifecycle.post_starts:type_name -> aimtp_server_v1.Handler
+	7,  // 14: aimtp_server_v1.Lifecycle.pre_stops:type_name -> aimtp_server_v1.Handler
+	8,  // 15: aimtp_server_v1.Handler.exec:type_name -> aimtp_server_v1.ExecHandler
+	9,  // 16: aimtp_server_v1.Handler.http_get:type_name -> aimtp_server_v1.HTTPGetHandler
+	10, // 17: aimtp_server_v1.Handler.redis:type_name -> aimtp_server_v1.RedisHandler
+	11, // 18: aimtp_server_v1.Handler.upload_message:type_name -> aimtp_server_v1.UploadMessageHandler
+	12, // 19: aimtp_server_v1.Handler.skip_downstream_tasks:type_name -> aimtp_server_v1.SkipDownstreamTasksHandler
+	13, // 20: aimtp_server_v1.Handler.check_auto_dp_task_done:type_name -> aimtp_server_v1.CheckAutoDPTaskDoneHandler
+	14, // 21: aimtp_server_v1.Handler.fillback_data_sync:type_name -> aimtp_server_v1.FillbackDataSync
+	24, // 22: aimtp_server_v1.HTTPGetHandler.headers:type_name -> google.protobuf.Struct
+	15, // 23: aimtp_server_v1.HTTPGetHandler.hook_time_control:type_name -> aimtp_server_v1.HookTimeControl
+	15, // 24: aimtp_server_v1.RedisHandler.hook_time_control:type_name -> aimtp_server_v1.HookTimeControl
+	19, // 25: aimtp_server_v1.AsyncTasks.tasks:type_name -> aimtp_server_v1.AsyncTask
+	24, // 26: aimtp_server_v1.AsyncTask.args:type_name -> google.protobuf.Struct
+	1,  // 27: aimtp_server_v1.CreateDAGRequest.DependenciesEntry.value:type_name -> aimtp_server_v1.DependenciesList
+	28, // [28:28] is the sub-list for method output_type
+	28, // [28:28] is the sub-list for method input_type
+	28, // [28:28] is the sub-list for extension type_name
+	28, // [28:28] is the sub-list for extension extendee
+	0,  // [0:28] is the sub-list for field type_name
 }
 
 func init() { file_aimtp_server_v1_dag_proto_init() }
