@@ -223,8 +223,9 @@ func (b *dagBiz) createWorkflow(ctx context.Context, req *v1.CreateDAGRequest) e
 		wf.Spec.Templates = append(wf.Spec.Templates, wfv1.Template{
 			Name: tmplName,
 			Resource: &wfv1.ResourceTemplate{
-				Action:   "create",
-				Manifest: mustMarshal(vcJob), // 辅助函数
+				Action:            "create",
+				SetOwnerReference: true, // 关键：设置 OwnerReference，实现级联删除，这样子当 argo 被删除时，对应它所创建的 vcjob 也会被删除
+				Manifest:          mustMarshal(vcJob),
 			},
 		})
 

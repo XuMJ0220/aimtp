@@ -30,6 +30,7 @@ type IStore interface {
 
 	DAG() DAGStore
 	Job() JobStore
+	Pod() PodStore
 }
 
 // transactionKey 用于在 context.Context 中存储事务上下文的键.
@@ -94,4 +95,9 @@ func (store *datastore) DAG() DAGStore {
 // Job 返回一个实现了 JobStore 接口的实例.
 func (store *datastore) Job() JobStore {
 	return newJobStore(store)
+}
+
+// Pod 返回一个实现了 PodStore 接口的实例.
+func (store *datastore) Pod() PodStore {
+	return newPodStore(store)
 }

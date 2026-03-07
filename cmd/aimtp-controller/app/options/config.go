@@ -46,20 +46,23 @@ type ServerOptions struct {
 	// KafkaOptions 包含 Kafka 配置选项.
 	KafkaOptions *genericoptions.KafkaOptions `json:"kafka" mapstructure:"kafka"`
 	K8sOptions   *k8s.ConfigOptions           `json:"k8s" mapstructure:"k8s"`
+	// InformerCluster 定义当前 Informer 负责的集群 ID.
+	InformerCluster string `json:"informer-cluster" mapstructure:"informer-cluster"`
 }
 
 // NewServerOptions 创建带有默认值的 ServerOptions 实例.
 func NewServerOptions() *ServerOptions {
 	opts := &ServerOptions{
-		ServerMode:   aimtp_controller.GRPCGatewayServerMode,
-		JWTKey:       "Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5",
-		Expiration:   2 * time.Hour,
-		GRPCOptions:  genericoptions.NewGRPCOptions(),
-		HTTPOptions:  genericoptions.NewHTTPOptions(),
-		MySQLOptions: genericoptions.NewMySQLOptions(),
-		TLSOptions:   genericoptions.NewTLSOptions(),
-		KafkaOptions: genericoptions.NewKafkaOptions(),
-		K8sOptions:   &k8s.ConfigOptions{},
+		ServerMode:      aimtp_controller.GRPCGatewayServerMode,
+		JWTKey:          "Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5",
+		Expiration:      2 * time.Hour,
+		GRPCOptions:     genericoptions.NewGRPCOptions(),
+		HTTPOptions:     genericoptions.NewHTTPOptions(),
+		MySQLOptions:    genericoptions.NewMySQLOptions(),
+		TLSOptions:      genericoptions.NewTLSOptions(),
+		KafkaOptions:    genericoptions.NewKafkaOptions(),
+		K8sOptions:      &k8s.ConfigOptions{},
+		InformerCluster: "defaul",
 	}
 	opts.GRPCOptions.Addr = ":6668"
 	opts.HTTPOptions.Addr = ":5557"
@@ -90,6 +93,7 @@ func (o *ServerOptions) AddFlags(fs *pflag.FlagSet) {
 	fs.DurationVar(&o.K8sOptions.Timeout, "k8s.timeout", o.K8sOptions.Timeout, "")
 	fs.StringVar(&o.K8sOptions.UserAgent, "k8s.user-agent", o.K8sOptions.UserAgent, "")
 	fs.BoolVar(&o.K8sOptions.Insecure, "k8s.insecure", o.K8sOptions.Insecure, "Skip TLS verification for k8s client")
+	fs.StringVar(&o.InformerCluster, "informer-cluster", o.InformerCluster, "Cluster ID for informer controller")
 }
 
 // Validate 校验 ServerOptions 中的选项是否合法.

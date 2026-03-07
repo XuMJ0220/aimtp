@@ -207,4 +207,9 @@ func GenerateAIMTPControllerModels(g *gen.Generator) {
 			return tag
 		}),
 	)
+	g.GenerateModelAs(
+		"pod_status",
+		"PodStatusM",
+		gen.FieldIgnore("placeholder"),
+	)
 }
