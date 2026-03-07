@@ -27,8 +27,9 @@ type GenerateConfig struct {
 
 // 预定义的生成配置.
 var generateConfigs = map[string]GenerateConfig{
-	"aimpt_user":   {ModelPackagePath: "../../internal/apiserver/model", GenerateFunc: GenerateModels},
-	"aimpt_server": {ModelPackagePath: "../../internal/aimtp_server/model", GenerateFunc: GenerateAIMTPServerModels},
+	"aimpt_user":       {ModelPackagePath: "../../internal/apiserver/model", GenerateFunc: GenerateModels},
+	"aimpt_server":     {ModelPackagePath: "../../internal/aimtp_server/model", GenerateFunc: GenerateAIMTPServerModels},
+	"aimpt_controller": {ModelPackagePath: "../../internal/aimtp_controller/model", GenerateFunc: GenerateAIMTPControllerModels},
 }
 
 var (
@@ -37,7 +38,7 @@ var (
 	password   = pflag.StringP("password", "p", "aimtp1234", "Password to use when connecting to the database.")
 	database   = pflag.StringP("db", "d", "aimtp", "Database name to connect to.")
 	modelPath  = pflag.String("model-pkg-path", "", "Generated model code's package name.")
-	components = pflag.StringSlice("component", []string{"aimpt_user", "aimpt_server"}, "Generated model code's for specified component.")
+	components = pflag.StringSlice("component", []string{"aimpt_user", "aimpt_server", "aimpt_controller"}, "Generated model code's for specified component.")
 	help       = pflag.BoolP("help", "h", false, "Show this help message.")
 )
 
@@ -184,5 +185,31 @@ func GenerateAIMTPServerModels(g *gen.Generator) {
 			tag.Set("uniqueIndex", "idx_dag_status_summary_dag_name")
 			return tag
 		}),
+	)
+}
+
+func GenerateAIMTPControllerModels(g *gen.Generator) {
+	g.GenerateModelAs(
+		"dag_status_summary",
+		"DagStatusSummaryM",
+		gen.FieldIgnore("placeholder"),
+		gen.FieldGORMTag("dagName", func(tag field.GormTag) field.GormTag {
+			tag.Set("uniqueIndex", "idx_dag_status_summary_dag_name")
+			return tag
+		}),
+	)
+	g.GenerateModelAs(
+		"job_status",
+		"JobStatusM",
+		gen.FieldIgnore("placeholder"),
+		gen.FieldGORMTag("jobID", func(tag field.GormTag) field.GormTag {
+			tag.Set("uniqueIndex", "idx_job_status_job_id")
+			return tag
+		}),
+	)
+	g.GenerateModelAs(
+		"pod_status",
+		"PodStatusM",
+		gen.FieldIgnore("placeholder"),
 	)
 }

@@ -4,9 +4,9 @@
 // versions:
 // 	protoc-gen-go v1.36.7
 // 	protoc        v3.20.1
-// source: aimtp_server/v1/dag.proto
+// source: aimtp_controller/v1/dag.proto
 
-package aimtp_server_v1
+package aimtp_controller_v1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -84,7 +84,7 @@ type CreateDAGRequest struct {
 
 func (x *CreateDAGRequest) Reset() {
 	*x = CreateDAGRequest{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[0]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -96,7 +96,7 @@ func (x *CreateDAGRequest) String() string {
 func (*CreateDAGRequest) ProtoMessage() {}
 
 func (x *CreateDAGRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[0]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -109,7 +109,7 @@ func (x *CreateDAGRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateDAGRequest.ProtoReflect.Descriptor instead.
 func (*CreateDAGRequest) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{0}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *CreateDAGRequest) GetID() int32 {
@@ -289,7 +289,7 @@ type DependenciesList struct {
 
 func (x *DependenciesList) Reset() {
 	*x = DependenciesList{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[1]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -301,7 +301,7 @@ func (x *DependenciesList) String() string {
 func (*DependenciesList) ProtoMessage() {}
 
 func (x *DependenciesList) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[1]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -314,7 +314,7 @@ func (x *DependenciesList) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DependenciesList.ProtoReflect.Descriptor instead.
 func (*DependenciesList) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{1}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *DependenciesList) GetItems() []string {
@@ -377,7 +377,7 @@ type Task struct {
 
 func (x *Task) Reset() {
 	*x = Task{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[2]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -389,7 +389,7 @@ func (x *Task) String() string {
 func (*Task) ProtoMessage() {}
 
 func (x *Task) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[2]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -402,7 +402,7 @@ func (x *Task) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Task.ProtoReflect.Descriptor instead.
 func (*Task) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{2}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Task) GetName() string {
@@ -581,7 +581,7 @@ type Command struct {
 
 func (x *Command) Reset() {
 	*x = Command{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[3]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -593,7 +593,7 @@ func (x *Command) String() string {
 func (*Command) ProtoMessage() {}
 
 func (x *Command) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[3]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -606,7 +606,7 @@ func (x *Command) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Command.ProtoReflect.Descriptor instead.
 func (*Command) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{3}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *Command) GetCommandLine() string {
@@ -674,7 +674,7 @@ type GitInfo struct {
 
 func (x *GitInfo) Reset() {
 	*x = GitInfo{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[4]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -686,7 +686,7 @@ func (x *GitInfo) String() string {
 func (*GitInfo) ProtoMessage() {}
 
 func (x *GitInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[4]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -699,7 +699,7 @@ func (x *GitInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GitInfo.ProtoReflect.Descriptor instead.
 func (*GitInfo) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{4}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GitInfo) GetRepo() string {
@@ -752,7 +752,7 @@ type Resource struct {
 
 func (x *Resource) Reset() {
 	*x = Resource{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[5]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -764,7 +764,7 @@ func (x *Resource) String() string {
 func (*Resource) ProtoMessage() {}
 
 func (x *Resource) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[5]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -777,7 +777,7 @@ func (x *Resource) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Resource.ProtoReflect.Descriptor instead.
 func (*Resource) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{5}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *Resource) GetCPU() float32 {
@@ -845,7 +845,7 @@ type Lifecycle struct {
 
 func (x *Lifecycle) Reset() {
 	*x = Lifecycle{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[6]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -857,7 +857,7 @@ func (x *Lifecycle) String() string {
 func (*Lifecycle) ProtoMessage() {}
 
 func (x *Lifecycle) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[6]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -870,7 +870,7 @@ func (x *Lifecycle) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Lifecycle.ProtoReflect.Descriptor instead.
 func (*Lifecycle) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{6}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Lifecycle) GetPostStart() *Handler {
@@ -923,7 +923,7 @@ type Handler struct {
 
 func (x *Handler) Reset() {
 	*x = Handler{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[7]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -935,7 +935,7 @@ func (x *Handler) String() string {
 func (*Handler) ProtoMessage() {}
 
 func (x *Handler) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[7]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -948,7 +948,7 @@ func (x *Handler) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Handler.ProtoReflect.Descriptor instead.
 func (*Handler) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{7}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *Handler) GetExec() *ExecHandler {
@@ -1010,7 +1010,7 @@ type ExecHandler struct {
 
 func (x *ExecHandler) Reset() {
 	*x = ExecHandler{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[8]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1022,7 +1022,7 @@ func (x *ExecHandler) String() string {
 func (*ExecHandler) ProtoMessage() {}
 
 func (x *ExecHandler) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[8]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1035,7 +1035,7 @@ func (x *ExecHandler) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExecHandler.ProtoReflect.Descriptor instead.
 func (*ExecHandler) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{8}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *ExecHandler) GetCommand() string {
@@ -1065,7 +1065,7 @@ type HTTPGetHandler struct {
 
 func (x *HTTPGetHandler) Reset() {
 	*x = HTTPGetHandler{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[9]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1077,7 +1077,7 @@ func (x *HTTPGetHandler) String() string {
 func (*HTTPGetHandler) ProtoMessage() {}
 
 func (x *HTTPGetHandler) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[9]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1090,7 +1090,7 @@ func (x *HTTPGetHandler) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HTTPGetHandler.ProtoReflect.Descriptor instead.
 func (*HTTPGetHandler) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{9}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *HTTPGetHandler) GetSchema() string {
@@ -1156,7 +1156,7 @@ type RedisHandler struct {
 
 func (x *RedisHandler) Reset() {
 	*x = RedisHandler{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[10]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1168,7 +1168,7 @@ func (x *RedisHandler) String() string {
 func (*RedisHandler) ProtoMessage() {}
 
 func (x *RedisHandler) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[10]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1181,7 +1181,7 @@ func (x *RedisHandler) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RedisHandler.ProtoReflect.Descriptor instead.
 func (*RedisHandler) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{10}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *RedisHandler) GetKey() string {
@@ -1243,7 +1243,7 @@ type UploadMessageHandler struct {
 
 func (x *UploadMessageHandler) Reset() {
 	*x = UploadMessageHandler{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[11]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1255,7 +1255,7 @@ func (x *UploadMessageHandler) String() string {
 func (*UploadMessageHandler) ProtoMessage() {}
 
 func (x *UploadMessageHandler) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[11]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1268,7 +1268,7 @@ func (x *UploadMessageHandler) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UploadMessageHandler.ProtoReflect.Descriptor instead.
 func (*UploadMessageHandler) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{11}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *UploadMessageHandler) GetPath() string {
@@ -1310,7 +1310,7 @@ type SkipDownstreamTasksHandler struct {
 
 func (x *SkipDownstreamTasksHandler) Reset() {
 	*x = SkipDownstreamTasksHandler{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[12]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1322,7 +1322,7 @@ func (x *SkipDownstreamTasksHandler) String() string {
 func (*SkipDownstreamTasksHandler) ProtoMessage() {}
 
 func (x *SkipDownstreamTasksHandler) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[12]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1335,7 +1335,7 @@ func (x *SkipDownstreamTasksHandler) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SkipDownstreamTasksHandler.ProtoReflect.Descriptor instead.
 func (*SkipDownstreamTasksHandler) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{12}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *SkipDownstreamTasksHandler) GetTaskKey() string {
@@ -1356,7 +1356,7 @@ type CheckAutoDPTaskDoneHandler struct {
 
 func (x *CheckAutoDPTaskDoneHandler) Reset() {
 	*x = CheckAutoDPTaskDoneHandler{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[13]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1368,7 +1368,7 @@ func (x *CheckAutoDPTaskDoneHandler) String() string {
 func (*CheckAutoDPTaskDoneHandler) ProtoMessage() {}
 
 func (x *CheckAutoDPTaskDoneHandler) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[13]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1381,7 +1381,7 @@ func (x *CheckAutoDPTaskDoneHandler) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckAutoDPTaskDoneHandler.ProtoReflect.Descriptor instead.
 func (*CheckAutoDPTaskDoneHandler) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{13}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *CheckAutoDPTaskDoneHandler) GetUrlKey() string {
@@ -1404,7 +1404,7 @@ type FillbackDataSync struct {
 
 func (x *FillbackDataSync) Reset() {
 	*x = FillbackDataSync{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[14]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1416,7 +1416,7 @@ func (x *FillbackDataSync) String() string {
 func (*FillbackDataSync) ProtoMessage() {}
 
 func (x *FillbackDataSync) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[14]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1429,7 +1429,7 @@ func (x *FillbackDataSync) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FillbackDataSync.ProtoReflect.Descriptor instead.
 func (*FillbackDataSync) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{14}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *FillbackDataSync) GetBucket() string {
@@ -1459,7 +1459,7 @@ type HookTimeControl struct {
 
 func (x *HookTimeControl) Reset() {
 	*x = HookTimeControl{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[15]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1471,7 +1471,7 @@ func (x *HookTimeControl) String() string {
 func (*HookTimeControl) ProtoMessage() {}
 
 func (x *HookTimeControl) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[15]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1484,7 +1484,7 @@ func (x *HookTimeControl) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HookTimeControl.ProtoReflect.Descriptor instead.
 func (*HookTimeControl) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{15}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *HookTimeControl) GetInterval() int32 {
@@ -1516,7 +1516,7 @@ type RetryStrategy struct {
 
 func (x *RetryStrategy) Reset() {
 	*x = RetryStrategy{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[16]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1528,7 +1528,7 @@ func (x *RetryStrategy) String() string {
 func (*RetryStrategy) ProtoMessage() {}
 
 func (x *RetryStrategy) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[16]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1541,7 +1541,7 @@ func (x *RetryStrategy) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RetryStrategy.ProtoReflect.Descriptor instead.
 func (*RetryStrategy) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{16}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *RetryStrategy) GetLimit() int32 {
@@ -1580,7 +1580,7 @@ type ContainerPort struct {
 
 func (x *ContainerPort) Reset() {
 	*x = ContainerPort{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[17]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1592,7 +1592,7 @@ func (x *ContainerPort) String() string {
 func (*ContainerPort) ProtoMessage() {}
 
 func (x *ContainerPort) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[17]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1605,7 +1605,7 @@ func (x *ContainerPort) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ContainerPort.ProtoReflect.Descriptor instead.
 func (*ContainerPort) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{17}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *ContainerPort) GetContainerPort() int32 {
@@ -1644,7 +1644,7 @@ type AsyncTasks struct {
 
 func (x *AsyncTasks) Reset() {
 	*x = AsyncTasks{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[18]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1656,7 +1656,7 @@ func (x *AsyncTasks) String() string {
 func (*AsyncTasks) ProtoMessage() {}
 
 func (x *AsyncTasks) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[18]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1669,7 +1669,7 @@ func (x *AsyncTasks) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AsyncTasks.ProtoReflect.Descriptor instead.
 func (*AsyncTasks) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{18}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *AsyncTasks) GetInitCommand() string {
@@ -1708,7 +1708,7 @@ type AsyncTask struct {
 
 func (x *AsyncTask) Reset() {
 	*x = AsyncTask{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[19]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1720,7 +1720,7 @@ func (x *AsyncTask) String() string {
 func (*AsyncTask) ProtoMessage() {}
 
 func (x *AsyncTask) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[19]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1733,7 +1733,7 @@ func (x *AsyncTask) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AsyncTask.ProtoReflect.Descriptor instead.
 func (*AsyncTask) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{19}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *AsyncTask) GetName() string {
@@ -1766,7 +1766,7 @@ type CreateDAGResponse struct {
 
 func (x *CreateDAGResponse) Reset() {
 	*x = CreateDAGResponse{}
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[20]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1778,7 +1778,7 @@ func (x *CreateDAGResponse) String() string {
 func (*CreateDAGResponse) ProtoMessage() {}
 
 func (x *CreateDAGResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aimtp_server_v1_dag_proto_msgTypes[20]
+	mi := &file_aimtp_controller_v1_dag_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1791,14 +1791,14 @@ func (x *CreateDAGResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateDAGResponse.ProtoReflect.Descriptor instead.
 func (*CreateDAGResponse) Descriptor() ([]byte, []int) {
-	return file_aimtp_server_v1_dag_proto_rawDescGZIP(), []int{20}
+	return file_aimtp_controller_v1_dag_proto_rawDescGZIP(), []int{20}
 }
 
-var File_aimtp_server_v1_dag_proto protoreflect.FileDescriptor
+var File_aimtp_controller_v1_dag_proto protoreflect.FileDescriptor
 
-const file_aimtp_server_v1_dag_proto_rawDesc = "" +
+const file_aimtp_controller_v1_dag_proto_rawDesc = "" +
 	"\n" +
-	"\x19aimtp_server/v1/dag.proto\x12\x0faimtp_server_v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1cgoogle/protobuf/struct.proto\"\xfc\x06\n" +
+	"\x1daimtp_controller/v1/dag.proto\x12\x13aimtp_controller_v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1cgoogle/protobuf/struct.proto\"\x8c\a\n" +
 	"\x10CreateDAGRequest\x12\x0f\n" +
 	"\x03i_d\x18\x01 \x01(\x05R\x02iD\x12\x12\n" +
 	"\x05u_i_d\x18\x02 \x01(\x03R\x03uid\x12\x15\n" +
@@ -1824,18 +1824,18 @@ const file_aimtp_server_v1_dag_proto_rawDesc = "" +
 	"\fi_p_d_Number\x18\x10 \x01(\tR\n" +
 	"ipd_number\x12\x12\n" +
 	"\x04cron\x18\x11 \x01(\tR\x04cron\x12\x16\n" +
-	"\x06engine\x18\x12 \x01(\tR\x06engine\x12W\n" +
-	"\fdependencies\x18\x13 \x03(\v23.aimtp_server_v1.CreateDAGRequest.DependenciesEntryR\fdependencies\x126\n" +
+	"\x06engine\x18\x12 \x01(\tR\x06engine\x12[\n" +
+	"\fdependencies\x18\x13 \x03(\v27.aimtp_controller_v1.CreateDAGRequest.DependenciesEntryR\fdependencies\x126\n" +
 	"\bcreateAt\x18\x14 \x01(\v2\x1a.google.protobuf.TimestampR\bcreateAt\x12\x18\n" +
 	"\acluster\x18\x15 \x01(\tR\acluster\x12 \n" +
-	"\vsubscribers\x18\x16 \x03(\tR\vsubscribers\x12+\n" +
-	"\x05tasks\x18\x17 \x03(\v2\x15.aimtp_server_v1.TaskR\x05tasks\x12=\n" +
-	"\vasync_tasks\x18\x18 \x01(\v2\x1b.aimtp_server_v1.AsyncTasksR\vasync_tasks\x1ab\n" +
+	"\vsubscribers\x18\x16 \x03(\tR\vsubscribers\x12/\n" +
+	"\x05tasks\x18\x17 \x03(\v2\x19.aimtp_controller_v1.TaskR\x05tasks\x12A\n" +
+	"\vasync_tasks\x18\x18 \x01(\v2\x1f.aimtp_controller_v1.AsyncTasksR\vasync_tasks\x1af\n" +
 	"\x11DependenciesEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x127\n" +
-	"\x05value\x18\x02 \x01(\v2!.aimtp_server_v1.DependenciesListR\x05value:\x028\x01\"(\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12;\n" +
+	"\x05value\x18\x02 \x01(\v2%.aimtp_controller_v1.DependenciesListR\x05value:\x028\x01\"(\n" +
 	"\x10DependenciesList\x12\x14\n" +
-	"\x05items\x18\x01 \x03(\tR\x05items\"\xd1\x06\n" +
+	"\x05items\x18\x01 \x03(\tR\x05items\"\xe9\x06\n" +
 	"\x04Task\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x18\n" +
 	"\acluster\x18\x02 \x01(\tR\acluster\x12\x16\n" +
@@ -1853,24 +1853,24 @@ const file_aimtp_server_v1_dag_proto_rawDesc = "" +
 	"\brun_mode\x18\v \x01(\tR\brun_mode\x12\x1a\n" +
 	"\bpriority\x18\f \x01(\x05R\bpriority\x12\x16\n" +
 	"\x06notify\x18\r \x01(\bR\x06notify\x12\x18\n" +
-	"\atimeout\x18\x0e \x01(\x03R\atimeout\x122\n" +
-	"\acommand\x18\x0f \x01(\v2\x18.aimtp_server_v1.CommandR\acommand\x127\n" +
-	"\tresources\x18\x10 \x01(\v2\x19.aimtp_server_v1.ResourceR\tresources\x128\n" +
-	"\tlifecycle\x18\x11 \x01(\v2\x1a.aimtp_server_v1.LifecycleR\tlifecycle\x12\"\n" +
-	"\ftrigger_rule\x18\x12 \x01(\tR\ftrigger_rule\x12F\n" +
-	"\x0eretry_strategy\x18\x13 \x01(\v2\x1e.aimtp_server_v1.RetryStrategyR\x0eretry_strategy\x120\n" +
-	"\x03env\x18\x14 \x03(\v2\x1e.aimtp_server_v1.Task.EnvEntryR\x03env\x12 \n" +
-	"\vsubscribers\x18\x15 \x03(\tR\vsubscribers\x124\n" +
-	"\x05ports\x18\x16 \x03(\v2\x1e.aimtp_server_v1.ContainerPortR\x05ports\x1a6\n" +
+	"\atimeout\x18\x0e \x01(\x03R\atimeout\x126\n" +
+	"\acommand\x18\x0f \x01(\v2\x1c.aimtp_controller_v1.CommandR\acommand\x12;\n" +
+	"\tresources\x18\x10 \x01(\v2\x1d.aimtp_controller_v1.ResourceR\tresources\x12<\n" +
+	"\tlifecycle\x18\x11 \x01(\v2\x1e.aimtp_controller_v1.LifecycleR\tlifecycle\x12\"\n" +
+	"\ftrigger_rule\x18\x12 \x01(\tR\ftrigger_rule\x12J\n" +
+	"\x0eretry_strategy\x18\x13 \x01(\v2\".aimtp_controller_v1.RetryStrategyR\x0eretry_strategy\x124\n" +
+	"\x03env\x18\x14 \x03(\v2\".aimtp_controller_v1.Task.EnvEntryR\x03env\x12 \n" +
+	"\vsubscribers\x18\x15 \x03(\tR\vsubscribers\x128\n" +
+	"\x05ports\x18\x16 \x03(\v2\".aimtp_controller_v1.ContainerPortR\x05ports\x1a6\n" +
 	"\bEnvEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xe3\x01\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xe7\x01\n" +
 	"\aCommand\x12\"\n" +
 	"\fcommand_line\x18\x01 \x01(\tR\fcommand_line\x12\"\n" +
 	"\fpackage_path\x18\x02 \x01(\tR\fpackage_path\x12\x10\n" +
 	"\x03dir\x18\x03 \x01(\tR\x03dir\x12\x1a\n" +
-	"\bpassword\x18\x04 \x01(\tR\bpassword\x12,\n" +
-	"\x04gits\x18\x05 \x03(\v2\x18.aimtp_server_v1.GitInfoR\x04gits\x12 \n" +
+	"\bpassword\x18\x04 \x01(\tR\bpassword\x120\n" +
+	"\x04gits\x18\x05 \x03(\v2\x1c.aimtp_controller_v1.GitInfoR\x04gits\x12 \n" +
 	"\vmessage_key\x18\x06 \x01(\tR\vmessage_key\x12\x12\n" +
 	"\x04args\x18\a \x03(\tR\x04args\"e\n" +
 	"\aGitInfo\x12\x12\n" +
@@ -1885,38 +1885,38 @@ const file_aimtp_server_v1_dag_proto_rawDesc = "" +
 	"\rcpu_mem_ratio\x18\x04 \x01(\x02R\rcpu_mem_ratio\x12 \n" +
 	"\vdevice_type\x18\x05 \x01(\tR\vdevice_type\x12\"\n" +
 	"\fdevice_count\x18\x06 \x01(\x05R\fdevice_count\x124\n" +
-	"\x15device_num_per_worker\x18\a \x01(\x05R\x15device_num_per_worker\"\xef\x01\n" +
-	"\tLifecycle\x128\n" +
+	"\x15device_num_per_worker\x18\a \x01(\x05R\x15device_num_per_worker\"\xff\x01\n" +
+	"\tLifecycle\x12<\n" +
 	"\n" +
-	"post_start\x18\x01 \x01(\v2\x18.aimtp_server_v1.HandlerR\n" +
-	"post_start\x124\n" +
-	"\bpre_stop\x18\x02 \x01(\v2\x18.aimtp_server_v1.HandlerR\bpre_stop\x12:\n" +
-	"\vpost_starts\x18\x03 \x03(\v2\x18.aimtp_server_v1.HandlerR\vpost_starts\x126\n" +
-	"\tpre_stops\x18\x04 \x03(\v2\x18.aimtp_server_v1.HandlerR\tpre_stops\"\x99\x04\n" +
-	"\aHandler\x120\n" +
-	"\x04exec\x18\x01 \x01(\v2\x1c.aimtp_server_v1.ExecHandlerR\x04exec\x12;\n" +
-	"\bhttp_get\x18\x02 \x01(\v2\x1f.aimtp_server_v1.HTTPGetHandlerR\bhttp_get\x123\n" +
-	"\x05redis\x18\x03 \x01(\v2\x1d.aimtp_server_v1.RedisHandlerR\x05redis\x12M\n" +
-	"\x0eupload_message\x18\x04 \x01(\v2%.aimtp_server_v1.UploadMessageHandlerR\x0eupload_message\x12a\n" +
-	"\x15skip_downstream_tasks\x18\x05 \x01(\v2+.aimtp_server_v1.SkipDownstreamTasksHandlerR\x15skip_downstream_tasks\x12e\n" +
-	"\x17check_auto_dp_task_done\x18\x06 \x01(\v2+.aimtp_server_v1.CheckAutoDPTaskDoneHandlerR\x17check_auto_dp_task_done\x12Q\n" +
-	"\x12fillback_data_sync\x18\a \x01(\v2!.aimtp_server_v1.FillbackDataSyncR\x12fillback_data_sync\"'\n" +
+	"post_start\x18\x01 \x01(\v2\x1c.aimtp_controller_v1.HandlerR\n" +
+	"post_start\x128\n" +
+	"\bpre_stop\x18\x02 \x01(\v2\x1c.aimtp_controller_v1.HandlerR\bpre_stop\x12>\n" +
+	"\vpost_starts\x18\x03 \x03(\v2\x1c.aimtp_controller_v1.HandlerR\vpost_starts\x12:\n" +
+	"\tpre_stops\x18\x04 \x03(\v2\x1c.aimtp_controller_v1.HandlerR\tpre_stops\"\xb5\x04\n" +
+	"\aHandler\x124\n" +
+	"\x04exec\x18\x01 \x01(\v2 .aimtp_controller_v1.ExecHandlerR\x04exec\x12?\n" +
+	"\bhttp_get\x18\x02 \x01(\v2#.aimtp_controller_v1.HTTPGetHandlerR\bhttp_get\x127\n" +
+	"\x05redis\x18\x03 \x01(\v2!.aimtp_controller_v1.RedisHandlerR\x05redis\x12Q\n" +
+	"\x0eupload_message\x18\x04 \x01(\v2).aimtp_controller_v1.UploadMessageHandlerR\x0eupload_message\x12e\n" +
+	"\x15skip_downstream_tasks\x18\x05 \x01(\v2/.aimtp_controller_v1.SkipDownstreamTasksHandlerR\x15skip_downstream_tasks\x12i\n" +
+	"\x17check_auto_dp_task_done\x18\x06 \x01(\v2/.aimtp_controller_v1.CheckAutoDPTaskDoneHandlerR\x17check_auto_dp_task_done\x12U\n" +
+	"\x12fillback_data_sync\x18\a \x01(\v2%.aimtp_controller_v1.FillbackDataSyncR\x12fillback_data_sync\"'\n" +
 	"\vExecHandler\x12\x18\n" +
-	"\acommand\x18\x01 \x01(\tR\acommand\"\xe7\x01\n" +
+	"\acommand\x18\x01 \x01(\tR\acommand\"\xeb\x01\n" +
 	"\x0eHTTPGetHandler\x12\x16\n" +
 	"\x06schema\x18\x01 \x01(\tR\x06schema\x12\x12\n" +
 	"\x04host\x18\x02 \x01(\tR\x04host\x12\x12\n" +
 	"\x04port\x18\x03 \x01(\x05R\x04port\x12\x12\n" +
 	"\x04path\x18\x04 \x01(\tR\x04path\x121\n" +
-	"\aheaders\x18\x05 \x01(\v2\x17.google.protobuf.StructR\aheaders\x12N\n" +
-	"\x11hook_time_control\x18\x06 \x01(\v2 .aimtp_server_v1.HookTimeControlR\x11hook_time_control\"\xdc\x01\n" +
+	"\aheaders\x18\x05 \x01(\v2\x17.google.protobuf.StructR\aheaders\x12R\n" +
+	"\x11hook_time_control\x18\x06 \x01(\v2$.aimtp_controller_v1.HookTimeControlR\x11hook_time_control\"\xe0\x01\n" +
 	"\fRedisHandler\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05addrs\x18\x02 \x03(\tR\x05addrs\x12(\n" +
 	"\x0fsentinel_master\x18\x03 \x01(\tR\x0fsentinel_master\x12\x1a\n" +
 	"\bpassword\x18\x04 \x01(\tR\bpassword\x12\x0e\n" +
-	"\x02db\x18\x05 \x01(\x05R\x02db\x12N\n" +
-	"\x11hook_time_control\x18\x06 \x01(\v2 .aimtp_server_v1.HookTimeControlR\x11hook_time_control\"\x94\x01\n" +
+	"\x02db\x18\x05 \x01(\x05R\x02db\x12R\n" +
+	"\x11hook_time_control\x18\x06 \x01(\v2$.aimtp_controller_v1.HookTimeControlR\x11hook_time_control\"\x94\x01\n" +
 	"\x14UploadMessageHandler\x12\x12\n" +
 	"\x04path\x18\x01 \x01(\tR\x04path\x12\x1e\n" +
 	"\n" +
@@ -1943,87 +1943,87 @@ const file_aimtp_server_v1_dag_proto_rawDesc = "" +
 	"\rContainerPort\x12&\n" +
 	"\x0econtainer_port\x18\x01 \x01(\x05R\x0econtainer_port\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1a\n" +
-	"\bprotocol\x18\x03 \x01(\tR\bprotocol\"\x98\x01\n" +
+	"\bprotocol\x18\x03 \x01(\tR\bprotocol\"\x9c\x01\n" +
 	"\n" +
 	"AsyncTasks\x12\"\n" +
 	"\finit_command\x18\x01 \x01(\tR\finit_command\x124\n" +
-	"\x15global_function_bytes\x18\x02 \x01(\tR\x15global_function_bytes\x120\n" +
-	"\x05tasks\x18\x03 \x03(\v2\x1a.aimtp_server_v1.AsyncTaskR\x05tasks\"t\n" +
+	"\x15global_function_bytes\x18\x02 \x01(\tR\x15global_function_bytes\x124\n" +
+	"\x05tasks\x18\x03 \x03(\v2\x1e.aimtp_controller_v1.AsyncTaskR\x05tasks\"t\n" +
 	"\tAsyncTask\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12+\n" +
 	"\x04args\x18\x02 \x01(\v2\x17.google.protobuf.StructR\x04args\x12&\n" +
 	"\x0efunction_bytes\x18\x03 \x01(\tR\x0efunction_bytes\"\x13\n" +
-	"\x11CreateDAGResponseB/Z-aimtp/pkg/api/aimtp_server/v1;aimtp_server_v1b\x06proto3"
+	"\x11CreateDAGResponseB7Z5aimtp/pkg/api/aimtp_controller/v1;aimtp_controller_v1b\x06proto3"
 
 var (
-	file_aimtp_server_v1_dag_proto_rawDescOnce sync.Once
-	file_aimtp_server_v1_dag_proto_rawDescData []byte
+	file_aimtp_controller_v1_dag_proto_rawDescOnce sync.Once
+	file_aimtp_controller_v1_dag_proto_rawDescData []byte
 )
 
-func file_aimtp_server_v1_dag_proto_rawDescGZIP() []byte {
-	file_aimtp_server_v1_dag_proto_rawDescOnce.Do(func() {
-		file_aimtp_server_v1_dag_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_aimtp_server_v1_dag_proto_rawDesc), len(file_aimtp_server_v1_dag_proto_rawDesc)))
+func file_aimtp_controller_v1_dag_proto_rawDescGZIP() []byte {
+	file_aimtp_controller_v1_dag_proto_rawDescOnce.Do(func() {
+		file_aimtp_controller_v1_dag_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_aimtp_controller_v1_dag_proto_rawDesc), len(file_aimtp_controller_v1_dag_proto_rawDesc)))
 	})
-	return file_aimtp_server_v1_dag_proto_rawDescData
+	return file_aimtp_controller_v1_dag_proto_rawDescData
 }
 
-var file_aimtp_server_v1_dag_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
-var file_aimtp_server_v1_dag_proto_goTypes = []any{
-	(*CreateDAGRequest)(nil),           // 0: aimtp_server_v1.CreateDAGRequest
-	(*DependenciesList)(nil),           // 1: aimtp_server_v1.DependenciesList
-	(*Task)(nil),                       // 2: aimtp_server_v1.Task
-	(*Command)(nil),                    // 3: aimtp_server_v1.Command
-	(*GitInfo)(nil),                    // 4: aimtp_server_v1.GitInfo
-	(*Resource)(nil),                   // 5: aimtp_server_v1.Resource
-	(*Lifecycle)(nil),                  // 6: aimtp_server_v1.Lifecycle
-	(*Handler)(nil),                    // 7: aimtp_server_v1.Handler
-	(*ExecHandler)(nil),                // 8: aimtp_server_v1.ExecHandler
-	(*HTTPGetHandler)(nil),             // 9: aimtp_server_v1.HTTPGetHandler
-	(*RedisHandler)(nil),               // 10: aimtp_server_v1.RedisHandler
-	(*UploadMessageHandler)(nil),       // 11: aimtp_server_v1.UploadMessageHandler
-	(*SkipDownstreamTasksHandler)(nil), // 12: aimtp_server_v1.SkipDownstreamTasksHandler
-	(*CheckAutoDPTaskDoneHandler)(nil), // 13: aimtp_server_v1.CheckAutoDPTaskDoneHandler
-	(*FillbackDataSync)(nil),           // 14: aimtp_server_v1.FillbackDataSync
-	(*HookTimeControl)(nil),            // 15: aimtp_server_v1.HookTimeControl
-	(*RetryStrategy)(nil),              // 16: aimtp_server_v1.RetryStrategy
-	(*ContainerPort)(nil),              // 17: aimtp_server_v1.ContainerPort
-	(*AsyncTasks)(nil),                 // 18: aimtp_server_v1.AsyncTasks
-	(*AsyncTask)(nil),                  // 19: aimtp_server_v1.AsyncTask
-	(*CreateDAGResponse)(nil),          // 20: aimtp_server_v1.CreateDAGResponse
-	nil,                                // 21: aimtp_server_v1.CreateDAGRequest.DependenciesEntry
-	nil,                                // 22: aimtp_server_v1.Task.EnvEntry
+var file_aimtp_controller_v1_dag_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
+var file_aimtp_controller_v1_dag_proto_goTypes = []any{
+	(*CreateDAGRequest)(nil),           // 0: aimtp_controller_v1.CreateDAGRequest
+	(*DependenciesList)(nil),           // 1: aimtp_controller_v1.DependenciesList
+	(*Task)(nil),                       // 2: aimtp_controller_v1.Task
+	(*Command)(nil),                    // 3: aimtp_controller_v1.Command
+	(*GitInfo)(nil),                    // 4: aimtp_controller_v1.GitInfo
+	(*Resource)(nil),                   // 5: aimtp_controller_v1.Resource
+	(*Lifecycle)(nil),                  // 6: aimtp_controller_v1.Lifecycle
+	(*Handler)(nil),                    // 7: aimtp_controller_v1.Handler
+	(*ExecHandler)(nil),                // 8: aimtp_controller_v1.ExecHandler
+	(*HTTPGetHandler)(nil),             // 9: aimtp_controller_v1.HTTPGetHandler
+	(*RedisHandler)(nil),               // 10: aimtp_controller_v1.RedisHandler
+	(*UploadMessageHandler)(nil),       // 11: aimtp_controller_v1.UploadMessageHandler
+	(*SkipDownstreamTasksHandler)(nil), // 12: aimtp_controller_v1.SkipDownstreamTasksHandler
+	(*CheckAutoDPTaskDoneHandler)(nil), // 13: aimtp_controller_v1.CheckAutoDPTaskDoneHandler
+	(*FillbackDataSync)(nil),           // 14: aimtp_controller_v1.FillbackDataSync
+	(*HookTimeControl)(nil),            // 15: aimtp_controller_v1.HookTimeControl
+	(*RetryStrategy)(nil),              // 16: aimtp_controller_v1.RetryStrategy
+	(*ContainerPort)(nil),              // 17: aimtp_controller_v1.ContainerPort
+	(*AsyncTasks)(nil),                 // 18: aimtp_controller_v1.AsyncTasks
+	(*AsyncTask)(nil),                  // 19: aimtp_controller_v1.AsyncTask
+	(*CreateDAGResponse)(nil),          // 20: aimtp_controller_v1.CreateDAGResponse
+	nil,                                // 21: aimtp_controller_v1.CreateDAGRequest.DependenciesEntry
+	nil,                                // 22: aimtp_controller_v1.Task.EnvEntry
 	(*timestamppb.Timestamp)(nil),      // 23: google.protobuf.Timestamp
 	(*structpb.Struct)(nil),            // 24: google.protobuf.Struct
 }
-var file_aimtp_server_v1_dag_proto_depIdxs = []int32{
-	21, // 0: aimtp_server_v1.CreateDAGRequest.dependencies:type_name -> aimtp_server_v1.CreateDAGRequest.DependenciesEntry
-	23, // 1: aimtp_server_v1.CreateDAGRequest.createAt:type_name -> google.protobuf.Timestamp
-	2,  // 2: aimtp_server_v1.CreateDAGRequest.tasks:type_name -> aimtp_server_v1.Task
-	18, // 3: aimtp_server_v1.CreateDAGRequest.async_tasks:type_name -> aimtp_server_v1.AsyncTasks
-	3,  // 4: aimtp_server_v1.Task.command:type_name -> aimtp_server_v1.Command
-	5,  // 5: aimtp_server_v1.Task.resources:type_name -> aimtp_server_v1.Resource
-	6,  // 6: aimtp_server_v1.Task.lifecycle:type_name -> aimtp_server_v1.Lifecycle
-	16, // 7: aimtp_server_v1.Task.retry_strategy:type_name -> aimtp_server_v1.RetryStrategy
-	22, // 8: aimtp_server_v1.Task.env:type_name -> aimtp_server_v1.Task.EnvEntry
-	17, // 9: aimtp_server_v1.Task.ports:type_name -> aimtp_server_v1.ContainerPort
-	4,  // 10: aimtp_server_v1.Command.gits:type_name -> aimtp_server_v1.GitInfo
-	7,  // 11: aimtp_server_v1.Lifecycle.post_start:type_name -> aimtp_server_v1.Handler
-	7,  // 12: aimtp_server_v1.Lifecycle.pre_stop:type_name -> aimtp_server_v1.Handler
-	7,  // 13: aimtp_server_v1.Lifecycle.post_starts:type_name -> aimtp_server_v1.Handler
-	7,  // 14: aimtp_server_v1.Lifecycle.pre_stops:type_name -> aimtp_server_v1.Handler
-	8,  // 15: aimtp_server_v1.Handler.exec:type_name -> aimtp_server_v1.ExecHandler
-	9,  // 16: aimtp_server_v1.Handler.http_get:type_name -> aimtp_server_v1.HTTPGetHandler
-	10, // 17: aimtp_server_v1.Handler.redis:type_name -> aimtp_server_v1.RedisHandler
-	11, // 18: aimtp_server_v1.Handler.upload_message:type_name -> aimtp_server_v1.UploadMessageHandler
-	12, // 19: aimtp_server_v1.Handler.skip_downstream_tasks:type_name -> aimtp_server_v1.SkipDownstreamTasksHandler
-	13, // 20: aimtp_server_v1.Handler.check_auto_dp_task_done:type_name -> aimtp_server_v1.CheckAutoDPTaskDoneHandler
-	14, // 21: aimtp_server_v1.Handler.fillback_data_sync:type_name -> aimtp_server_v1.FillbackDataSync
-	24, // 22: aimtp_server_v1.HTTPGetHandler.headers:type_name -> google.protobuf.Struct
-	15, // 23: aimtp_server_v1.HTTPGetHandler.hook_time_control:type_name -> aimtp_server_v1.HookTimeControl
-	15, // 24: aimtp_server_v1.RedisHandler.hook_time_control:type_name -> aimtp_server_v1.HookTimeControl
-	19, // 25: aimtp_server_v1.AsyncTasks.tasks:type_name -> aimtp_server_v1.AsyncTask
-	24, // 26: aimtp_server_v1.AsyncTask.args:type_name -> google.protobuf.Struct
-	1,  // 27: aimtp_server_v1.CreateDAGRequest.DependenciesEntry.value:type_name -> aimtp_server_v1.DependenciesList
+var file_aimtp_controller_v1_dag_proto_depIdxs = []int32{
+	21, // 0: aimtp_controller_v1.CreateDAGRequest.dependencies:type_name -> aimtp_controller_v1.CreateDAGRequest.DependenciesEntry
+	23, // 1: aimtp_controller_v1.CreateDAGRequest.createAt:type_name -> google.protobuf.Timestamp
+	2,  // 2: aimtp_controller_v1.CreateDAGRequest.tasks:type_name -> aimtp_controller_v1.Task
+	18, // 3: aimtp_controller_v1.CreateDAGRequest.async_tasks:type_name -> aimtp_controller_v1.AsyncTasks
+	3,  // 4: aimtp_controller_v1.Task.command:type_name -> aimtp_controller_v1.Command
+	5,  // 5: aimtp_controller_v1.Task.resources:type_name -> aimtp_controller_v1.Resource
+	6,  // 6: aimtp_controller_v1.Task.lifecycle:type_name -> aimtp_controller_v1.Lifecycle
+	16, // 7: aimtp_controller_v1.Task.retry_strategy:type_name -> aimtp_controller_v1.RetryStrategy
+	22, // 8: aimtp_controller_v1.Task.env:type_name -> aimtp_controller_v1.Task.EnvEntry
+	17, // 9: aimtp_controller_v1.Task.ports:type_name -> aimtp_controller_v1.ContainerPort
+	4,  // 10: aimtp_controller_v1.Command.gits:type_name -> aimtp_controller_v1.GitInfo
+	7,  // 11: aimtp_controller_v1.Lifecycle.post_start:type_name -> aimtp_controller_v1.Handler
+	7,  // 12: aimtp_controller_v1.Lifecycle.pre_stop:type_name -> aimtp_controller_v1.Handler
+	7,  // 13: aimtp_controller_v1.Lifecycle.post_starts:type_name -> aimtp_controller_v1.Handler
+	7,  // 14: aimtp_controller_v1.Lifecycle.pre_stops:type_name -> aimtp_controller_v1.Handler
+	8,  // 15: aimtp_controller_v1.Handler.exec:type_name -> aimtp_controller_v1.ExecHandler
+	9,  // 16: aimtp_controller_v1.Handler.http_get:type_name -> aimtp_controller_v1.HTTPGetHandler
+	10, // 17: aimtp_controller_v1.Handler.redis:type_name -> aimtp_controller_v1.RedisHandler
+	11, // 18: aimtp_controller_v1.Handler.upload_message:type_name -> aimtp_controller_v1.UploadMessageHandler
+	12, // 19: aimtp_controller_v1.Handler.skip_downstream_tasks:type_name -> aimtp_controller_v1.SkipDownstreamTasksHandler
+	13, // 20: aimtp_controller_v1.Handler.check_auto_dp_task_done:type_name -> aimtp_controller_v1.CheckAutoDPTaskDoneHandler
+	14, // 21: aimtp_controller_v1.Handler.fillback_data_sync:type_name -> aimtp_controller_v1.FillbackDataSync
+	24, // 22: aimtp_controller_v1.HTTPGetHandler.headers:type_name -> google.protobuf.Struct
+	15, // 23: aimtp_controller_v1.HTTPGetHandler.hook_time_control:type_name -> aimtp_controller_v1.HookTimeControl
+	15, // 24: aimtp_controller_v1.RedisHandler.hook_time_control:type_name -> aimtp_controller_v1.HookTimeControl
+	19, // 25: aimtp_controller_v1.AsyncTasks.tasks:type_name -> aimtp_controller_v1.AsyncTask
+	24, // 26: aimtp_controller_v1.AsyncTask.args:type_name -> google.protobuf.Struct
+	1,  // 27: aimtp_controller_v1.CreateDAGRequest.DependenciesEntry.value:type_name -> aimtp_controller_v1.DependenciesList
 	28, // [28:28] is the sub-list for method output_type
 	28, // [28:28] is the sub-list for method input_type
 	28, // [28:28] is the sub-list for extension type_name
@@ -2031,28 +2031,28 @@ var file_aimtp_server_v1_dag_proto_depIdxs = []int32{
 	0,  // [0:28] is the sub-list for field type_name
 }
 
-func init() { file_aimtp_server_v1_dag_proto_init() }
-func file_aimtp_server_v1_dag_proto_init() {
-	if File_aimtp_server_v1_dag_proto != nil {
+func init() { file_aimtp_controller_v1_dag_proto_init() }
+func file_aimtp_controller_v1_dag_proto_init() {
+	if File_aimtp_controller_v1_dag_proto != nil {
 		return
 	}
-	file_aimtp_server_v1_dag_proto_msgTypes[15].OneofWrappers = []any{}
-	file_aimtp_server_v1_dag_proto_msgTypes[16].OneofWrappers = []any{}
+	file_aimtp_controller_v1_dag_proto_msgTypes[15].OneofWrappers = []any{}
+	file_aimtp_controller_v1_dag_proto_msgTypes[16].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_aimtp_server_v1_dag_proto_rawDesc), len(file_aimtp_server_v1_dag_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_aimtp_controller_v1_dag_proto_rawDesc), len(file_aimtp_controller_v1_dag_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   23,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_aimtp_server_v1_dag_proto_goTypes,
-		DependencyIndexes: file_aimtp_server_v1_dag_proto_depIdxs,
-		MessageInfos:      file_aimtp_server_v1_dag_proto_msgTypes,
+		GoTypes:           file_aimtp_controller_v1_dag_proto_goTypes,
+		DependencyIndexes: file_aimtp_controller_v1_dag_proto_depIdxs,
+		MessageInfos:      file_aimtp_controller_v1_dag_proto_msgTypes,
 	}.Build()
-	File_aimtp_server_v1_dag_proto = out.File
-	file_aimtp_server_v1_dag_proto_goTypes = nil
-	file_aimtp_server_v1_dag_proto_depIdxs = nil
+	File_aimtp_controller_v1_dag_proto = out.File
+	file_aimtp_controller_v1_dag_proto_goTypes = nil
+	file_aimtp_controller_v1_dag_proto_depIdxs = nil
 }

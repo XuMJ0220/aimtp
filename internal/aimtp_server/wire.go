@@ -18,7 +18,7 @@ func InitializeServer(*Config) (server.Server, error) {
 	wire.Build(
 		wire.NewSet(NewWebServer, wire.FieldsOf(new(*Config), "ServerMode")),
 		wire.Struct(new(ServerConfig), "*"),
-		wire.NewSet(store.ProviderSet, biz.ProvicerSet),
+		wire.NewSet(store.ProviderSet, biz.ProviderSet),
 		ProvideDB,
 		validation.ProviderSet,
 		wire.FieldsOf(new(*Config), "ControllerClusters"),

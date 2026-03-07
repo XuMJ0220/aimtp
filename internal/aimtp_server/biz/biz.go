@@ -13,7 +13,7 @@ import (
 // 包含 NewBiz 构造函数，用于生成 biz 实例.
 // wire.Bind 用于将接口 IBiz 与具体实现 *biz 绑定，
 // 这样依赖 IBiz 的地方会自动注入 *biz 实例.
-var ProvicerSet = wire.NewSet(NewBiz, wire.Bind(new(IBiz), new(*biz)))
+var ProviderSet = wire.NewSet(NewBiz, wire.Bind(new(IBiz), new(*biz)))
 
 // IBiz 定义了业务层需要实现的方法.
 type IBiz interface {

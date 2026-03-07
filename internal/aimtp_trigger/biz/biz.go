@@ -102,7 +102,7 @@ func createDAG(ctx context.Context, controller *client.WorkerClient, payload []b
 	if len(payload) == 0 {
 		return fmt.Errorf("payload is empty")
 	}
-	url := fmt.Sprintf("%s/v1/dags", controller.BaseURL())
+	url := fmt.Sprintf("%s/v1/internal/dags", controller.BaseURL())
 	httpReq, err := http.NewRequestWithContext(ctx, http.MethodPost, url, strings.NewReader(string(payload)))
 	if err != nil {
 		return fmt.Errorf("create request: %w", err)
